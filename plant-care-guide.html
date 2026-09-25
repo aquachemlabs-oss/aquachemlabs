@@ -3,17 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plant Care Guide | Aqua Chem Labs</title>
-<meta name="description" content="Operating guidelines, troubleshooting and monitoring checks for industrial water systems. Aqua Chem Labs, Raisen, Madhya Pradesh.">
+<title>Plant Care Guide | Aqua Chem Labs Water Treatment Solutions</title>
+<meta name="description" content="Aqua Chem Labs Plant Care Guide - technical solutions, common problems, monitoring checklists and chemical support for ETP, STP, RO, Boiler, Cooling Tower, Softener and DM systems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:wght@400;500;600;700&family=Tinos:wght@400;700&display=swap" rel="stylesheet">
-
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="stylesheet" href="styles.css">
+<style>
+.guide-hero{padding:2.6rem 0 1.8rem}
+.guide-hero .intro{max-width:46rem}
+.guide-toc{background:#f4f8fa;border:1px solid #cfe0e8;border-radius:8px;padding:1.4rem 1.6rem;margin-top:1.4rem}
+.guide-toc h2{font-size:1rem;margin:0 0 .7rem}
+.guide-toc ol{margin:0;padding-left:1.2rem;columns:2;column-gap:2rem;font-size:.92rem;line-height:1.9}
+.guide-toc a{text-decoration:none}
+.guide-sec{padding:2.4rem 0;border-top:1px solid #e3edf1}
+.guide-sec:first-of-type{border-top:none}
+.guide-sec h2{font-size:1.5rem;margin:0 0 .6rem}
+.guide-sec > .wrap > p.lede{max-width:52rem;color:#4a5a60;margin:0 0 1.4rem}
+.guide-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-bottom:1.2rem}
+@media (max-width:800px){.guide-cols{grid-template-columns:1fr}}
+.guide-card{background:#fff;border:1px solid #e3edf1;border-radius:8px;padding:1.2rem 1.4rem}
+.guide-card h3{font-size:.95rem;margin:0 0 .6rem;color:#0a6e86}
+.guide-card ul{margin:0;padding-left:1.1rem;font-size:.9rem;line-height:1.65}
+.guide-card ul li{margin-bottom:.3rem}
+.guide-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:.6rem}
+.guide-table th,.guide-table td{border:1px solid #e3edf1;padding:.55rem .7rem;text-align:left;vertical-align:top}
+.guide-table th{background:#f4f8fa;font-weight:600}
+.guide-note{background:#fff7e6;border:1px solid #f0dca0;border-radius:6px;padding:.9rem 1.1rem;font-size:.88rem;margin-top:1.2rem}
+.guide-steps{margin:.6rem 0 0;padding:0;list-style:none;counter-reset:step}
+.guide-steps li{counter-increment:step;position:relative;padding:.5rem 0 .5rem 2.4rem;font-size:.92rem;border-top:1px dashed #e3edf1}
+.guide-steps li:first-child{border-top:none}
+.guide-steps li::before{content:counter(step);position:absolute;left:0;top:.5rem;width:1.6rem;height:1.6rem;border-radius:50%;background:#0a6e86;color:#fff;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.guide-steps b{display:block;margin-bottom:.15rem}
+.back-top{display:inline-block;margin-top:.4rem;font-size:.85rem}
+</style>
 </head>
 <body>
-
 
 <!-- Top ISO & Quality Header -->
 <div class="top-bar">
@@ -29,388 +55,620 @@
 <header>
  <div class="wrap nav">
   <a class="brand" href="index.html">
-   <!-- Instruction: Save the isolated drop logo from your letterhead as 'logo.png' in the same folder -->
    <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
    <div class="brand-text">
-    <!-- Updated to match letterhead typography -->
     <span class="brand-name">ACL</span>
     <span class="brand-tag">Water Treatment Chemicals &amp; Plants</span>
    </div>
   </a>
-  <nav aria-label="Main"><ul><li><a href="index.html" class="nav-link ">Home</a></li><li><a href="plant-division.html" class="nav-link ">About Us</a></li><li><a href="services.html" class="nav-link ">Services</a></li><li class="dd"><span class="dd-label" tabindex="0">Products &#9662;</span><div class="dd-menu"><a href="products.html" class="nav-link ">All Products</a><a href="chemicals.html" class="nav-link ">Chemicals</a><a href="plant-spares.html" class="nav-link ">Plant Spares</a><a href="ibr-valves.html" class="nav-link ">IBR Valves</a><a href="strainers-kits.html" class="nav-link ">Strainers & Kits</a><a href="boiler-spares.html" class="nav-link ">Boiler Spares</a></div></li><li><a href="gallery.html" class="nav-link ">Gallery</a></li><li><a href="plant-care-guide.html" class="nav-link guide-btn active-link">Plant Care Guide</a></li><li><a href="brochure.html" class="nav-link brochure-btn">View Brochure</a></li><li><a href="contact.html" class="nav-link ">Contact</a></li></ul></nav>
+  <nav aria-label="Main"><ul><li><a href="index.html" class="nav-link ">Home</a></li><li><a href="plant-division.html" class="nav-link ">About Us</a></li><li><a href="services.html" class="nav-link ">Services</a></li><li class="dd"><span class="dd-label" tabindex="0">Products &#9662;</span><div class="dd-menu"><a href="products.html" class="nav-link ">All Products</a><a href="ro-plant.html" class="nav-link ">Industrial RO Plant</a><a href="chemicals.html" class="nav-link ">Chemicals</a><a href="plant-spares.html" class="nav-link ">Plant Spares</a><a href="ibr-valves.html" class="nav-link ">IBR Valves</a><a href="strainers-kits.html" class="nav-link ">Strainers & Kits</a><a href="boiler-spares.html" class="nav-link ">Boiler Spares</a></div></li><li><a href="gallery.html" class="nav-link ">Gallery</a></li><li><a href="plant-care-guide.html" class="nav-link guide-btn active-link">Plant Care Guide</a></li><li><a href="ACL_2025.pdf" class="nav-link brochure-btn" target="_blank" rel="noopener">View Brochure</a></li><li><a href="contact.html" class="nav-link ">Contact</a></li></ul></nav>
  </div>
 </header>
+
 <main>
-<div id="page-guide" class="page-view active">
-  <div class="guide-header">
-   <div class="wrap">
-    <span style="background:var(--amber);color:var(--ink);font-weight:700;font-size:0.8rem;padding:0.25rem 0.6rem;border-radius:4px;text-transform:uppercase;">Technical Solutions &amp; Plant Care Guide</span>
-    <h1 style="margin-top:0.7rem;font-size:clamp(2rem,4vw,3rem);">Industrial Water Systems Knowledge Base</h1>
-    <p>Comprehensive operational guidelines, symptom diagnostics, chemical dosing recommendations, and routine preventive checklists directly from our engineering team.</p>
-   </div>
+
+<div class="guide-hero">
+ <div class="wrap">
+  <h1>Plant Care Guide</h1>
+  <p class="intro">Technical solutions and operating guidance for ETP, STP, RO, Boiler, Cooling Tower, Water Softener and Demineralization (DM) systems — common problems, the solutions we provide, recommended monitoring checks, and relevant chemical support for each system, drawn from our ACL 2025 technical guide.</p>
+  <div class="cta">
+   <a class="btn" href="ACL_2025.pdf" target="_blank" rel="noopener">View Full Brochure PDF</a>
+   <a class="btn ghost" href="ACL_2025.pdf" download="Aqua-Chem-Labs-Brochure-2025.pdf">Download PDF</a>
+   <a class="btn ghost" href="contact.html">Get Technical Advice</a>
   </div>
 
-  <div class="wrap guide-wrapper">
-   <!-- Navigation Sidebar -->
-   <aside class="guide-nav" aria-label="Guide Sections">
-    <h4>Guide Index</h4>
-    <ul>
-     <li><button class="g-nav active" onclick="switchGuideTab('g1')">1. About Aqua Chem Labs</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g2')">2. Effluent Treatment (ETP)</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g3')">3. Sewage Treatment (STP)</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g4')">4. Reverse Osmosis (RO)</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g5')">5. Boiler Water Treatment</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g6')">6. Cooling Tower Systems</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g7')">7. Water Softeners</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g8')">8. Demineralization (DM)</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g9')">9. Complete Water Systems</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g10')">10. Integrated Troubleshooting</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g11')">11. Chemical Portfolio</button></li>
-     <li><button class="g-nav" onclick="switchGuideTab('g12')">12. Service &amp; Maintenance</button></li>
-    </ul>
-   </aside>
-
-   <!-- Guide Content Panels -->
-   <div class="guide-card">
-
-    <!-- 1. ABOUT -->
-    <div id="g1" class="guide-panel active">
-     <h2>1. About Aqua Chem Labs</h2>
-     <p style="margin-top:0.75rem;">Aqua Chem Labs is a premier manufacturer and service provider for industrial water-treatment plants, treatment chemicals, and spares. Our approach combines rigorous water analysis, process understanding, chemical treatment programs, equipment support, and preventive maintenance to maximize plant uptime and reliability.</p>
-
-     <h3 style="margin-top:1.8rem;color:var(--deep)">Professional Services</h3>
-     <ul style="margin:0.8rem 0;padding-left:1.3rem;">
-      <li>Water analysis, process review, and site-specific treatment-program recommendations.</li>
-      <li>Design and engineering support for industrial water-treatment plants.</li>
-      <li>Supply, installation, and commissioning assistance for treatment equipment.</li>
-      <li>Operation and maintenance support, root-cause troubleshooting, and performance monitoring.</li>
-      <li>Annual Maintenance Contracts (AMC) and technical support for recurring plant-care.</li>
-      <li>Supply of application-specific water-treatment chemicals and consumables.</li>
-     </ul>
-
-     <h3 style="margin-top:1.8rem;color:var(--deep)">Core Objectives &amp; Expected Results</h3>
-     <table class="data-table">
-      <thead><tr><th>Core Objective</th><th>Typical Result</th></tr></thead>
-      <tbody>
-       <tr><td>Control water chemistry and contaminants</td><td>More stable process operation</td></tr>
-       <tr><td>Control scale, corrosion, and microbiological growth</td><td>Better equipment protection &amp; longer asset life</td></tr>
-       <tr><td>Optimize chemical dosing and operating conditions</td><td>Reduced avoidable water and energy losses</td></tr>
-       <tr><td>Monitor treatment performance regularly</td><td>Consistent water quality and regulatory compliance</td></tr>
-      </tbody>
-     </table>
-    </div>
-
-    <!-- 2. ETP -->
-    <div id="g2" class="guide-panel">
-     <h2>2. Effluent Treatment Plant (ETP)</h2>
-     <p style="margin-top:0.75rem;">ETPs treat industrial wastewater before reuse, discharge, or further polishing. System performance depends on influent characteristics, hydraulic shock loading, biological/chemical kinetics, solids separation, and disciplined daily operation.</p>
-
-     <div class="grid-2col">
-      <div class="panel-box problems">
-       <h4>Common Problems &amp; Symptoms</h4>
-       <ul>
-        <li>High COD/BOD, suspended solids, oil &amp; grease, color, or fluctuating pH.</li>
-        <li>Poor coagulation/flocculation causing cloudy outlet and weak sludge settling.</li>
-        <li>Foaming, odor, biological upset, or low dissolved-oxygen (DO).</li>
-        <li>Excess sludge generation, poor dewatering, or sludge carryover.</li>
-        <li>High outlet TSS/COD and frequent process instability.</li>
-       </ul>
-      </div>
-      <div class="panel-box solutions">
-       <h4>Solutions We Provide</h4>
-       <ul>
-        <li>Wastewater characterization to determine actual pollutant load.</li>
-        <li>Coagulant/flocculant selection via jar-test dosing optimization.</li>
-        <li>pH correction and chemical conditioning before primary clarification.</li>
-        <li>Defoamer, biocide, or odor-control support for specific upsets.</li>
-        <li>Biological process support via specialized nutrients and bacterial cultures.</li>
-        <li>Troubleshooting of aeration, clarification, and filter-press stages.</li>
-       </ul>
-      </div>
-     </div>
-
-     <h3 style="color:var(--deep);margin-top:1.5rem;">Recommended Monitoring &amp; Checks</h3>
-     <p style="font-size:0.95rem;color:#4a6268">Influent/outlet pH and flow &bull; COD/BOD and TSS &bull; MLSS and settling behavior for biological stages &bull; DO/ORP in aeration basins &bull; Sludge volume index (SVI) &bull; Chemical consumption per m³ treated.</p>
-    </div>
-
-    <!-- 3. STP -->
-    <div id="g3" class="guide-panel">
-     <h2>3. Sewage Treatment Plant (STP)</h2>
-     <p style="margin-top:0.75rem;">STPs treat domestic sewage using screening, biological treatment (MBBR/SBR/ASP), clarification, tertiary filtration, and final disinfection. Maintaining active microbial biology and efficient solids separation is central to performance.</p>
-
-     <div class="grid-2col">
-      <div class="panel-box problems">
-       <h4>Common Problems &amp; Symptoms</h4>
-       <ul>
-        <li>Foul odors, septic anaerobic conditions, or floating sludge blankets.</li>
-        <li>High BOD/COD or TSS escaping in treated water.</li>
-        <li>Poor settling, sludge bulking, or carryover over clarifier weirs.</li>
-        <li>Low dissolved oxygen or sudden biological die-off from toxic ingress.</li>
-        <li>Frequent filter choking and inconsistent disinfection residual.</li>
-       </ul>
-      </div>
-      <div class="panel-box solutions">
-       <h4>Solutions We Provide</h4>
-       <ul>
-        <li>Review of hydraulic loading, aeration blower capacity, and DO levels.</li>
-        <li>Biological culture and micronutrient supplementation for quick recovery.</li>
-        <li>Polishing coagulation/flocculation aids for fine suspended matter.</li>
-        <li>pH correction and specialized odor-neutralizing chemicals.</li>
-        <li>Tertiary filtration (sand/carbon) and hypochlorite disinfection calibration.</li>
-        <li>Operator training on sludge age, return sludge rates (RAS), and wasting.</li>
-       </ul>
-      </div>
-     </div>
-
-     <h3 style="color:var(--deep);margin-top:1.5rem;">Recommended Monitoring &amp; Checks</h3>
-     <p style="font-size:0.95rem;color:#4a6268">Daily flow, pH, and DO &bull; Aeration MLSS &amp; 30-min Settling Test &bull; Outlet BOD, COD &amp; TSS &bull; Sludge Age (MCRT) and wasting schedule &bull; Sand/Carbon filter differential pressure &bull; Free chlorine residual.</p>
-    </div>
-
-    <!-- 4. RO -->
-    <div id="g4" class="guide-panel">
-     <h2>4. Reverse Osmosis (RO) Plant</h2>
-     <p style="margin-top:0.75rem;">RO systems remove dissolved mineral salts using semi-permeable membranes. Rigorous pretreatment, proper recovery ratio, differential pressure management, and scheduled CIP membrane washings are essential to prevent irreparable fouling.</p>
-
-     <div class="grid-2col">
-      <div class="panel-box problems">
-       <h4>Common Problems &amp; Symptoms</h4>
-       <ul>
-        <li>Rising feed pressure or stage differential pressure (&Delta;P).</li>
-        <li>Falling permeate flux (recovery drop) at normalized conditions.</li>
-        <li>Increasing permeate conductivity (salt passage / membrane degradation).</li>
-        <li>Mineral scaling from calcium carbonate, sulfate, or reactive silica.</li>
-        <li>Organic, colloidal silt, or biofilm fouling on lead membranes.</li>
-        <li>Premature choking of 5-micron pre-filter cartridges.</li>
-       </ul>
-      </div>
-      <div class="panel-box solutions">
-       <h4>Solutions We Provide</h4>
-       <ul>
-        <li>Raw-water projection analysis to calculate exact scaling potentials.</li>
-        <li>Selection of high-efficiency antiscalants (broad-spectrum and high-silica).</li>
-        <li>Dechlorination dosing (Sodium Metabisulphite) to safeguard polyamide layers.</li>
-        <li>Low-pH (inorganic/iron descaling) and High-pH (organic/biofilm) CIP washes.</li>
-        <li>Pretreatment optimization (multimedia filters, flocculation aids, softening).</li>
-        <li>Data normalization to detect fouling before irreversible compaction occurs.</li>
-       </ul>
-      </div>
-     </div>
-
-     <h3 style="color:var(--deep);margin-top:1.5rem;">Recommended Monitoring &amp; Checks</h3>
-     <p style="font-size:0.95rem;color:#4a6268">Feed &amp; Permeate Conductivity &bull; Normalized Permeate Flow &bull; Interstage Differential Pressure (&Delta;P) &bull; % Recovery &bull; Feed pH and Temperature &bull; Silt Density Index (SDI &lt; 3) &amp; Turbidity (&lt; 0.5 NTU).</p>
-    </div>
-
-    <!-- 5. BOILER -->
-    <div id="g5" class="guide-panel">
-     <h2>5. Boiler Water Treatment</h2>
-     <p style="margin-top:0.75rem;">Boilers continually concentrate dissolved minerals through evaporation. Without controlled chemical conditioning, scale deposition, oxygen pitting, caustic embrittlement, and priming/carryover can cause tube failures and energy loss.</p>
-
-     <div class="grid-2col">
-      <div class="panel-box problems">
-       <h4>Common Problems &amp; Symptoms</h4>
-       <ul>
-        <li>Hard scale formation on heat-transfer tubes causing overheating &amp; ruptures.</li>
-        <li>Pitting corrosion from dissolved oxygen in economizer or steam drum.</li>
-        <li>Foaming, high water-level swings, and moisture carryover into steam.</li>
-        <li>Excessive TDS/conductivity due to uncontrolled blowdown.</li>
-        <li>Frequent tube descaling requirements and declining boiler thermal efficiency.</li>
-       </ul>
-      </div>
-      <div class="panel-box solutions">
-       <h4>Solutions We Provide</h4>
-       <ul>
-        <li>Feedwater, boiler water, and condensate analysis with custom dosing programs.</li>
-        <li>Polymeric scale inhibitors and sludge conditioners to keep solids fluid.</li>
-        <li>Catalyzed oxygen scavengers (Sulphite / Hydrazine / DEHA based).</li>
-        <li>pH boosters &amp; alkalinity builders for protective magnetite film maintenance.</li>
-        <li>Turnkey chemical descaling and metal passivation during plant shutdowns.</li>
-        <li>Condensate return treatment using neutralizing and filming amines.</li>
-       </ul>
-      </div>
-     </div>
-
-     <h3 style="color:var(--deep);margin-top:1.5rem;">Recommended Monitoring &amp; Checks</h3>
-     <p style="font-size:0.95rem;color:#4a6268">Feedwater Hardness (0 ppm target) &bull; Boiler Water TDS/Conductivity &bull; Boiler Water pH (10.5–11.5) &bull; Residual Sulphite/Hydrazine levels &bull; Phosphate reserve &bull; Blowdown volume &bull; Steam purity.</p>
-    </div>
-
-    <!-- 6. COOLING TOWER -->
-    <div id="g6" class="guide-panel">
-     <h2>6. Cooling Tower Water Treatment</h2>
-     <p style="margin-top:0.75rem;">Cooling towers reject heat through evaporation, which progressively concentrates dissolved solids. Warm temperatures and sunlight make cooling loops prone to scale, metallurgical corrosion, and aggressive microbiological slime/algae.</p>
-
-     <div class="grid-2col">
-      <div class="panel-box problems">
-       <h4>Common Problems &amp; Symptoms</h4>
-       <ul>
-        <li>Scale formation on fills, heat exchanger bundles, and distribution nozzles.</li>
-        <li>Corrosion of mild steel, copper, or galvanised shell surfaces.</li>
-        <li>Heavy algal mats, bacterial slime, biofilm, and foul odor.</li>
-        <li>High TDS and conductivity due to unmonitored cycles of concentration (COC).</li>
-        <li>Elevated approach temperatures and loss of process cooling efficiency.</li>
-       </ul>
-      </div>
-      <div class="panel-box solutions">
-       <h4>Solutions We Provide</h4>
-       <ul>
-        <li>Cycle-of-concentration (COC) optimization based on water chemistry.</li>
-        <li>Phosphate, zinc, and organic-polymer scale &amp; corrosion inhibitor programs.</li>
-        <li>Dual biocide regime: alternating oxidizing and non-oxidizing biocides.</li>
-        <li>Biodispersants to penetrate and loosen stubborn microbial biofilm.</li>
-        <li>Automated or disciplined manual blowdown control systems.</li>
-        <li>Turnkey cleaning and descaling of fills, nozzles, and cold-water basins.</li>
-       </ul>
-      </div>
-     </div>
-
-     <h3 style="color:var(--deep);margin-top:1.5rem;">Recommended Monitoring &amp; Checks</h3>
-     <p style="font-size:0.95rem;color:#4a6268">Recirculating pH (7.5–8.5) &bull; Conductivity and Cycles of Concentration &bull; Corrosion Coupon Weight Loss (mpy) &bull; Total Bacterial Count (TBC) &bull; Free Halogen / Biocide residual &bull; Approach Temperature.</p>
-    </div>
-
-    <!-- 7. SOFTENER -->
-    <div id="g7" class="guide-panel">
-     <h2>7. Water Softener Systems</h2>
-     <p style="margin-top:0.75rem;">Water softeners utilize strong acid cation (SAC) ion-exchange resins in the sodium form ($Na^+$) to exchange calcium and magnesium ions. Reliable regeneration cycles and resin bed cleaning prevent hardness leakage into boilers and RO feeds.</p>
-
-     <div class="grid-2col">
-      <div class="panel-box problems">
-       <h4>Common Problems &amp; Symptoms</h4>
-       <ul>
-        <li>Hardness slippage/breakthrough in softened water outlet.</li>
-        <li>Premature exhaustion of resin capacity between regeneration cycles.</li>
-        <li>Weak brine concentration, salt bridging, or improper brine draw suction.</li>
-        <li>Bed channeling, resin bead breakage, or high differential pressure drop.</li>
-        <li>Irreversible iron and manganese fouling on resin surfaces.</li>
-       </ul>
-      </div>
-      <div class="panel-box solutions">
-       <h4>Solutions We Provide</h4>
-       <ul>
-        <li>Regeneration volume, salting rate, and cycle time recalculation.</li>
-        <li>Resin core sampling, capacity testing, and bed replacement services.</li>
-        <li>Chemical resin cleaners for iron, organic, and silt fouling removal.</li>
-        <li>Inspection and replacement of top/bottom strainers and multiport valves.</li>
-        <li>Pre-filtration improvements to protect resin from suspended solids.</li>
-       </ul>
-      </div>
-     </div>
-
-     <h3 style="color:var(--deep);margin-top:1.5rem;">Recommended Monitoring &amp; Checks</h3>
-     <p style="font-size:0.95rem;color:#4a6268">Inlet and outlet hardness (&lt; 5 ppm as CaCO₃) &bull; Softener treated volume per cycle &bull; Brine tank salt levels &amp; hydrometer brine concentration (min 10–12%) &bull; Vessel pressure drop (&Delta;P) &bull; Backwash clarity.</p>
-    </div>
-
-    <!-- 8. DM -->
-    <div id="g8" class="guide-panel">
-     <h2>8. Demineralization (DM) &amp; Mixed Bed (MB)</h2>
-     <p style="margin-top:0.75rem;">Demineralization removes practically all dissolved inorganic minerals using cation exchange ($H^+$ form) and anion exchange ($OH^-$ form), followed by mixed bed polishing for high-pressure boilers and critical process applications.</p>
-
-     <div class="grid-2col">
-      <div class="panel-box problems">
-       <h4>Common Problems &amp; Symptoms</h4>
-       <ul>
-        <li>Rising treated water conductivity or early reactive silica slippage.</li>
-        <li>Steep drops in output volume between regenerations.</li>
-        <li>Resin oxidation, organic fouling of anion resin, or thermal degradation.</li>
-        <li>Incorrect regenerant chemical strength (HCl or NaOH) or flow rate.</li>
-        <li>Poor separation or incomplete resin remixing in mixed-bed units.</li>
-       </ul>
-      </div>
-      <div class="panel-box solutions">
-       <h4>Solutions We Provide</h4>
-       <ul>
-        <li>Resin capacity audits and bed life assessments.</li>
-        <li>High-capacity uniform particle size (UPS) cation and anion resin supply.</li>
-        <li>Regeneration process calibration: acid/caustic concentrations and step times.</li>
-        <li>Alkaline-brine wash for organic fouled anion resins and acid wash for iron.</li>
-        <li>Internal distribution lateral repairs and sight glass maintenance.</li>
-       </ul>
-      </div>
-     </div>
-
-     <h3 style="color:var(--deep);margin-top:1.5rem;">Recommended Monitoring &amp; Checks</h3>
-     <p style="font-size:0.95rem;color:#4a6268">DM outlet conductivity (&lt; 5 &mu;S/cm) &bull; MB outlet conductivity (&lt; 0.1 &mu;S/cm) &bull; Silica leakage (&lt; 0.02 ppm) &bull; Regenerant chemical consumption &bull; Resin bed expansion during backwash.</p>
-    </div>
-
-    <!-- 9. COMPLETE SYSTEMS -->
-    <div id="g9" class="guide-panel">
-     <h2>9. Complete Integrated Water Treatment Systems</h2>
-     <p style="margin-top:0.75rem;">Modern manufacturing plants require multi-barrier treatment trains combining clarification, multi-grade filtration, softening, double-pass RO, DM polishing, and zero-liquid-discharge (ZLD) effluent recycling.</p>
-
-     <h3 style="margin-top:1.5rem;color:var(--deep)">Typical Process Synergies</h3>
-     <ul style="padding-left:1.3rem;margin:0.8rem 0;">
-      <li><strong>Raw Water Clarification:</strong> Coagulation and media filtration remove suspended solids to deliver SDI &lt; 3 for RO systems.</li>
-      <li><strong>Pre-Boiler Softening &amp; RO:</strong> Reducing hardness and TDS upfront cuts boiler blowdown from 15% to under 2%, conserving thermal fuel.</li>
-      <li><strong>ETP &amp; Recycle RO:</strong> Treating effluent through biological stages and secondary RO reclaims up to 80% process water for utility cooling towers.</li>
-      <li><strong>ZLD Evaporators:</strong> Crystallizing RO reject streams to recover dry salts and ensure zero liquid leaves the premises.</li>
-     </ul>
-     <p style="margin-top:1rem;">Aqua Chem Labs provides total turnkey integration: sizing, piping, PLC control automation, chemical dosing skids, and long-term operating support.</p>
-    </div>
-
-    <!-- 10. TROUBLESHOOTING -->
-    <div id="g10" class="guide-panel">
-     <h2>10. Integrated Troubleshooting Methodology</h2>
-     <p style="margin-top:0.75rem;">When an industrial water plant underperforms, simply increasing chemical doses often worsens the issue. We follow a 6-step engineering methodology connecting chemistry, hydraulics, equipment mechanics, and dosing.</p>
-
-     <table class="data-table">
-      <thead><tr><th style="width:25%">Step</th><th>What We Do</th></tr></thead>
-      <tbody>
-       <tr><td><strong>1. Identify Symptom</strong></td><td>Define the deviation precisely: high conductivity, hardness slippage, high COD/TSS, rapid fouling, foaming, odor, or high differential pressure.</td></tr>
-       <tr><td><strong>2. Test the Water</strong></td><td>Run complete analytical lab tests across every unit operation; compare with baseline design data.</td></tr>
-       <tr><td><strong>3. Check the Process</strong></td><td>Inspect flow rates, hydraulic loading, velocities, recovery ratios, aeration rates, temperature, and blowdown cycles.</td></tr>
-       <tr><td><strong>4. Inspect Equipment</strong></td><td>Audit dosing pump stroke rates, calibration cylinders, valves, membrane integrity, resin beds, nozzles, and instrumentation sensors.</td></tr>
-       <tr><td><strong>5. Optimize Treatment</strong></td><td>Select compatible formulations, calibrate injection points, and set dosing proportional to actual flow and load.</td></tr>
-       <tr><td><strong>6. Verify Performance</strong></td><td>Trend key parameters over 14–30 days to verify stable, cost-effective restoration of performance.</td></tr>
-      </tbody>
-     </table>
-    </div>
-
-    <!-- 11. CHEMICAL PORTFOLIO -->
-    <div id="g11" class="guide-panel">
-     <h2>11. Water Treatment Chemical Portfolio</h2>
-     <p style="margin-top:0.75rem;">Formulations manufactured and stocked for heavy industrial, commercial, and utility water conditioning programs.</p>
-
-     <table class="data-table">
-      <thead><tr><th style="width:28%">Category</th><th>Key Formulations &amp; Typical Applications</th></tr></thead>
-      <tbody>
-       <tr><td><strong>ETP Chemicals</strong></td><td>Coagulants (Alum, PAC, Lime), Cationic &amp; Anionic Polyelectrolytes, pH neutralizers, silicone defoamers, biocides, bio-nutrients.</td></tr>
-       <tr><td><strong>STP Chemicals</strong></td><td>Lyophilized bacterial cultures, micronutrients, coagulants, defoamers, odor neutralizers, sodium hypochlorite for disinfection.</td></tr>
-       <tr><td><strong>RO Chemicals</strong></td><td>Broad spectrum antiscalants, high-silica antiscalants, low-pH &amp; high-pH membrane CIP cleaners, sodium metabisulphite (SMBS).</td></tr>
-       <tr><td><strong>Boiler Chemicals</strong></td><td>Sulphite/hydrazine oxygen scavengers, alkalinity boosters (pH), phosphate conditioners, sludge dispersants, descalants, filming amines.</td></tr>
-       <tr><td><strong>Cooling Tower</strong></td><td>Organic phosphate &amp; zinc corrosion inhibitors, polymeric antiscalants, oxidizing/non-oxidizing biocides, bio-dispersants, algaecides.</td></tr>
-       <tr><td><strong>Softener &amp; DM</strong></td><td>High-purity vacuum tablet salt, hydrochloric acid, caustic lye, resin cleaners for iron/organic fouling.</td></tr>
-       <tr><td><strong>General &amp; Spares</strong></td><td>Neutralizers, passivators, fireside chemicals, filter media, activated carbon, and specialized testing reagents.</td></tr>
-      </tbody>
-     </table>
-     <p style="font-size:0.92rem;color:#4a6268;margin-top:1rem;"><em>Chemical Selection Note: Dosages and injection points must be calibrated based on specific plant metallurgy and raw water quality. Contact our Raisen technical desk for dosage calculations.</em></p>
-    </div>
-
-    <!-- 12. SERVICE & SUPPORT -->
-    <div id="g12" class="guide-panel">
-     <h2>12. Service, Maintenance &amp; Technical Support</h2>
-     <p style="margin-top:0.75rem;">Consistently meeting discharge norms or boiler feedwater standards requires proactive plant maintenance, routine lab verification, and prompt field assistance.</p>
-
-     <h3 style="margin-top:1.5rem;color:var(--deep)">Our Service Spectrum</h3>
-     <ul style="padding-left:1.3rem;margin:0.8rem 0;">
-      <li>Design, engineering, and retrofit revamping of existing water plants.</li>
-      <li>Installation, piping, structural commissioning, and operator handover.</li>
-      <li>Monthly and annual comprehensive / non-comprehensive AMC support.</li>
-      <li>Routine on-site water testing and laboratory jar testing.</li>
-      <li>Emergency troubleshooting for biological upsets or membrane fouling.</li>
-      <li>Consumable inventory management: immediate dispatch of chemicals, cartridges, and media.</li>
-     </ul>
-
-     <div style="background:var(--mist);border:1.5px solid var(--line);border-radius:8px;padding:1.5rem;margin-top:2rem;">
-      <h3 style="color:var(--deep);margin-bottom:0.5rem;">Request Engineering Support</h3>
-      <p style="margin-bottom:1rem;font-size:0.95rem;">To receive a technical proposal or troubleshooting review, have your recent raw water analysis, current capacity, and operating parameters ready.</p>
-      <a class="btn" href="https://wa.me/917974999929?text=Hello%20Aqua%20Chem%20Labs%2C%20I%20need%20engineering%20support%20for%20my%20plant." target="_blank" rel="noopener">Connect with an Engineer on WhatsApp</a>
-     </div>
-    </div>
-
-   </div>
+  <div class="guide-toc" aria-label="Guide contents">
+   <h2>On this page</h2>
+   <ol>
+    <li><a href="#about">About Aqua Chem Labs</a></li>
+    <li><a href="#etp">Effluent Treatment Plant (ETP)</a></li>
+    <li><a href="#stp">Sewage Treatment Plant (STP)</a></li>
+    <li><a href="#ro">Reverse Osmosis (RO) Plant</a></li>
+    <li><a href="#boiler">Boiler Water Treatment</a></li>
+    <li><a href="#cooling">Cooling Tower Water Treatment</a></li>
+    <li><a href="#softener">Water Softener</a></li>
+    <li><a href="#dm">Demineralization (DM) System</a></li>
+    <li><a href="#complete">Complete Water Treatment Systems</a></li>
+    <li><a href="#troubleshooting">Integrated Troubleshooting Approach</a></li>
+    <li><a href="#chemicals">Water Treatment Chemical Portfolio</a></li>
+    <li><a href="#service">Service, Maintenance &amp; Technical Support</a></li>
+   </ol>
   </div>
+ </div>
 </div>
 
+<!-- 1. About -->
+<section class="guide-sec" id="about">
+ <div class="wrap">
+  <h2>1. About Aqua Chem Labs</h2>
+  <p class="lede">Aqua Chem Labs is a manufacturer and service provider for industrial water-treatment plants, treatment chemicals and spares. Our approach combines water analysis, process understanding, chemical treatment, equipment support and preventive maintenance to improve plant performance and reliability.</p>
+
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Our professional services</h3>
+    <ul>
+     <li>Water analysis, process review and treatment-program recommendations.</li>
+     <li>Design and engineering support for industrial water-treatment systems.</li>
+     <li>Supply, installation and commissioning assistance for treatment plants and equipment.</li>
+     <li>Operation and maintenance support, troubleshooting and performance monitoring.</li>
+     <li>AMC and technical support for recurring plant-care requirements.</li>
+     <li>Supply of application-specific water-treatment chemicals and consumables.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Core objective &rarr; Typical result</h3>
+    <table class="guide-table">
+     <tr><th>Core objective</th><th>Typical result</th></tr>
+     <tr><td>Control water chemistry and contaminants</td><td>More stable process operation</td></tr>
+     <tr><td>Control scale, corrosion and microbiological growth</td><td>Better equipment protection</td></tr>
+     <tr><td>Optimize chemical dosing and operating conditions</td><td>Reduced avoidable losses</td></tr>
+     <tr><td>Monitor treatment performance</td><td>Consistent water quality and compliance support</td></tr>
+    </table>
+   </div>
+  </div>
+
+  <div class="guide-note"><strong>Important:</strong> treatment selection should be finalized from actual raw-water/process-water analysis, operating conditions and the required outlet-water quality.</div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 2. ETP -->
+<section class="guide-sec" id="etp">
+ <div class="wrap">
+  <h2>2. Effluent Treatment Plant (ETP)</h2>
+  <p class="lede">ETPs treat industrial wastewater before reuse, discharge or further polishing. Performance depends on influent characteristics, hydraulic loading, biological/chemical treatment, solids separation and disciplined operation.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>High COD/BOD, suspended solids, oil &amp; grease, colour or variable pH in influent.</li>
+     <li>Poor coagulation/flocculation causing cloudy outlet and weak sludge settling.</li>
+     <li>Foaming, odour, biological upset or inconsistent dissolved-oxygen conditions.</li>
+     <li>Excess sludge, poor dewatering or sludge carryover.</li>
+     <li>High outlet TSS/COD and frequent process instability.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Water and wastewater characterization to identify the actual pollutant load and treatment requirement.</li>
+     <li>Coagulant/flocculant selection and jar-test based dosing optimization.</li>
+     <li>pH correction and chemical conditioning where required.</li>
+     <li>Defoamer, biocide or odour-control support for specific operating conditions.</li>
+     <li>Biological-process support through appropriate nutrients/cultures where applicable.</li>
+     <li>Troubleshooting of aeration, clarification, filtration and sludge-handling stages.</li>
+     <li>Preventive monitoring plan for pH, ORP/DO where applicable, MLSS, settling, TSS, COD/BOD and sludge characteristics.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>Influent/outlet pH and flow</li>
+     <li>COD/BOD and TSS</li>
+     <li>MLSS/settling behaviour for biological stages</li>
+     <li>DO/ORP where applicable</li>
+     <li>Sludge production and dewatering performance</li>
+     <li>Chemical consumption per m&sup3;</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>Coagulants and flocculants</li>
+     <li>pH adjusters</li>
+     <li>Defoamers</li>
+     <li>Biocides</li>
+     <li>Nutrients / bacterial cultures</li>
+     <li>Filter aids and application-specific process chemicals</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 3. STP -->
+<section class="guide-sec" id="stp">
+ <div class="wrap">
+  <h2>3. Sewage Treatment Plant (STP)</h2>
+  <p class="lede">STPs treat domestic sewage using combinations of screening, biological treatment, clarification, filtration and disinfection. Stable biology and good solids separation are central to consistent performance.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>Bad odour, septic conditions or floating solids.</li>
+     <li>High BOD/COD or TSS in treated water.</li>
+     <li>Poor settling, sludge bulking or sludge carryover.</li>
+     <li>Low dissolved oxygen or biological imbalance.</li>
+     <li>Frequent filter choking and inconsistent disinfection.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Review of hydraulic loading, aeration and biological operating conditions.</li>
+     <li>Biological culture/nutrient support when justified by process conditions.</li>
+     <li>Coagulation/flocculation assistance for polishing or difficult suspended solids.</li>
+     <li>pH correction and odour-control strategies.</li>
+     <li>Filtration and disinfection support, including cleaning and preventive maintenance.</li>
+     <li>Operator guidance for sludge wasting, aeration and routine testing.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>Flow, pH and DO</li>
+     <li>MLSS/settling</li>
+     <li>BOD/COD and TSS</li>
+     <li>Sludge age/wasting practice</li>
+     <li>Filter differential pressure</li>
+     <li>Disinfection residual where applicable</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>Bacterial culture</li>
+     <li>Nutrients</li>
+     <li>Coagulants/flocculants</li>
+     <li>Defoamers</li>
+     <li>Odour-control chemicals</li>
+     <li>Cleaning and disinfection chemicals</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 4. RO -->
+<section class="guide-sec" id="ro">
+ <div class="wrap">
+  <h2>4. Reverse Osmosis (RO) Plant</h2>
+  <p class="lede">RO systems remove dissolved salts and many contaminants through semi-permeable membranes. Stable pretreatment, correct recovery, pressure control and membrane cleaning are essential to protect flux and product-water quality.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>Rising differential pressure or feed pressure.</li>
+     <li>Falling permeate flow or increasing normalized pressure drop.</li>
+     <li>Increasing permeate conductivity / salt passage.</li>
+     <li>Membrane scaling from hardness, silica or other sparingly soluble salts.</li>
+     <li>Organic, colloidal or biological fouling.</li>
+     <li>Frequent cartridge-filter choking.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Raw-water analysis and RO operating review.</li>
+     <li>Antiscalant selection and dose optimization based on feed chemistry and recovery.</li>
+     <li>Dechlorination where chlorine-sensitive membranes are used.</li>
+     <li>Membrane cleaning programme using compatible acidic/alkaline or specialty cleaners as required.</li>
+     <li>pH adjustment and pretreatment optimization.</li>
+     <li>Monitoring of feed/permeate conductivity, flow, pressure and recovery to identify deterioration early.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>Feed/permeate conductivity</li>
+     <li>Normalized permeate flow</li>
+     <li>Pressure and differential pressure</li>
+     <li>Recovery</li>
+     <li>pH and temperature</li>
+     <li>SDI/turbidity after pretreatment</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>RO antiscalants</li>
+     <li>RO membrane cleaners</li>
+     <li>pH adjusters</li>
+     <li>Biocides where appropriate</li>
+     <li>Dechlorination chemicals</li>
+     <li>Cartridge/spun/wound filter consumables</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 5. Boiler -->
+<section class="guide-sec" id="boiler">
+ <div class="wrap">
+  <h2>5. Boiler Water Treatment</h2>
+  <p class="lede">Boilers concentrate dissolved and suspended impurities. Without a controlled water-treatment programme, scale, corrosion, carryover and poor heat transfer can reduce efficiency and damage equipment.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>Hard-scale deposits on heat-transfer surfaces.</li>
+     <li>Corrosion caused by dissolved oxygen, low/high pH or unsuitable chemistry.</li>
+     <li>Foaming and carryover into steam systems.</li>
+     <li>High TDS/conductivity and inadequate blowdown control.</li>
+     <li>Frequent tube cleaning and declining heat-transfer efficiency.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Feedwater and boiler-water analysis with a site-specific treatment programme.</li>
+     <li>Scale-control and dispersant chemistry to reduce deposit formation.</li>
+     <li>Oxygen-scavenger programme where appropriate.</li>
+     <li>pH/alkalinity control and blowdown optimization.</li>
+     <li>Boiler descaling and cleaning support during shutdown maintenance.</li>
+     <li>Monitoring plan covering conductivity/TDS, pH, phosphate or other programme-specific parameters.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>Feedwater hardness and alkalinity</li>
+     <li>Boiler-water conductivity/TDS</li>
+     <li>pH</li>
+     <li>Dissolved oxygen where relevant</li>
+     <li>Blowdown rate</li>
+     <li>Steam quality/carryover indicators</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>Oxygen scavengers</li>
+     <li>pH boosters/alkalinity control chemicals</li>
+     <li>Scale inhibitors/dispersants</li>
+     <li>Corrosion inhibitors</li>
+     <li>Boiler descalants</li>
+     <li>Condensate-treatment chemicals where required</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 6. Cooling Tower -->
+<section class="guide-sec" id="cooling">
+ <div class="wrap">
+  <h2>6. Cooling Tower Water Treatment</h2>
+  <p class="lede">Cooling towers recirculate water while rejecting heat. Evaporation concentrates dissolved solids, while warm wet surfaces can support microbiological growth. A balanced programme controls scale, corrosion and biological fouling.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>Scale deposits on fill, exchangers, nozzles or piping.</li>
+     <li>Corrosion of metal components.</li>
+     <li>Slime, algae, biofilm or unpleasant odour.</li>
+     <li>High conductivity/TDS from concentration cycles.</li>
+     <li>Poor heat transfer and increased approach temperature.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Cooling-water analysis and cycle-of-concentration review.</li>
+     <li>Scale inhibitor/dispersant selection for the actual water chemistry.</li>
+     <li>Corrosion inhibitor programme compatible with metallurgy and operating conditions.</li>
+     <li>Biocide strategy with appropriate dosing and monitoring.</li>
+     <li>pH and conductivity control, including blowdown optimization.</li>
+     <li>Cleaning support and preventive inspection of basin, fill, nozzles and strainers.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>pH and conductivity</li>
+     <li>Cycles of concentration</li>
+     <li>Make-up/blowdown flow</li>
+     <li>Microbiological indicators</li>
+     <li>Corrosion/scale observations</li>
+     <li>Cooling performance / approach</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>Scale inhibitors</li>
+     <li>Corrosion inhibitors</li>
+     <li>Biocides</li>
+     <li>Dispersants</li>
+     <li>pH controllers/adjusters</li>
+     <li>Cleaning chemicals</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 7. Softener -->
+<section class="guide-sec" id="softener">
+ <div class="wrap">
+  <h2>7. Water Softener</h2>
+  <p class="lede">Water softeners exchange hardness ions such as calcium and magnesium for sodium ions. Correct regeneration and resin care are necessary to maintain soft-water quality and protect downstream equipment.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>Hardness leakage in outlet water.</li>
+     <li>Premature resin exhaustion.</li>
+     <li>Inadequate brine strength or poor regeneration.</li>
+     <li>Channeling, fouling or pressure drop across the vessel.</li>
+     <li>High hardness entering RO or boiler pretreatment.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Hardness testing and regeneration-cycle optimization.</li>
+     <li>Resin selection/replacement based on feed chemistry and service conditions.</li>
+     <li>Brine preparation and regeneration support.</li>
+     <li>Resin cleaning where fouling is identified.</li>
+     <li>Valve, distributor and flow-control inspection.</li>
+     <li>Preventive monitoring of inlet/outlet hardness and pressure drop.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>Inlet/outlet hardness</li>
+     <li>Flow rate</li>
+     <li>Regeneration frequency</li>
+     <li>Brine concentration/consumption</li>
+     <li>Pressure drop</li>
+     <li>Resin condition</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>Salt / regeneration chemicals</li>
+     <li>Resin cleaners</li>
+     <li>Anti-fouling support chemicals</li>
+     <li>Application-specific cleaning chemicals</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 8. DM -->
+<section class="guide-sec" id="dm">
+ <div class="wrap">
+  <h2>8. Demineralization (DM) System</h2>
+  <p class="lede">Demineralization removes ionic impurities using cation and anion exchange, commonly followed by mixed-bed polishing where very high-purity water is required. Regeneration chemistry and resin condition strongly affect outlet quality.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>Rising outlet conductivity or silica leakage.</li>
+     <li>Shorter run length between regenerations.</li>
+     <li>Resin fouling, oxidation or physical degradation.</li>
+     <li>Incorrect regeneration sequence or chemical concentration.</li>
+     <li>Poor separation/mixing in mixed-bed systems.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Water analysis and resin-capacity review.</li>
+     <li>Cation/anion resin selection, servicing and replacement support.</li>
+     <li>Regeneration-programme optimization and chemical handling guidance.</li>
+     <li>Resin cleaning for identified organic, iron or other fouling conditions.</li>
+     <li>Mixed-bed polishing support where required.</li>
+     <li>Routine monitoring of conductivity, silica and regeneration performance.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>Conductivity/resistivity</li>
+     <li>Silica where relevant</li>
+     <li>pH</li>
+     <li>Regeneration chemical consumption</li>
+     <li>Run length</li>
+     <li>Resin condition</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>Cation and anion exchange resins</li>
+     <li>Regenerant chemicals</li>
+     <li>pH adjustment chemicals</li>
+     <li>Resin cleaning chemicals</li>
+     <li>Application-specific polishing consumables</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 9. Complete Systems -->
+<section class="guide-sec" id="complete">
+ <div class="wrap">
+  <h2>9. Complete Water Treatment Systems</h2>
+  <p class="lede">Beyond the major systems above, industrial sites often require a combination of filtration, clarification, dosing, disinfection, polishing, reuse and wastewater-management technologies. Aqua Chem Labs can support integrated treatment programmes around the site's actual process needs.</p>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Common problems / symptoms</h3>
+    <ul>
+     <li>Unstable raw-water quality or seasonal variation.</li>
+     <li>High turbidity, suspended solids, iron, hardness or dissolved salts.</li>
+     <li>Frequent filter blockage or poor pretreatment.</li>
+     <li>Inconsistent treated-water quality between shifts.</li>
+     <li>Lack of preventive maintenance or incomplete operating records.</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Solutions we provide</h3>
+    <ul>
+     <li>Site survey and water/process assessment.</li>
+     <li>Filtration and pretreatment selection, including media/filter consumables.</li>
+     <li>Chemical dosing and control strategy.</li>
+     <li>Integration of softening, RO, DM, ETP/STP and reuse stages as appropriate.</li>
+     <li>AMC, troubleshooting, commissioning and operator support.</li>
+     <li>Supply of spares and consumables for ongoing plant reliability.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Recommended monitoring &amp; checks</h3>
+    <ul>
+     <li>Raw-water analysis</li>
+     <li>Flow and pressure</li>
+     <li>Turbidity/TSS</li>
+     <li>Hardness/alkalinity</li>
+     <li>Conductivity/TDS</li>
+     <li>Chemical consumption and maintenance history</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Relevant chemical / consumable support</h3>
+    <ul>
+     <li>Coagulants/flocculants</li>
+     <li>Antiscalants</li>
+     <li>Biocides</li>
+     <li>Corrosion/scale inhibitors</li>
+     <li>Descalants, pH adjusters</li>
+     <li>Filter media, resins and cartridge/spun/wound filters</li>
+    </ul>
+   </div>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 10. Troubleshooting -->
+<section class="guide-sec" id="troubleshooting">
+ <div class="wrap">
+  <h2>10. Integrated Troubleshooting Approach</h2>
+  <p class="lede">When a treatment plant underperforms, changing chemicals alone may not solve the problem. We use a structured approach that connects water quality, process conditions, equipment condition and chemical dosing.</p>
+
+  <ol class="guide-steps">
+   <li><b>1. Identify the symptom</b>Define the actual deviation: high conductivity, hardness leakage, high COD/TSS, scale, corrosion, odour, pressure drop, poor settling, etc.</li>
+   <li><b>2. Test the water</b>Compare current water chemistry with design/normal operating data.</li>
+   <li><b>3. Check the process</b>Review flow, loading, pressure, temperature, recovery, aeration, blowdown and regeneration cycles as applicable.</li>
+   <li><b>4. Inspect equipment</b>Check pumps, dosing systems, valves, filters, membranes, resin vessels, heat-transfer surfaces and instrumentation.</li>
+   <li><b>5. Optimize the treatment</b>Select compatible chemicals and dosing based on the actual problem and process constraints.</li>
+   <li><b>6. Verify performance</b>Trend key parameters and confirm that the intervention produces a stable improvement.</li>
+  </ol>
+
+  <div class="guide-card" style="margin-top:1.4rem">
+   <h3>Typical service outcomes to target</h3>
+   <ul>
+    <li>More consistent treated-water quality.</li>
+    <li>Control of scale, corrosion and microbiological fouling.</li>
+    <li>Better membrane, boiler, heat-exchanger and piping protection.</li>
+    <li>Reduced unplanned cleaning and maintenance caused by preventable water-quality issues.</li>
+    <li>Improved chemical-dosing discipline and operating visibility.</li>
+    <li>Support for environmental and process-quality objectives.</li>
+   </ul>
+  </div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 11. Chemical Portfolio -->
+<section class="guide-sec" id="chemicals">
+ <div class="wrap">
+  <h2>11. Water Treatment Chemical Portfolio</h2>
+  <p class="lede">Chemical programmes should be selected according to water chemistry, metallurgy, process conditions and applicable operating requirements. The following portfolio represents the major categories we supply.</p>
+
+  <table class="guide-table">
+   <tr><th>Category</th><th>Typical applications</th></tr>
+   <tr><td>ETP Chemicals</td><td>Coagulants &amp; flocculants; pH adjusters; defoamers; biocides; nutrients; specialty process aids.</td></tr>
+   <tr><td>STP Chemicals</td><td>Bacterial cultures; nutrients; coagulants; defoamers; odour-control and cleaning/disinfection support.</td></tr>
+   <tr><td>RO Chemicals</td><td>Antiscalants; membrane cleaners; pH adjusters; biocides where appropriate; dechlorination chemicals.</td></tr>
+   <tr><td>Boiler Chemicals</td><td>Oxygen scavengers; pH/alkalinity control; scale inhibitors/dispersants; corrosion inhibitors; boiler descalants.</td></tr>
+   <tr><td>Cooling Tower Chemicals</td><td>Scale inhibitors; corrosion inhibitors; biocides; dispersants; pH-control and cleaning chemicals.</td></tr>
+   <tr><td>Softener Chemicals</td><td>Regeneration salt/chemicals; resin cleaning and conditioning products.</td></tr>
+   <tr><td>DM Chemicals</td><td>Cation/anion resins; regenerant chemicals; pH adjustment and resin-cleaning products.</td></tr>
+   <tr><td>General Water Treatment</td><td>Corrosion inhibitors; descalants; biocides; flocculants; pH adjusters and specialty chemicals.</td></tr>
+  </table>
+
+  <div class="guide-note"><strong>Chemical selection note:</strong> a product name or dosage should not be treated as universal. Correct concentration, compatibility, dosing point, residence time and monitoring requirements depend on the site's water analysis and equipment. Our technical support can help establish a site-specific programme.</div>
+  <a class="back-top" href="#">&uarr; Back to top</a>
+ </div>
+</section>
+
+<!-- 12. Service -->
+<section class="guide-sec" id="service">
+ <div class="wrap">
+  <h2>12. Service, Maintenance &amp; Technical Support</h2>
+  <p class="lede">A reliable treatment plant needs more than equipment and chemicals. Routine testing, dosing calibration, cleaning, inspection and operator practices determine whether the system performs consistently.</p>
+
+  <div class="guide-cols">
+   <div class="guide-card">
+    <h3>Service areas</h3>
+    <ul>
+     <li>Design &amp; engineering support</li>
+     <li>Installation &amp; commissioning assistance</li>
+     <li>Operation &amp; maintenance support</li>
+     <li>Water and wastewater analysis</li>
+     <li>Chemical dosing optimization</li>
+     <li>Plant troubleshooting and performance review</li>
+     <li>AMC and technical support</li>
+     <li>Supply of treatment chemicals, filters, resins and selected spares</li>
+    </ul>
+   </div>
+   <div class="guide-card">
+    <h3>Contact &amp; Address</h3>
+    <p style="font-size:.9rem;margin:.2rem 0">Mr. Kartik Verma: <a href="tel:+917974999929">+91-7974999929</a></p>
+    <p style="font-size:.9rem;margin:.2rem 0">Mr. Pramod Aladiya: <a href="tel:+918871959481">+91-8871959481</a></p>
+    <p style="font-size:.9rem;margin:.2rem 0"><a href="mailto:aquachemlabs@gmail.com">Aquachemlabs@gmail.com</a></p>
+    <p style="font-size:.9rem;margin:.6rem 0 0">Plot no 368, Ward No. 9, Old Shubhash Nagar, Sanchi Road, Raisen &ndash; 464551 (M.P.), India</p>
+   </div>
+  </div>
+
+  <div class="guide-note">For technical proposals, product selection, dosing programmes or plant troubleshooting, please provide recent water-analysis data, plant capacity, operating parameters and the specific performance issue whenever available.</div>
+ </div>
+</section>
+
+<div class="cta-band"><div class="wrap"><h2>Need a quote or technical advice?</h2><div class="cta"><a class="btn" href="https://wa.me/917974999929?text=Hello%20Aqua%20Chem%20Labs%2C%20I%20need%20a%20quote." target="_blank" rel="noopener">WhatsApp us</a><a class="btn ghost" href="contact.html">Contact us</a></div></div></div>
 
 </main>
+
 <footer>
  <div class="wrap">
   <div class="f-grid">
@@ -421,7 +679,7 @@
    </div>
    <div>
     <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Quick Links</h4>
-    <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:2"><li><a href="index.html">Home</a></li><li><a href="plant-division.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="plant-care-guide.html">Plant Care Guide</a></li><li><a href="brochure.html">Brochure (ACL 2025)</a></li><li><a href="contact.html">Contact Us</a></li></ul>
+    <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:2"><li><a href="index.html">Home</a></li><li><a href="plant-division.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="ro-plant.html">Industrial RO Plant</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="plant-care-guide.html">Plant Care Guide</a></li><li><a href="ACL_2025.pdf" target="_blank" rel="noopener">View Brochure (ACL 2025)</a></li><li><a href="ACL_2025.pdf" download="Aqua-Chem-Labs-Brochure-2025.pdf">Download Brochure</a></li><li><a href="contact.html">Contact Us</a></li></ul>
    </div>
    <div>
     <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Direct Contact</h4>
