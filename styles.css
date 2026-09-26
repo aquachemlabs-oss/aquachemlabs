@@ -1,0 +1,179 @@
+:root {
+  /* Option 3: Bright Steel Blue (Corporate Light) */
+  --deep: #2563EB;       /* Royal Corporate Blue Base */
+  --aqua: #38BDF8;       /* Bright Light Blue Accent */
+  --leaf: #059669;       /* Safety Green CTA Buttons */
+  --mist: #F8FAFC;       /* Cool Slate Tint Background */
+  --ink: #1E293B;        /* Dark Slate Body Text */
+  --light-bg: #FFFFFF;   /* Pure White Background */
+  --line: #E2E8F0;       /* Light Slate Border Color */
+  --amber: #D97706;      /* Industrial Amber Highlight */
+  --card-bg: #FFFFFF;
+  --danger-bg: #FFF5F5;
+  --danger-border: #FED7D7;
+  --danger-ink: #9B2C2C;
+  --success-bg: #F0FFF4;
+  --success-border: #C6F6D5;
+  --success-ink: #22543D;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font: 400 1.05rem/1.65 "Public Sans", system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--light-bg); }
+body.menu-open { overflow: hidden; } /* Prevents background scrolling when mobile menu is active */
+
+h1, h2, h3, h4 { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; line-height: 1.15; margin: 0; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--aqua); outline-offset: 3px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
+
+/* Top Certification Bar */
+.top-bar { background: #EFF6FF; color: #1E40AF; font-size: 0.85rem; padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
+.top-bar .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.badge-iso { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--deep); font-weight: 600; }
+.badge-iso span { background: #FFFFFF; padding: 0.15rem 0.45rem; border-radius: 3px; border: 1px solid var(--deep); color: var(--deep); font-size: 0.75rem; }
+
+/* Header & Navigation (UNFROZEN / STATIC / LIGHT) */
+header.site-header { background: #FFFFFF; color: var(--ink); position: relative; z-index: 100; border-bottom: 2px solid var(--line); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.header-container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1.25rem; position: relative; }
+.brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.brand-logo-img { height: 48px; width: auto; flex-shrink: 0; background: var(--mist); border-radius: 4px; padding: 3px; border: 1px solid var(--line); }
+.brand-text { display: flex; flex-direction: column; }
+.brand-name { font: 700 clamp(1.1rem, 2.5vw, 1.8rem)/1.1 "Times New Roman", Tinos, Times, serif; letter-spacing: 0.02em; color: var(--deep); }
+.brand-tag { font-size: 0.7rem; color: #1D4ED8; letter-spacing: 0.03em; margin-top: 0.2rem; font-weight: 600; text-transform: uppercase; }
+
+.mobile-menu-toggle { display: none; background: none; border: none; color: var(--ink); font-size: 1.8rem; cursor: pointer; padding: 0.2rem 0.5rem; line-height: 1; }
+
+.nav-menu ul { display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; align-items: center; }
+.nav-menu a, .dd-label { text-decoration: none; font-weight: 500; padding: 0.4rem 0.6rem; border-radius: 4px; transition: background 0.2s, color 0.2s; color: var(--ink); }
+.nav-menu a:hover, .dd-label:hover { background: var(--mist); color: var(--deep); }
+.nav-menu a.guide-btn { background: var(--amber); color: #FFFFFF; font-weight: 700; }
+.nav-menu a.guide-btn:hover { background: #B45309; }
+.nav-menu a.brochure-btn { border: 1.5px solid var(--deep); color: var(--deep); font-weight: 600; }
+.nav-menu a.brochure-btn:hover { background: var(--deep); color: #FFFFFF; }
+
+/* Dropdown Navigation */
+.dd { position: relative; list-style: none; }
+.dd-label { cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem; background: transparent; border: none; font-family: inherit; font-size: inherit; }
+.dd-menu { display: none; position: absolute; top: 100%; left: 0; min-width: 210px; background: #FFFFFF; padding: 0.4rem; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 120; border: 1px solid var(--line); list-style: none; }
+.dd:hover .dd-menu, .dd:focus-within .dd-menu { display: block; }
+.dd-menu a { display: block; padding: 0.5rem 0.7rem; color: var(--ink); }
+.dd-menu a:hover { background: var(--mist); color: var(--deep); }
+
+/* Buttons & Component Layouts */
+.btn { display: inline-block; background: var(--leaf); color: #FFFFFF; font-weight: 700; text-decoration: none; padding: 0.75rem 1.4rem; border-radius: 6px; border: 0; cursor: pointer; font-size: 0.98rem; font-family: inherit; transition: background 0.2s, transform 0.1s; text-align: center; }
+.btn:hover { background: #047857; }
+.btn.ghost { background: transparent; border: 2px solid var(--deep); color: var(--deep); }
+.btn.ghost:hover { background: var(--deep); color: #FFFFFF; }
+.btn.sm { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+
+/* Hero Section (Steel Slate Gradient) */
+.hero { background: linear-gradient(180deg, #F1F5F9 0%, #FFFFFF 100%); color: var(--ink); padding: 3rem 0 5rem; position: relative; }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: center; }
+.hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--deep); }
+.hero p.lead { font-size: 1.1rem; max-width: 36rem; margin: 1.2rem 0 1.8rem; color: #334155; }
+.hero .cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.wave { position: absolute; left: 0; bottom: -1px; width: 100%; height: 50px; display: block; }
+
+/* Finder & Interactive Components */
+.finder { background: #FFFFFF; color: var(--ink); border-radius: 10px; padding: 1.6rem; box-shadow: 0 12px 30px rgba(37, 99, 235, 0.08); border: 1px solid var(--line); border-top: 4px solid var(--deep); width: 100%; }
+.finder h2 { font-size: 1.35rem; color: var(--deep); }
+.finder label { display: block; font-weight: 600; margin: 1rem 0 0.4rem; font-size: 0.95rem; }
+.finder select { width: 100%; font: inherit; padding: 0.7rem 0.8rem; border: 1.5px solid var(--line); border-radius: 6px; background: #FFFFFF; color: var(--ink); }
+.result { margin-top: 1.1rem; padding: 1rem; background: var(--mist); border-left: 5px solid var(--deep); border-radius: 0 6px 6px 0; min-height: 5.5rem; }
+
+/* Content Sections & Cards */
+section { padding: 4rem 0; }
+h2.title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.015em; color: var(--deep); }
+.intro { max-width: 48rem; margin: 0.8rem 0 2rem; color: #475569; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+.tile { display: block; text-decoration: none; padding: 1.2rem 1.3rem; border: 1.5px solid var(--line); border-top: 4px solid var(--leaf); border-radius: 8px; background: #FFFFFF; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.tile:hover { border-top-color: var(--deep); box-shadow: 0 6px 18px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.tile h3 { font-size: 1.15rem; color: var(--deep); margin-bottom: 0.35rem; }
+.tile p { margin: 0; font-size: 0.93rem; color: #475569; }
+
+/* Brochure Section */
+.brochure-sec { padding: 3rem 0; }
+.brochure-actions { margin: 1.2rem 0; display: flex; gap: 1rem; flex-wrap: wrap; }
+.brochure-viewer { border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--mist); }
+.brochure-viewer object { display: block; width: 100%; height: 75vh; min-height: 400px; }
+.brochure-viewer p { padding: 1.5rem; margin: 0; text-align: center; }
+
+/* Call-to-Action Band & Footer */
+.cta-band { background: #EFF6FF; color: var(--ink); padding: 2.2rem 0; border-top: 3px solid var(--deep); border-bottom: 1px solid var(--line); }
+.cta-band .wrap { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+.cta-band h2 { font-size: 1.4rem; color: var(--deep); }
+.cta-band .cta { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+footer { background: #F1F5F9; color: #475569; padding: 2.5rem 0 1.5rem; font-size: 0.92rem; border-top: 3px solid var(--deep); }
+footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2rem; }
+
+/* OPTIMIZED MOBILE STYLES */
+@media (max-width: 768px) {
+  .wrap { padding: 0 1rem; }
+  section { padding: 2.5rem 0; }
+
+  /* Navigation Overlay */
+  .mobile-menu-toggle { display: block; z-index: 1001; }
+  
+  .nav-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background-color: #FFFFFF;
+    padding: 5rem 1.5rem 2rem 1.5rem;
+    z-index: 1000;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-menu.active { display: flex; flex-direction: column; justify-content: flex-start; }
+  .nav-menu ul { flex-direction: column; align-items: stretch; gap: 0.5rem; width: 100%; }
+  .nav-menu li { width: 100%; }
+  
+  .nav-menu a, .dd-label { 
+    display: block; 
+    width: 100%; 
+    padding: 0.85rem 1rem; 
+    font-size: 1.05rem;
+    border-bottom: 1px solid var(--line); 
+    border-radius: 6px;
+    text-align: left;
+    color: var(--ink);
+  }
+
+  .dd { width: 100%; }
+  .dd-menu { 
+    position: static; 
+    display: none; 
+    background: var(--mist); 
+    padding-left: 0.75rem; 
+    box-shadow: none; 
+    border: none; 
+    margin-top: 0.2rem;
+  }
+  .dd.active .dd-menu { display: block; }
+  .dd-menu a { font-size: 0.95rem; padding: 0.65rem 1rem; }
+
+  /* Content & Layout Adjustments */
+  .top-bar .wrap { flex-direction: column; text-align: center; gap: 0.25rem; }
+  .hero { padding: 2rem 0 3.5rem; }
+  .hero .wrap, footer .f-grid { grid-template-columns: 1fr; gap: 2rem; }
+  
+  .hero .cta, .cta-band .cta, .brochure-actions { display: flex; flex-direction: column; width: 100%; }
+  .btn, .btn.ghost { width: 100%; display: block; margin-bottom: 0.25rem; }
+
+  .brand-logo-img { height: 40px; }
+  .tiles { grid-template-columns: 1fr; }
+  .brochure-viewer object { height: 50vh; min-height: 320px; }
+}
+
+@media (min-width: 769px) {
+  .nav-menu { display: flex !important; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
