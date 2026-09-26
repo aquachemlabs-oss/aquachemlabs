@@ -245,6 +245,39 @@
     }
   });
 </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    const productsDropdown = document.getElementById('productsDropdown');
+
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener('click', () => {
+        const isActive = navMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open', isActive);
+        menuToggle.setAttribute('aria-expanded', isActive);
+        menuToggle.textContent = isActive ? '✕' : '☰';
+      });
+    }
+
+    if (productsDropdown) {
+      const ddLabel = productsDropdown.querySelector('.dd-label');
+      
+      // Toggle dropdown on click
+      ddLabel.addEventListener('click', (e) => {
+        e.stopPropagation();
+        productsDropdown.classList.toggle('active');
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!productsDropdown.contains(e.target)) {
+          productsDropdown.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
 <script src="site.js" defer></script>
 <script src="gbp.js" defer></script>
 </body>
