@@ -145,8 +145,7 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
     text-align: left;
     color: var(--ink);
   }
-
-/* Dropdown Container */
+/* Dropdown Navigation Container */
 .dd { 
   position: relative; 
   list-style: none; 
@@ -162,12 +161,12 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
   border: none; 
   font-family: inherit; 
   font-size: inherit; 
-  color: var(--ink);
+  color: var(--ink); 
 }
 
-/* Hidden by default */
+/* Base Dropdown Menu (Hidden Default) */
 .dd-menu { 
-  display: none; 
+  display: none !important; /* Forces dropdown hidden by default */
   position: absolute; 
   top: 100%; 
   left: 0; 
@@ -179,13 +178,14 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
   z-index: 120; 
   border: 1px solid var(--line); 
   list-style: none; 
+  margin: 0;
 }
 
-/* Expand on Hover, Focus, or Class Toggle */
-.dd:hover .dd-menu, 
-.dd:focus-within .dd-menu,
-.dd.active .dd-menu { 
-  display: block; 
+/* Reveal Menu on Hover, Focus, or Class Toggle */
+.dd:hover > .dd-menu, 
+.dd:focus-within > .dd-menu,
+.dd.active > .dd-menu { 
+  display: block !important; 
 }
 
 .dd-menu a { 
@@ -199,9 +199,17 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
   background: var(--mist); 
   color: var(--deep); 
 }
-  .dd.active .dd-menu { display: block; }
-  .dd-menu a { font-size: 0.95rem; padding: 0.65rem 1rem; }
 
+/* Ensure mobile styles don't force display block on desktop */
+@media (max-width: 768px) {
+  .dd-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: var(--mist);
+    padding-left: 0.75rem;
+    margin-top: 0.2rem;
+  }
   /* Content & Layout Adjustments */
   .top-bar .wrap { flex-direction: column; text-align: center; gap: 0.25rem; }
   .hero { padding: 2rem 0 3.5rem; }
