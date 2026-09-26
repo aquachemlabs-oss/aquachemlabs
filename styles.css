@@ -34,7 +34,7 @@ a { color: inherit; text-decoration: none; }
 .badge-iso { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--deep); font-weight: 600; }
 .badge-iso span { background: #FFFFFF; padding: 0.15rem 0.45rem; border-radius: 3px; border: 1px solid var(--deep); color: var(--deep); font-size: 0.75rem; }
 
-/* Header & Navigation (UNFROZEN / STATIC / LIGHT) */
+/* Header & Navigation */
 header.site-header { background: #FFFFFF; color: var(--ink); position: relative; z-index: 100; border-bottom: 2px solid var(--line); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 .header-container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1.25rem; position: relative; }
 .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
@@ -53,12 +53,33 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 .nav-menu a.brochure-btn { border: 1.5px solid var(--deep); color: var(--deep); font-weight: 600; }
 .nav-menu a.brochure-btn:hover { background: var(--deep); color: #FFFFFF; }
 
-/* Dropdown Navigation */
+/* Global Dropdown Rules */
 .dd { position: relative; list-style: none; }
-.dd-label { cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem; background: transparent; border: none; font-family: inherit; font-size: inherit; }
-.dd-menu { display: none; position: absolute; top: 100%; left: 0; min-width: 210px; background: #FFFFFF; padding: 0.4rem; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 120; border: 1px solid var(--line); list-style: none; }
-.dd:hover .dd-menu, .dd:focus-within .dd-menu { display: block; }
-.dd-menu a { display: block; padding: 0.5rem 0.7rem; color: var(--ink); }
+.dd-label { cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem; background: transparent; border: none; font-family: inherit; font-size: inherit; color: var(--ink); }
+
+.dd-menu { 
+  display: none !important; 
+  position: absolute; 
+  top: 100%; 
+  left: 0; 
+  min-width: 210px; 
+  background: #FFFFFF; 
+  padding: 0.4rem; 
+  border-radius: 6px; 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12); 
+  z-index: 120; 
+  border: 1px solid var(--line); 
+  list-style: none; 
+  margin: 0;
+}
+
+.dd:hover > .dd-menu, 
+.dd:focus-within > .dd-menu,
+.dd.active > .dd-menu { 
+  display: block !important; 
+}
+
+.dd-menu a { display: block; padding: 0.5rem 0.7rem; color: var(--ink); text-decoration: none; }
 .dd-menu a:hover { background: var(--mist); color: var(--deep); }
 
 /* Buttons & Component Layouts */
@@ -68,7 +89,7 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 .btn.ghost:hover { background: var(--deep); color: #FFFFFF; }
 .btn.sm { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
 
-/* Hero Section (Steel Slate Gradient) */
+/* Hero Section */
 .hero { background: linear-gradient(180deg, #F1F5F9 0%, #FFFFFF 100%); color: var(--ink); padding: 3rem 0 5rem; position: relative; }
 .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: center; }
 .hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--deep); }
@@ -113,7 +134,7 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
   .wrap { padding: 0 1rem; }
   section { padding: 2.5rem 0; }
 
-  /* Navigation Overlay */
+  /* Mobile Navigation Overlay */
   .mobile-menu-toggle { display: block; z-index: 1001; }
   
   .nav-menu {
@@ -145,71 +166,18 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
     text-align: left;
     color: var(--ink);
   }
-/* Dropdown Navigation Container */
-.dd { 
-  position: relative; 
-  list-style: none; 
-}
 
-.dd-label { 
-  cursor: pointer; 
-  font-weight: 500; 
-  display: inline-flex; 
-  align-items: center; 
-  gap: 0.25rem; 
-  background: transparent; 
-  border: none; 
-  font-family: inherit; 
-  font-size: inherit; 
-  color: var(--ink); 
-}
-
-/* Base Dropdown Menu (Hidden Default) */
-.dd-menu { 
-  display: none !important; /* Forces dropdown hidden by default */
-  position: absolute; 
-  top: 100%; 
-  left: 0; 
-  min-width: 210px; 
-  background: #FFFFFF; 
-  padding: 0.4rem; 
-  border-radius: 6px; 
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12); 
-  z-index: 120; 
-  border: 1px solid var(--line); 
-  list-style: none; 
-  margin: 0;
-}
-
-/* Reveal Menu on Hover, Focus, or Class Toggle */
-.dd:hover > .dd-menu, 
-.dd:focus-within > .dd-menu,
-.dd.active > .dd-menu { 
-  display: block !important; 
-}
-
-.dd-menu a { 
-  display: block; 
-  padding: 0.5rem 0.7rem; 
-  color: var(--ink); 
-  text-decoration: none;
-}
-
-.dd-menu a:hover { 
-  background: var(--mist); 
-  color: var(--deep); 
-}
-
-/* Ensure mobile styles don't force display block on desktop */
-@media (max-width: 768px) {
-  .dd-menu {
-    position: static;
-    box-shadow: none;
-    border: none;
-    background: var(--mist);
-    padding-left: 0.75rem;
-    margin-top: 0.2rem;
+  /* Mobile Dropdown Overrides */
+  .dd { width: 100%; }
+  .dd-menu { 
+    position: static; 
+    box-shadow: none; 
+    border: none; 
+    background: var(--mist); 
+    padding-left: 0.75rem; 
+    margin-top: 0.2rem; 
   }
+
   /* Content & Layout Adjustments */
   .top-bar .wrap { flex-direction: column; text-align: center; gap: 0.25rem; }
   .hero { padding: 2rem 0 3.5rem; }
