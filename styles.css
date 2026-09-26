@@ -170,5 +170,28 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
   .tiles { grid-template-columns: 1fr; }
   .brochure-viewer object { height: 60vh; min-height: 350px; }
 }
+/* Responsive adjustments for screens under 768px */
+@media (max-width: 768px) {
+  /* Top Bar Container */
+  .top-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    padding: 8px;
+  }
 
+  /* ISO Badges */
+  .iso-badge, .cert-badge {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  /* Tagline text */
+  .tagline-text {
+    font-size: 12px;
+    white-space: normal; /* Allows clean line breaks if needed */
+  }
+}
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
