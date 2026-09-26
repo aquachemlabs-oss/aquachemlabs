@@ -45,44 +45,46 @@
  </div>
 </div>
 
-<header>
- <div class="nav">
-  <a class="brand" href="index.html">
-   <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
-   <div class="brand-text">
-    <span class="brand-name">AQUA CHEM LABS (ACL)</span>
-    <span class="brand-tag">Water Treatment Chemicals &amp; Plants</span>
-   </div>
-  </a>
+<header class="site-header">
+  <div class="logo-container">
+    <img src="logo.png" alt="Aqua Chem Labs Logo" class="logo">
+    <div class="brand-text">
+      <h1>AQUA CHEM LABS (ACL)</h1>
+      <p>WATER TREATMENT CHEMICALS & PLANTS</p>
+    </div>
+  </div>
 
-  <!-- Full Screen Mobile Toggle Button -->
-  <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle Navigation Options">☰</button>
+  <!-- Hamburger / 3-Dots Button -->
+  <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+    ☰ <!-- Or use SVG / Icon for 3 dots ⋮ -->
+  </button>
 
-  <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
-   <ul>
-    <li><a href="index.html" class="nav-link active-link">Home</a></li>
-    <li><a href="plant-division.html" class="nav-link">About Us</a></li>
-    <li><a href="services.html" class="nav-link">Services</a></li>
-    <li class="dd" id="productsDropdown">
-     <span class="dd-label" tabindex="0">Products &#9662;</span>
-     <div class="dd-menu">
-      <a href="products.html" class="nav-link">All Products</a>
-      <a href="ro-plant.html" class="nav-link">Industrial RO Plant</a>
-      <a href="chemicals.html" class="nav-link">Chemicals</a>
-      <a href="plant-spares.html" class="nav-link">Plant Spares</a>
-      <a href="ibr-valves.html" class="nav-link">IBR Valves</a>
-      <a href="strainers-kits.html" class="nav-link">Strainers &amp; Kits</a>
-      <a href="boiler-spares.html" class="nav-link">Boiler Spares</a>
-     </div>
-    </li>
-    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-    <li><a href="reviews.html" class="nav-link">Reviews</a></li>
-    <li><a href="plant-care-guide.html" class="nav-link guide-btn">Plant Care Guide</a></li>
-    <li><a href="ACL_2025.pdf" class="nav-link brochure-btn" target="_blank" rel="noopener">View Brochure</a></li>
-    <li><a href="contact.html" class="nav-link">Contact</a></li>
-   </ul>
+  <!-- Navigation Menu Container -->
+  <nav class="nav-menu" id="navMenu">
+    <a href="#home">Home</a>
+    <a href="#about">About Us</a>
+    <a href="#services">Services</a>
+    
+    <!-- Products Dropdown -->
+    <div class="dropdown">
+      <button class="dropdown-btn">Products ▾</button>
+      <div class="dropdown-content">
+        <a href="#all-products">All Products</a>
+        <a href="#ro-plant">Industrial RO Plant</a>
+        <a href="#chemicals">Chemicals</a>
+        <a href="#plant-spares">Plant Spares</a>
+        <a href="#ibr-valves">IBR Valves</a>
+        <a href="#strainers">Strainers & Kits</a>
+        <a href="#boiler-spares">Boiler Spares</a>
+      </div>
+    </div>
+
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#guide" class="btn-yellow">Plant Care Guide</a>
+    <a href="#brochure" class="btn-outline">View Brochure</a>
+    <a href="#contact">Contact</a>
   </nav>
- </div>
 </header>
 
 <main>
