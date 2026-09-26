@@ -1,9 +1,11 @@
 :root {
-  --deep: #03363d;       /* Base Ocean Teal from logo */
-  --aqua: #00A3E0;       /* Water Drop Cyan Blue */
-  --leaf: #70B236;       /* Vibrant Leaf Green */
-  --mist: #EEF6F6;       /* Soft Light Tint */
-  --ink: #10262B;        /* Dark Slate Text */
+  --deep: #083344;       /* Deep Cyan/Dark Teal */
+  --aqua: #06b6d4;       /* Vibrant Cyan Accent */
+  --leaf: #10b981;       /* Mint Green CTA Accent */
+  --mist: #ecfeff;       /* Soft Cyan Tint */
+  --ink: #164e63;        /* Dark Cyan/Teal Body Text */
+  --light-bg: #ffffff;   /* Pure White Background */
+  --line: #cffaff;       /* Border Color */
   --amber: #70B236;      
   --line: #C9DDE0;       
   --card-bg: #ffffff;
