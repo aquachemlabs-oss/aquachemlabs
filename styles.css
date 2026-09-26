@@ -146,16 +146,59 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
     color: var(--ink);
   }
 
-  .dd { width: 100%; }
-  .dd-menu { 
-    position: static; 
-    display: none; 
-    background: var(--mist); 
-    padding-left: 0.75rem; 
-    box-shadow: none; 
-    border: none; 
-    margin-top: 0.2rem;
-  }
+/* Dropdown Container */
+.dd { 
+  position: relative; 
+  list-style: none; 
+}
+
+.dd-label { 
+  cursor: pointer; 
+  font-weight: 500; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 0.25rem; 
+  background: transparent; 
+  border: none; 
+  font-family: inherit; 
+  font-size: inherit; 
+  color: var(--ink);
+}
+
+/* Hidden by default */
+.dd-menu { 
+  display: none; 
+  position: absolute; 
+  top: 100%; 
+  left: 0; 
+  min-width: 210px; 
+  background: #FFFFFF; 
+  padding: 0.4rem; 
+  border-radius: 6px; 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12); 
+  z-index: 120; 
+  border: 1px solid var(--line); 
+  list-style: none; 
+}
+
+/* Expand on Hover, Focus, or Class Toggle */
+.dd:hover .dd-menu, 
+.dd:focus-within .dd-menu,
+.dd.active .dd-menu { 
+  display: block; 
+}
+
+.dd-menu a { 
+  display: block; 
+  padding: 0.5rem 0.7rem; 
+  color: var(--ink); 
+  text-decoration: none;
+}
+
+.dd-menu a:hover { 
+  background: var(--mist); 
+  color: var(--deep); 
+}
   .dd.active .dd-menu { display: block; }
   .dd-menu a { font-size: 0.95rem; padding: 0.65rem 1rem; }
 
