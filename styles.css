@@ -39,7 +39,7 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 .header-container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1.25rem; position: relative; }
 .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
 .brand-logo-img { height: 48px; width: auto; flex-shrink: 0; background: var(--mist); border-radius: 4px; padding: 3px; border: 1px solid var(--line); }
-.brand-text { display: flex; flex-direction: column; }
+.brand-text { display: flex; flex-direction: column; white-space: nowrap; } /* Added white-space: nowrap to unwrap the text */
 .brand-name { font: 700 clamp(1.1rem, 2.5vw, 1.8rem)/1.1 "Times New Roman", Tinos, Times, serif; letter-spacing: 0.02em; color: var(--deep); }
 .brand-tag { font-size: 0.7rem; color: #1D4ED8; letter-spacing: 0.03em; margin-top: 0.2rem; font-weight: 600; text-transform: uppercase; }
 
@@ -58,7 +58,7 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 .dd-label { cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem; background: transparent; border: none; font-family: inherit; font-size: inherit; color: var(--ink); }
 
 .dd-menu { 
-  display: none !important; 
+  display: none !important; /* Hidden by default */
   position: absolute; 
   top: 100%; 
   left: 0; 
@@ -73,6 +73,7 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
   margin: 0;
 }
 
+/* Shown on hover or active (click) */
 .dd:hover > .dd-menu, 
 .dd:focus-within > .dd-menu,
 .dd.active > .dd-menu { 
