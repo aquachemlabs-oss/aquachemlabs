@@ -58,6 +58,7 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 .nav-menu a.guide-btn:hover { background: var(--leaf-dark); }
 .nav-menu a.brochure-btn { border: 1.5px solid var(--deep); color: var(--deep); font-weight: 600; white-space: nowrap; }
 .nav-menu a.brochure-btn:hover { background: var(--deep); color: #FFFFFF; }
+.nav-menu a[aria-current="page"]:not(.guide-btn):not(.brochure-btn), .dd-label.is-current { color: var(--deep); background: var(--mist); font-weight: 600; }
 
 /* Global Dropdown Rules */
 .dd { position: relative; list-style: none; }

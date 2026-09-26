@@ -54,19 +54,50 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
   <div>Quality is our priority &bull; Pure Water | Sustainable Tomorrow</div>
  </div>
 </div>
-<header>
- <div class="white*space: nowrap nav">
-  <a class="brand" href="index.html">
-   <!-- Instruction: Save the isolated drop logo from your letterhead as 'logo.png' in the same folder -->
-   <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
-   <div class="brand-text">
-    <!-- Updated to match letterhead typography -->
-    <span class="brand-name">AQUA CHEM LABS (ACL)</span>
-    <span class="brand-tag">Water Treatment Chemicals &amp; Plants</span>
-   </div>
-  </a>
-  <nav aria-label="Main"><ul><li><a href="index.html" class="nav-link ">Home</a></li><li><a href="plant-division.html" class="nav-link ">About Us</a></li><li><a href="services.html" class="nav-link ">Services</a></li><li class="dd"><span class="dd-label" tabindex="0">Products &#9662;</span><div class="dd-menu"><a href="products.html" class="nav-link ">All Products</a><a href="ro-plant.html" class="nav-link ">Industrial RO Plant</a><a href="chemicals.html" class="nav-link ">Chemicals</a><a href="plant-spares.html" class="nav-link ">Plant Spares</a><a href="ibr-valves.html" class="nav-link ">IBR Valves</a><a href="strainers-kits.html" class="nav-link ">Strainers & Kits</a><a href="boiler-spares.html" class="nav-link ">Boiler Spares</a></div></li><li><a href="gallery.html" class="nav-link ">Gallery</a></li><li><a href="reviews.html" class="nav-link ">Reviews</a></li><li><a href="plant-care-guide.html" class="nav-link guide-btn">Plant Care Guide</a></li><li><a href="ACL_2025.pdf" class="nav-link brochure-btn" target="_blank" rel="noopener">View Brochure</a></li><li><a href="contact.html" class="nav-link ">Contact</a></li></ul></nav>
- </div>
+<header class="site-header">
+  <div class="wrap header-container">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
+      <div class="brand-text">
+        <span class="brand-name">AQUA CHEM LABS (ACL)</span>
+        <span class="brand-tag">WATER TREATMENT CHEMICALS & PLANTS</span>
+      </div>
+    </a>
+
+    <!-- Hamburger Toggle Button -->
+    <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      ☰
+    </button>
+
+    <!-- Navigation Menu Container -->
+    <nav class="nav-menu" id="navMenu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="plant-division.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        
+        <!-- Products Dropdown -->
+        <li class="dd" id="productsDropdown">
+          <button class="dd-label is-current" type="button">Products ▾</button>
+          <ul class="dd-menu">
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="ro-plant.html" aria-current="page">Industrial RO Plant</a></li>
+            <li><a href="chemicals.html">Chemicals</a></li>
+            <li><a href="plant-spares.html">Plant Spares</a></li>
+            <li><a href="ibr-valves.html">IBR Valves</a></li>
+            <li><a href="strainers-kits.html">Strainers & Kits</a></li>
+            <li><a href="boiler-spares.html">Boiler Spares</a></li>
+          </ul>
+        </li>
+
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="plant-care-guide.html" class="guide-btn">Plant Care Guide</a></li>
+        <li><a href="ACL_2025.pdf" target="_blank" rel="noopener" class="brochure-btn">View Brochure</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 <main>
 <div class="ro-hero"><div class="wrap"><p class="kick">Aqua Chem Labs &bull; Industrial RO Plant Design &bull; Operation &bull; Maintenance</p><h1>Industrial RO Plant</h1><p class="kick">Design &bull; Problems &bull; Solutions &bull; Long-Service-Life Engineering &bull; Uninterrupted Operation</p><p>Professional water-treatment solutions for industrial RO systems. Engineered around actual feed-water chemistry, required product-water quality, operating load and maintainability.</p><ol class="flow"><li>Raw Water</li><li>Pretreatment</li><li>Cartridge Filter</li><li>High-Pressure Pump</li><li>RO Membranes</li><li>Permeate</li></ol><p class="small">Typical industrial RO flow path &mdash; exact configuration is finalized from site water analysis and required product-water quality.</p><div class="cta"><a class="btn" href="Aqua_Chem_Labs_Raisen_ro.pdf" download>Download RO Guide (PDF)</a><a class="btn ghost" href="contact.html">Get a Quote</a><a class="btn ghost" href="tel:+917974999929">Call +91 79749 99929</a></div></div></div><nav class="ro-nav" aria-label="On this page"><div class="wrap"><a href="#profile">Plant profile</a><a href="#design">Design</a><a href="#pretreatment">Pretreatment</a><a href="#problems">Problems &amp; solutions</a><a href="#scaling">Scaling &amp; fouling</a><a href="#service-life">Service life</a><a href="#services">Services</a><a href="#troubleshooting">Troubleshooting</a><a href="#execution">Project execution</a><a href="#support">Support partner</a></div></nav><section class="ro-sec" id="profile"><div class="wrap"><h2>1. Aqua Chem Labs — Industrial RO Plant Profile</h2><figure class="side-photo"><img src="images/plants/ro.jpg" alt="Industrial RO plant with membrane pressure vessels on a skid" loading="lazy"><figcaption>Industrial RO plant, Reverse Osmosis</figcaption></figure><p>Aqua Chem Labs provides industrial water-treatment plant design, engineering support, chemical programs, commissioning, operation and maintenance services. For RO applications, our design philosophy is to protect the membrane system by controlling the conditions that cause scaling, fouling, corrosion and premature component deterioration.</p><h3>Our RO plant design philosophy</h3><ul><li><strong>Design from water analysis:</strong> raw-water chemistry and variability are considered before selecting pretreatment and RO operating conditions.</li><li><strong>Protection before production:</strong> pretreatment is designed to reduce the load reaching the RO membranes rather than relying on membrane cleaning alone.</li><li><strong>Maintainability:</strong> access, isolation, filtration, chemical dosing, instrumentation and cleaning provisions are considered so maintenance can be performed systematically.</li><li><strong>Stable operation:</strong> operating limits, alarms, interlocks and monitoring points are planned to reduce avoidable interruptions.</li><li><strong>Long-service-life focus:</strong> compatible materials, correct pretreatment, controlled recovery, appropriate chemical dosing and preventive maintenance help extend component life. Actual service life depends on water quality, operation and maintenance.</li></ul><h3>Typical process flow</h3><ol class="flow"><li>Raw Water Tank</li><li>Multi-Grade / Media Filter</li><li>Activated Carbon</li><li>Softener / Antiscalant</li><li>RO</li><li>Product Water Storage / Distribution</li></ol><p>Reject / Concentrate leaves the RO stage as a separate stream.</p><h3>Typical project scope</h3><ul><li>Site survey, raw-water and process-water assessment.</li><li>RO capacity and recovery selection based on required production and feed conditions.</li><li>Pretreatment, dosing and filtration selection.</li><li>RO skid, membrane array, high-pressure pumping and instrumentation planning.</li><li>Commissioning, performance testing, operator training and preventive-maintenance planning.</li><li>Supply of RO antiscalants, cleaners, filters, resins and other treatment consumables as applicable.</li></ul></div></section>
@@ -104,6 +135,6 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
   </div>
  </div>
 </footer>
-<script src="site.js"></script>
+<script src="site.js" defer></script>
 </body>
 </html>

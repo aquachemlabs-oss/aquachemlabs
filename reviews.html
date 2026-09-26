@@ -46,19 +46,50 @@
  </div>
 </div>
 
-<header>
- <div class="white*space: nowrap nav">
-  <a class="brand" href="index.html">
-   <!-- Instruction: Save the isolated drop logo from your letterhead as 'logo.png' in the same folder -->
-   <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
-   <div class="brand-text">
-    <!-- Updated to match letterhead typography -->
-    <span class="brand-name">AQUA CHEM LABS (ACL)</span>
-    <span class="brand-tag">Water Treatment Chemicals &amp; Plants</span>
-   </div>
-  </a>
-  <nav aria-label="Main"><ul><li><a href="index.html" class="nav-link ">Home</a></li><li><a href="plant-division.html" class="nav-link ">About Us</a></li><li><a href="services.html" class="nav-link ">Services</a></li><li class="dd"><span class="dd-label" tabindex="0">Products &#9662;</span><div class="dd-menu"><a href="products.html" class="nav-link ">All Products</a><a href="chemicals.html" class="nav-link ">Chemicals</a><a href="plant-spares.html" class="nav-link ">Plant Spares</a><a href="ibr-valves.html" class="nav-link ">IBR Valves</a><a href="strainers-kits.html" class="nav-link ">Strainers & Kits</a><a href="boiler-spares.html" class="nav-link ">Boiler Spares</a></div></li><li><a href="gallery.html" class="nav-link ">Gallery</a></li><li><a href="reviews.html" class="nav-link  active-link">Reviews</a></li><li><a href="plant-care-guide.html" class="nav-link guide-btn">Plant Care Guide</a></li><li><a href="brochure.html" class="nav-link brochure-btn">View Brochure</a></li><li><a href="contact.html" class="nav-link ">Contact</a></li></ul></nav>
- </div>
+<header class="site-header">
+  <div class="wrap header-container">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
+      <div class="brand-text">
+        <span class="brand-name">AQUA CHEM LABS (ACL)</span>
+        <span class="brand-tag">WATER TREATMENT CHEMICALS & PLANTS</span>
+      </div>
+    </a>
+
+    <!-- Hamburger Toggle Button -->
+    <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      ☰
+    </button>
+
+    <!-- Navigation Menu Container -->
+    <nav class="nav-menu" id="navMenu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="plant-division.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        
+        <!-- Products Dropdown -->
+        <li class="dd" id="productsDropdown">
+          <button class="dd-label" type="button">Products ▾</button>
+          <ul class="dd-menu">
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="ro-plant.html">Industrial RO Plant</a></li>
+            <li><a href="chemicals.html">Chemicals</a></li>
+            <li><a href="plant-spares.html">Plant Spares</a></li>
+            <li><a href="ibr-valves.html">IBR Valves</a></li>
+            <li><a href="strainers-kits.html">Strainers & Kits</a></li>
+            <li><a href="boiler-spares.html">Boiler Spares</a></li>
+          </ul>
+        </li>
+
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="reviews.html" aria-current="page">Reviews</a></li>
+        <li><a href="plant-care-guide.html" class="guide-btn">Plant Care Guide</a></li>
+        <li><a href="ACL_2025.pdf" target="_blank" rel="noopener" class="brochure-btn">View Brochure</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 <main>
 <div class="guide-header"><div class="wrap"><h1 style="font-size:clamp(2rem,4vw,3rem)">Google Reviews &amp; Business Profile</h1><p>What our customers say about Aqua Chem Labs, plus our Google Business Profile details, hours, photos and location.</p></div></div>
@@ -131,7 +162,7 @@
   </div>
  </div>
 </footer>
-<script src="site.js"></script>
+<script src="site.js" defer></script>
 <script src="gbp.js" defer></script>
 </body>
 </html>
