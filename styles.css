@@ -232,3 +232,19 @@ footer .f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-
 .gbp-map{width:100%;height:380px;border:0;border-radius:10px;display:block}
 .gbp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:1.5rem}
 @media (max-width:900px){.gbp-grid{grid-template-columns:1fr}}
+/* Mobile View Fixes */
+@media (max-width: 768px) {
+  header {
+    /* 1. Reduce padding/height */
+    padding: 10px 15px; 
+    
+    /* 2. Optional: Change to static or relative so it scrolls away with the page */
+    position: relative; 
+  }
+
+  /* Reduce logo size so it doesn't push the header down */
+  header .logo {
+    max-height: 40px;
+    width: auto;
+  }
+}
