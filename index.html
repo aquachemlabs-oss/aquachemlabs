@@ -31,82 +31,8 @@
 </script>
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="stylesheet" href="styles.css">
-<style>
-  /* =========================================================
-   LOGO-MATCHED COLOR SCHEME
-   ========================================================= */
-
-/* 1. Header & Page Background */
-header, 
-.site-header, 
-body {
-  background-color: #03363d !important; /* Base Dark Ocean Teal */
-}
-
-/* 2. Main Title & Subtitle Colors */
-.brand-text h1, 
-.logo-title, 
-.hero-section h1 {
-  color: #ffffff !important; /* Pure White */
-}
-
-.brand-text p, 
-.logo-subtitle {
-  color: #00A3E0 !important; /* Water Drop Cyan Blue */
-}
-
-/* 3. Navigation Links */
-.nav-menu a {
-  color: #ffffff !important;
-}
-
-.nav-menu a:hover {
-  color: #70B236 !important; /* Logo Leaf Green on Hover */
-}
-
-/* 4. Top Badges (ISO & Cert Boxes) */
-.iso-badge, 
-.cert-badge {
-  border: 1px solid #00A3E0 !important; /* Blue Border */
-  color: #00A3E0 !important;            /* Blue Text */
-  background-color: rgba(0, 163, 224, 0.1) !important;
-}
-
-/* 5. Primary Call-to-Action Button ("Plant Care Guide") */
-.btn-yellow, 
-.plant-care-btn {
-  background-color: #70B236 !important; /* Matches Green Leaf from Logo */
-  color: #ffffff !important;
-  border: none !important;
-  font-weight: bold;
-}
-
-.btn-yellow:hover {
-  background-color: #5d972c !important; /* Slightly Darker Green for Hover */
-}
-
-/* 6. Secondary Call-to-Action Button ("View Brochure") */
-.btn-outline, 
-.brochure-btn {
-  border: 1.5px solid #00A3E0 !important; /* Matches Blue Drop from Logo */
-  color: #00A3E0 !important;
-  background-color: transparent !important;
-}
-
-.btn-outline:hover {
-  background-color: #00A3E0 !important;
-  color: #ffffff !important;
-}
-  <link rel="stylesheet" href="style.css">
-.brochure-sec{padding:3rem 0}
-.brochure-actions{margin:1.2rem 0}
-.brochure-viewer{border:1px solid #cfe0e8;border-radius:8px;overflow:hidden;background:#f4f8fa}
-.brochure-viewer object{display:block;width:100%;height:80vh;min-height:420px}
-.brochure-viewer p{padding:1.5rem;margin:0;text-align:center}
-</style>
 </head>
 <body>
-
 
 <!-- Top ISO & Quality Header -->
 <div class="top-bar">
@@ -120,21 +46,47 @@ body {
 </div>
 
 <header>
- <div class="white*space: nowrap nav">
+ <div class="nav">
   <a class="brand" href="index.html">
-   <!-- Instruction: Save the isolated drop logo from your letterhead as 'logo.png' in the same folder -->
    <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
    <div class="brand-text">
-    <!-- Updated to match letterhead typography -->
     <span class="brand-name">AQUA CHEM LABS (ACL)</span>
     <span class="brand-tag">Water Treatment Chemicals &amp; Plants</span>
    </div>
   </a>
-  <nav aria-label="Main"><ul><li><a href="index.html" class="nav-link  active-link">Home</a></li><li><a href="plant-division.html" class="nav-link ">About Us</a></li><li><a href="services.html" class="nav-link ">Services</a></li><li class="dd"><span class="dd-label" tabindex="0">Products &#9662;</span><div class="dd-menu"><a href="products.html" class="nav-link ">All Products</a><a href="ro-plant.html" class="nav-link ">Industrial RO Plant</a><a href="chemicals.html" class="nav-link ">Chemicals</a><a href="plant-spares.html" class="nav-link ">Plant Spares</a><a href="ibr-valves.html" class="nav-link ">IBR Valves</a><a href="strainers-kits.html" class="nav-link ">Strainers & Kits</a><a href="boiler-spares.html" class="nav-link ">Boiler Spares</a></div></li><li><a href="gallery.html" class="nav-link ">Gallery</a></li><li><a href="reviews.html" class="nav-link ">Reviews</a></li><li><a href="plant-care-guide.html" class="nav-link guide-btn">Plant Care Guide</a></li><li><a href="ACL_2025.pdf" class="nav-link brochure-btn" target="_blank" rel="noopener">View Brochure</a></li><li><a href="contact.html" class="nav-link ">Contact</a></li></ul></nav>
+
+  <!-- Full Screen Mobile Toggle Button -->
+  <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle Navigation Options">☰</button>
+
+  <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+   <ul>
+    <li><a href="index.html" class="nav-link active-link">Home</a></li>
+    <li><a href="plant-division.html" class="nav-link">About Us</a></li>
+    <li><a href="services.html" class="nav-link">Services</a></li>
+    <li class="dd" id="productsDropdown">
+     <span class="dd-label" tabindex="0">Products &#9662;</span>
+     <div class="dd-menu">
+      <a href="products.html" class="nav-link">All Products</a>
+      <a href="ro-plant.html" class="nav-link">Industrial RO Plant</a>
+      <a href="chemicals.html" class="nav-link">Chemicals</a>
+      <a href="plant-spares.html" class="nav-link">Plant Spares</a>
+      <a href="ibr-valves.html" class="nav-link">IBR Valves</a>
+      <a href="strainers-kits.html" class="nav-link">Strainers &amp; Kits</a>
+      <a href="boiler-spares.html" class="nav-link">Boiler Spares</a>
+     </div>
+    </li>
+    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+    <li><a href="reviews.html" class="nav-link">Reviews</a></li>
+    <li><a href="plant-care-guide.html" class="nav-link guide-btn">Plant Care Guide</a></li>
+    <li><a href="ACL_2025.pdf" class="nav-link brochure-btn" target="_blank" rel="noopener">View Brochure</a></li>
+    <li><a href="contact.html" class="nav-link">Contact</a></li>
+   </ul>
+  </nav>
  </div>
 </header>
+
 <main>
-<div class="hero">
+  <div class="hero">
    <div class="wrap">
     <div>
      <h1>Clean, treated water for your plant, boiler and building.</h1>
@@ -169,19 +121,86 @@ body {
    <svg class="wave" viewBox="0 0 1200 50" preserveAspectRatio="none" aria-hidden="true"><path d="M0 25 Q150 0 300 25 T600 25 T900 25 T1200 25 V50 H0Z" fill="#fff"/></svg>
   </div>
 
-  <section class="explore"><div class="wrap"><h2 class="title">Explore Aqua Chem Labs</h2><p class="intro">Everything from our brochure, one page per section.</p><div class="tiles"><a class="tile" href="plant-division.html"><h3>Plant Division</h3><p>About us, our plant range, quality focus and mission.</p></a><a class="tile" href="services.html"><h3>Our Services</h3><p>Descaling, erection, commissioning, maintenance and water testing.</p></a><a class="tile" href="products.html"><h3>All Products</h3><p>Overview of the chemicals, plant equipment, membranes, valves and spares we supply.</p></a><a class="tile" href="ro-plant.html"><h3>Industrial RO Plant</h3><p>RO plant design, pretreatment, troubleshooting, service life and support.</p></a><a class="tile" href="chemicals.html"><h3>Chemicals</h3><p>Boiler, cooling tower, waste water and RO treatment chemicals.</p></a><a class="tile" href="plant-spares.html"><h3>Plant Spares</h3><p>Spares for cooling towers, waste water, RO and softener plants.</p></a><a class="tile" href="ibr-valves.html"><h3>IBR Valves</h3><p>Ball, butterfly, globe, gate and diaphragm valves.</p></a><a class="tile" href="strainers-kits.html"><h3>Strainers & Kits</h3><p>Strainers, water testing kits, sensors and meters.</p></a><a class="tile" href="boiler-spares.html"><h3>Boiler Spares</h3><p>Boiler key parts, major parts and other spare parts.</p></a><a class="tile" href="gallery.html"><h3>Facilities & Installations</h3><p>Our manufacturing facility and recent industrial water treatment projects.</p></a><a class="tile" href="plant-care-guide.html"><h3>Plant Care Guide</h3><p>Operating guidelines, troubleshooting and monitoring checks for industrial water systems.</p></a><a class="tile" href="#brochure"><h3>Brochure Aqua Chem Labs (ACL) 2025</h3><p>View or download the Aqua Chem Labs company brochure.</p></a><a class="tile" href="contact.html"><h3>Contact Us</h3><p>Reach our technical team in Raisen, Madhya Pradesh for quotes and support.</p></a></div></div></section><section id="google-reviews"><div class="wrap"><h2 class="title">What our customers say</h2><div data-gbp="summary" style="margin-top:1rem"><a class="gbp-summary" href="https://www.google.com/maps?cid=10116669877027612464" target="_blank" rel="noopener">Read our reviews on Google</a></div><div data-gbp="reviews" data-limit="3"></div><div class="gbp-actions"><a class="btn" href="reviews.html">All reviews &amp; business profile</a></div></div></section><section class="brochure-sec" id="brochure"><div class="wrap"><h2 class="title">Brochure Aqua Chem Labs (ACL) 2025</h2><p class="intro">Read our company brochure online or download a copy to share.</p><div class="cta brochure-actions"><a class="btn" href="ACL_2025.pdf" target="_blank" rel="noopener">View Brochure</a><a class="btn ghost" href="ACL_2025.pdf" download="Aqua-Chem-Labs-Brochure-2025.pdf">Download Brochure</a></div><div class="brochure-viewer"><object data="ACL_2025.pdf#view=FitH" type="application/pdf" aria-label="Aqua Chem Labs (ACL) brochure 2025"><p>Your browser can't show the brochure here. <a href="ACL_2025.pdf" target="_blank" rel="noopener">Open the PDF</a> or <a href="ACL_2025.pdf" download="Aqua-Chem-Labs-Brochure-2025.pdf">download it</a>.</p></object></div></div></section><div class="cta-band"><div class="wrap"><h2>Need a quote or technical advice?</h2><div class="cta"><a class="btn" href="https://wa.me/917974999929?text=Hello%20Aqua%20Chem%20Labs%2C%20I%20need%20a%20quote." target="_blank" rel="noopener">WhatsApp us</a><a class="btn ghost" href="contact.html">Contact us</a></div></div></div>
+  <section class="explore">
+    <div class="wrap">
+      <h2 class="title">Explore Aqua Chem Labs</h2>
+      <p class="intro">Everything from our brochure, one page per section.</p>
+      <div class="tiles">
+        <a class="tile" href="plant-division.html"><h3>Plant Division</h3><p>About us, our plant range, quality focus and mission.</p></a>
+        <a class="tile" href="services.html"><h3>Our Services</h3><p>Descaling, erection, commissioning, maintenance and water testing.</p></a>
+        <a class="tile" href="products.html"><h3>All Products</h3><p>Overview of the chemicals, plant equipment, membranes, valves and spares we supply.</p></a>
+        <a class="tile" href="ro-plant.html"><h3>Industrial RO Plant</h3><p>RO plant design, pretreatment, troubleshooting, service life and support.</p></a>
+        <a class="tile" href="chemicals.html"><h3>Chemicals</h3><p>Boiler, cooling tower, waste water and RO treatment chemicals.</p></a>
+        <a class="tile" href="plant-spares.html"><h3>Plant Spares</h3><p>Spares for cooling towers, waste water, RO and softener plants.</p></a>
+        <a class="tile" href="ibr-valves.html"><h3>IBR Valves</h3><p>Ball, butterfly, globe, gate and diaphragm valves.</p></a>
+        <a class="tile" href="strainers-kits.html"><h3>Strainers &amp; Kits</h3><p>Strainers, water testing kits, sensors and meters.</p></a>
+        <a class="tile" href="boiler-spares.html"><h3>Boiler Spares</h3><p>Boiler key parts, major parts and other spare parts.</p></a>
+        <a class="tile" href="gallery.html"><h3>Facilities &amp; Installations</h3><p>Our manufacturing facility and recent industrial water treatment projects.</p></a>
+        <a class="tile" href="plant-care-guide.html"><h3>Plant Care Guide</h3><p>Operating guidelines, troubleshooting and monitoring checks for industrial water systems.</p></a>
+        <a class="tile" href="#brochure"><h3>Brochure Aqua Chem Labs (ACL) 2025</h3><p>View or download the Aqua Chem Labs company brochure.</p></a>
+        <a class="tile" href="contact.html"><h3>Contact Us</h3><p>Reach our technical team in Raisen, Madhya Pradesh for quotes and support.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="google-reviews">
+    <div class="wrap">
+      <h2 class="title">What our customers say</h2>
+      <div data-gbp="summary" style="margin-top:1rem"><a class="gbp-summary" href="https://www.google.com/maps?cid=10116669877027612464" target="_blank" rel="noopener">Read our reviews on Google</a></div>
+      <div data-gbp="reviews" data-limit="3"></div>
+      <div class="gbp-actions"><a class="btn" href="reviews.html">All reviews &amp; business profile</a></div>
+    </div>
+  </section>
+
+  <section class="brochure-sec" id="brochure">
+    <div class="wrap">
+      <h2 class="title">Brochure Aqua Chem Labs (ACL) 2025</h2>
+      <p class="intro">Read our company brochure online or download a copy to share.</p>
+      <div class="cta brochure-actions">
+        <a class="btn" href="ACL_2025.pdf" target="_blank" rel="noopener">View Brochure</a>
+        <a class="btn ghost" href="ACL_2025.pdf" download="Aqua-Chem-Labs-Brochure-2025.pdf">Download Brochure</a>
+      </div>
+      <div class="brochure-viewer">
+        <object data="ACL_2025.pdf#view=FitH" type="application/pdf" aria-label="Aqua Chem Labs (ACL) brochure 2025">
+          <p>Your browser can't show the brochure here. <a href="ACL_2025.pdf" target="_blank" rel="noopener">Open the PDF</a> or <a href="ACL_2025.pdf" download="Aqua-Chem-Labs-Brochure-2025.pdf">download it</a>.</p>
+        </object>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="wrap">
+      <h2>Need a quote or technical advice?</h2>
+      <div class="cta">
+        <a class="btn" href="https://wa.me/917974999929?text=Hello%20Aqua%20Chem%20Labs%2C%20I%20need%20a%20quote." target="_blank" rel="noopener">WhatsApp us</a>
+        <a class="btn ghost" href="contact.html">Contact us</a>
+      </div>
+    </div>
+  </div>
 </main>
+
 <footer>
  <div class="wrap">
   <div class="f-grid">
    <div>
     <h3 style="color:#fff;font-size:1.2rem;margin-bottom:0.6rem">Aqua Chem Labs</h3>
     <p style="font-size:0.9rem;margin:0 0 1rem;max-width:28rem">Professional water treatment services, plant manufacturing, specialty chemicals, and genuine spares. ISO 9001:2015 certified company based in Raisen, MP.</p>
-    <p style="color:#7ee4ee;font-size:0.88rem;margin:0"><strong>Pure Water | Sustainable Tomorrow</strong></p>
+    <p style="color:#00A3E0;font-size:0.88rem;margin:0"><strong>Pure Water | Sustainable Tomorrow</strong></p>
    </div>
    <div>
     <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Quick Links</h4>
-    <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:2"><li><a href="index.html">Home</a></li><li><a href="plant-division.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="ro-plant.html">Industrial RO Plant</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Google Reviews</a></li><li><a href="plant-care-guide.html">Plant Care Guide</a></li><li><a href="ACL_2025.pdf" target="_blank" rel="noopener">View Brochure (Aqua Chem Labs (ACL) 2025)</a></li><li><a href="ACL_2025.pdf" download="Aqua-Chem-Labs-Brochure-2025.pdf">Download Brochure</a></li><li><a href="contact.html">Contact Us</a></li></ul>
+    <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:2">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="plant-division.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="ro-plant.html">Industrial RO Plant</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="reviews.html">Google Reviews</a></li>
+      <li><a href="plant-care-guide.html">Plant Care Guide</a></li>
+      <li><a href="ACL_2025.pdf" target="_blank" rel="noopener">View Brochure (ACL 2025)</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
    </div>
    <div>
     <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Direct Contact</h4>
@@ -195,6 +214,25 @@ body {
   </div>
  </div>
 </footer>
+
+<script>
+  // Full-Screen Mobile Navigation Toggle JS
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  const productsDropdown = document.getElementById('productsDropdown');
+
+  menuToggle.addEventListener('click', () => {
+    const isActive = navMenu.classList.toggle('active');
+    document.body.classList.toggle('menu-open', isActive);
+    menuToggle.textContent = isActive ? '✕' : '☰';
+  });
+
+  productsDropdown.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      productsDropdown.classList.toggle('active');
+    }
+  });
+</script>
 <script src="site.js"></script>
 <script src="gbp.js" defer></script>
 </body>
