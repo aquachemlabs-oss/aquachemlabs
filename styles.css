@@ -1,234 +1,247 @@
-
-:root{
-  --deep:#0A4A55;
-  --aqua:#16A6B6;
-  --mist:#EEF6F6;
-  --ink:#10262B;
-  --amber:#F2A93B;
-  --line:#C9DDE0;
-  --leaf:#43B02A;
-  --card-bg:#ffffff;
-  --danger-bg:#fff5f5;
-  --danger-border:#fed7d7;
-  --danger-ink:#9b2c2c;
-  --success-bg:#f0fff4;
-  --success-border:#c6f6d5;
-  --success-ink:#22543d;
-  box-sizing:border-box;
+:root {
+  /* ACL brand palette — sampled from the company poster & services banner */
+  --navy: #0B2F7A;       /* Deep navy ("Professional", bottom wave band) */
+  --deep: #1558B8;       /* Royal brand blue ("AQUA CHEM LABS" wordmark) */
+  --aqua: #2EA3E6;       /* Water-splash sky blue accent */
+  --leaf: #238A3B;       /* Leaf green CTA buttons */
+  --leaf-dark: #1B6F2F;  /* Leaf green hover */
+  --lime: #7CC242;       /* Fresh lime from the drop logo */
+  --mist: #F1F8FE;       /* Pale water tint background */
+  --ink: #14264A;        /* Navy-slate body text */
+  --light-bg: #FFFFFF;   /* Pure White Background */
+  --line: #D9E7F5;       /* Soft blue border */
+  --amber: #238A3B;      /* Highlight buttons now use brand green */
+  --brand-gradient: linear-gradient(90deg, var(--deep) 0%, var(--aqua) 55%, var(--lime) 100%);
+  --card-bg: #FFFFFF;
+  --danger-bg: #FFF5F5;
+  --danger-border: #FED7D7;
+  --danger-ink: #9B2C2C;
+  --success-bg: #F0FFF4;
+  --success-border: #C6F6D5;
+  --success-ink: #22543D;
+  box-sizing: border-box;
 }
-*,*::before,*::after{box-sizing:inherit}
-html{scroll-behavior:smooth}
-body{margin:0;font:400 1.05rem/1.65 "Public Sans",system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff}
-h1,h2,h3,h4{font-family:"Bricolage Grotesque","Public Sans",sans-serif;line-height:1.15;margin:0}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
-.wrap{max-width:1200px;margin:0 auto;padding:0 1.25rem}
+
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font: 400 1.05rem/1.65 "Public Sans", system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--light-bg); }
+body.menu-open { overflow: hidden; } /* Prevents background scrolling when mobile menu is active */
+
+h1, h2, h3, h4 { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; line-height: 1.15; margin: 0; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--aqua); outline-offset: 3px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
 
 /* Top Certification Bar */
-.top-bar{background:#063139;color:#b9cfd3;font-size:0.85rem;padding:0.45rem 0;border-bottom:1px solid rgba(255,255,255,0.1)}
-.top-bar .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
-.badge-iso{display:inline-flex;align-items:center;gap:0.4rem;color:#7ee4ee;font-weight:600}
-.badge-iso span{background:rgba(22,166,182,0.25);padding:0.15rem 0.45rem;border-radius:3px;border:1px solid var(--aqua);color:#fff;font-size:0.75rem}
+.top-bar { background: var(--navy); color: #E3EEFB; font-size: 0.85rem; padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
+.top-bar .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.badge-iso { display: inline-flex; align-items: center; gap: 0.4rem; color: #FFFFFF; font-weight: 600; }
+.badge-iso span { background: #FFFFFF; padding: 0.15rem 0.45rem; border-radius: 3px; border: 1px solid var(--lime); color: var(--navy); font-size: 0.75rem; }
 
 /* Header & Navigation */
-header{background:var(--deep);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.75rem 1.25rem}
-.brand{display:flex;align-items:center;gap:0.9rem;text-decoration:none}
-.brand-logo-img{height:64px;width:auto;flex-shrink:0;background:#fff;border-radius:4px;padding:2px}
-.brand-text{display:flex;flex-direction:column}
-.brand-name{font:700 clamp(1.8rem,4vw,2.4rem)/1 "Times New Roman",Tinos,Times,serif;letter-spacing:0.02em;color:#fff}
-.brand-tag{font-size:0.75rem;color:#9cd8de;letter-spacing:0.03em;margin-top:0.2rem;font-weight:600;text-transform:uppercase}
-.nav ul{display:flex;gap:1.2rem;list-style:none;margin:0;padding:0;font-size:0.95rem;align-items:center}
-.nav a{text-decoration:none;font-weight:500;padding:0.35rem 0.6rem;border-radius:4px;transition:0.2s}
-.nav a:hover, .nav a.active-link{background:rgba(255,255,255,0.12);text-decoration:none;color:#fff}
-.nav a.guide-btn{background:var(--amber);color:var(--ink);font-weight:700}
-.nav a.guide-btn:hover{background:#f7b955}
-.nav a.brochure-btn{border:1.5px solid var(--aqua);color:#fff;font-weight:600}
-.nav a.brochure-btn:hover,.nav a.brochure-btn.active-link{background:var(--aqua);color:#fff}
+header.site-header { background: #FFFFFF; color: var(--ink); position: relative; z-index: 100; border-bottom: 3px solid transparent; border-image: var(--brand-gradient) 1; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.header-container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1.25rem; position: relative; }
+.brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.brand-logo-img { height: 48px; width: auto; flex-shrink: 0; background: var(--mist); border-radius: 4px; padding: 3px; border: 1px solid var(--line); }
+.brand-text { display: flex; flex-direction: column; white-space: nowrap; } 
+.brand-name { font: 700 clamp(1.1rem, 2.5vw, 1.8rem)/1.1 "Times New Roman", Tinos, Times, serif; letter-spacing: 0.02em; color: var(--deep); }
+.brand-tag { font-size: 0.7rem; color: var(--leaf); letter-spacing: 0.03em; margin-top: 0.2rem; font-weight: 600; text-transform: uppercase; }
 
-/* Multi-Page Views */
-.page-view{display:none}
-.page-view.active{display:block}
+.mobile-menu-toggle { display: none; background: none; border: none; color: var(--ink); font-size: 1.8rem; cursor: pointer; padding: 0.2rem 0.5rem; line-height: 1; }
 
-/* Buttons */
-.btn{display:inline-block;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;padding:0.75rem 1.4rem;border-radius:6px;border:0;cursor:pointer;font-size:0.98rem;font-family:inherit;transition:0.2s}
-.btn:hover{background:#f7b955}
-.btn.ghost{background:transparent;border:2px solid currentColor;color:#fff}
-.btn.ghost:hover{background:rgba(255,255,255,0.1)}
-.btn.sm{padding:0.4rem 0.8rem;font-size:0.85rem}
+.nav-menu ul { display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; align-items: center; }
+.nav-menu a, .dd-label { text-decoration: none; font-weight: 500; padding: 0.4rem 0.6rem; border-radius: 4px; transition: background 0.2s, color 0.2s; color: var(--ink); }
+.nav-menu a:hover, .dd-label:hover { background: var(--mist); color: var(--deep); }
+
+/* Added white-space: nowrap to these buttons to prevent wrapping */
+.nav-menu a.guide-btn { background: linear-gradient(90deg, var(--leaf), #3FA535); color: #FFFFFF; font-weight: 700; white-space: nowrap; }
+.nav-menu a.guide-btn:hover { background: var(--leaf-dark); }
+.nav-menu a.brochure-btn { border: 1.5px solid var(--deep); color: var(--deep); font-weight: 600; white-space: nowrap; }
+.nav-menu a.brochure-btn:hover { background: var(--deep); color: #FFFFFF; }
+.nav-menu a[aria-current="page"]:not(.guide-btn):not(.brochure-btn), .dd-label.is-current { color: var(--deep); background: var(--mist); font-weight: 600; }
+
+/* Global Dropdown Rules */
+.dd { position: relative; list-style: none; }
+.dd-label { cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem; background: transparent; border: none; font-family: inherit; font-size: inherit; color: var(--ink); }
+
+.dd-menu { 
+  display: none !important; 
+  position: absolute; 
+  top: 100%; 
+  left: 0; 
+  min-width: 210px; 
+  background: #FFFFFF; 
+  padding: 0.4rem; 
+  border-radius: 6px; 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12); 
+  z-index: 120; 
+  border: 1px solid var(--line); 
+  list-style: none; 
+  margin: 0;
+}
+
+.dd:hover > .dd-menu, 
+.dd:focus-within > .dd-menu,
+.dd.active > .dd-menu { 
+  display: block !important; 
+}
+
+.dd-menu a { display: block; padding: 0.5rem 0.7rem; color: var(--ink); text-decoration: none; }
+.dd-menu a:hover { background: var(--mist); color: var(--deep); }
+
+/* Buttons & Component Layouts */
+.btn { display: inline-block; background: var(--leaf); color: #FFFFFF; font-weight: 700; text-decoration: none; padding: 0.75rem 1.4rem; border-radius: 6px; border: 0; cursor: pointer; font-size: 0.98rem; font-family: inherit; transition: background 0.2s, transform 0.1s; text-align: center; }
+.btn:hover { background: var(--leaf-dark); }
+.btn.ghost { background: transparent; border: 2px solid var(--deep); color: var(--deep); }
+.btn.ghost:hover { background: var(--deep); color: #FFFFFF; }
+.btn.sm { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
 
 /* Hero Section */
-.hero{background:linear-gradient(180deg,var(--deep) 0%,#0d5b68 100%);color:#fff;padding:3rem 0 5rem;position:relative}
-.hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:2.5rem;align-items:center}
-.hero h1{font-size:clamp(2.1rem,4.5vw,3.4rem);font-weight:800;letter-spacing:-0.02em}
-.hero p.lead{font-size:1.15rem;max-width:36rem;margin:1.2rem 0 1.8rem;color:#d7ecee}
-.hero .cta{display:flex;gap:0.8rem;flex-wrap:wrap}
-.wave{position:absolute;left:0;bottom:-1px;width:100%;height:50px;display:block}
+.hero { background: radial-gradient(circle at 85% 10%, rgba(124,194,66,0.14), transparent 40%), linear-gradient(180deg, #E3F1FC 0%, #FFFFFF 100%); color: var(--ink); padding: 3rem 0 5rem; position: relative; }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: center; }
+.hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--deep); }
+.hero p.lead { font-size: 1.1rem; max-width: 36rem; margin: 1.2rem 0 1.8rem; color: #33476B; }
+.hero .cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.wave { position: absolute; left: 0; bottom: -1px; width: 100%; height: 50px; display: block; }
 
-/* Finder Card */
-.finder{background:#fff;color:var(--ink);border-radius:10px;padding:1.6rem;box-shadow:0 12px 40px rgba(0,0,0,0.25)}
-.finder h2{font-size:1.35rem}
-.finder label{display:block;font-weight:600;margin:1rem 0 0.4rem;font-size:0.95rem}
-.finder select,.f input,.f textarea{width:100%;font:inherit;padding:0.7rem 0.8rem;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
-.result{margin-top:1.1rem;padding:1rem;background:var(--mist);border-left:5px solid var(--aqua);border-radius:0 6px 6px 0;min-height:5.5rem}
-.result strong{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.15rem;margin-bottom:0.2rem}
+/* Finder & Interactive Components */
+.finder { background: #FFFFFF; color: var(--ink); border-radius: 10px; padding: 1.6rem; box-shadow: 0 12px 30px rgba(21, 88, 184, 0.10); border: 1px solid var(--line); border-top: 4px solid transparent; border-image: var(--brand-gradient) 1; width: 100%; }
+.finder h2 { font-size: 1.35rem; color: var(--deep); }
+.finder label { display: block; font-weight: 600; margin: 1rem 0 0.4rem; font-size: 0.95rem; }
+.finder select { width: 100%; font: inherit; padding: 0.7rem 0.8rem; border: 1.5px solid var(--line); border-radius: 6px; background: #FFFFFF; color: var(--ink); }
+.result { margin-top: 1.1rem; padding: 1rem; background: var(--mist); border-left: 5px solid var(--deep); border-radius: 0 6px 6px 0; min-height: 5.5rem; }
 
-/* Section Basics */
-section{padding:4rem 0}
-h2.title{font-size:clamp(1.75rem,3.2vw,2.5rem);font-weight:800;letter-spacing:-0.015em}
-.intro{max-width:48rem;margin:0.8rem 0 2rem;color:#355157}
+/* Content Sections & Cards */
+section { padding: 4rem 0; }
+h2.title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.015em; color: var(--navy); }
+h2.title::after { content: ""; display: block; width: 90px; height: 4px; margin-top: 0.6rem; border-radius: 2px; background: linear-gradient(90deg, var(--deep) 50%, var(--lime) 50%); }
+.intro { max-width: 48rem; margin: 0.8rem 0 2rem; color: #4A5D80; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+.tile { display: block; text-decoration: none; padding: 1.2rem 1.3rem; border: 1.5px solid var(--line); border-top: 4px solid var(--leaf); border-radius: 8px; background: #FFFFFF; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.tile:hover { border-top-color: var(--aqua); box-shadow: 0 8px 22px rgba(21,88,184,0.12); transform: translateY(-2px); }
+.tile h3 { font-size: 1.15rem; color: var(--deep); margin-bottom: 0.35rem; }
+.tile p { margin: 0; font-size: 0.93rem; color: #4A5D80; }
 
-/* Image Gallery */
-.grid-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2rem}
-.grid-gallery img{width:100%;height:260px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:var(--mist);box-shadow:0 4px 12px rgba(0,0,0,0.05)}
+/* Brochure Section */
+.brochure-sec { padding: 3rem 0; }
+.brochure-actions { margin: 1.2rem 0; display: flex; gap: 1rem; flex-wrap: wrap; }
+.brochure-viewer { border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--mist); }
+.brochure-viewer object { display: block; width: 100%; height: 75vh; min-height: 400px; }
+.brochure-viewer p { padding: 1.5rem; margin: 0; text-align: center; }
 
-/* Services and Grids */
-.services{background:var(--mist)}
-dl.list{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem 3rem;margin:2rem 0 0}
-dl.list div{padding:1rem 0;border-top:2px solid var(--deep)}
-dl.list dt{font:700 1.2rem "Bricolage Grotesque",sans-serif;color:var(--deep)}
-dl.list dd{margin:0.3rem 0 0;font-size:1rem}
+/* Call-to-Action Band & Footer */
+.cta-band { background: linear-gradient(90deg, var(--deep) 0%, #1F7FD0 60%, var(--aqua) 100%); color: #FFFFFF; padding: 2.2rem 0; }
+.cta-band .wrap { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+.cta-band h2 { font-size: 1.4rem; color: #FFFFFF; }
+.cta-band .btn.ghost { border-color: #FFFFFF; color: #FFFFFF; }
+.cta-band .btn.ghost:hover { background: #FFFFFF; color: var(--deep); }
+.cta-band .cta { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+footer { background: linear-gradient(160deg, var(--navy) 0%, #0E3F95 100%); color: #D3E2F6; padding: 2.5rem 0 1.5rem; font-size: 0.92rem; border-top: 4px solid transparent; border-image: var(--brand-gradient) 1; }
+footer a:hover { color: #FFFFFF; text-decoration: underline; }
+footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2rem; }
 
-.tags{display:flex;flex-wrap:wrap;gap:0.6rem;list-style:none;padding:0;margin:1.2rem 0 0}
-.tags li{background:#fff;border:1.5px solid var(--deep);border-radius:999px;padding:0.35rem 0.9rem;font-size:0.92rem;font-weight:500}
+/* Brand Showcase (poster & services banner) */
+.brand-showcase { background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); }
+.showcase-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.4rem; align-items: start; }
+.showcase-grid figure, .grid-gallery figure { margin: 0; background: #FFFFFF; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 10px 28px rgba(11,47,122,0.10); }
+.showcase-grid a { display: block; }
+.showcase-grid img, .grid-gallery img { display: block; width: 100%; height: auto; }
+.showcase-grid figcaption, .grid-gallery figcaption { padding: 0.7rem 1rem; font-size: 0.9rem; color: #4A5D80; border-top: 3px solid transparent; border-image: var(--brand-gradient) 1; }
 
-/* Accordion */
-.acc{margin-top:2rem;border-bottom:2px solid var(--deep)}
-.acc details{border-top:2px solid var(--deep)}
-.acc summary{cursor:pointer;list-style:none;font:700 1.25rem "Bricolage Grotesque",sans-serif;color:var(--deep);padding:1.1rem 2rem 1.1rem 0;position:relative}
-.acc summary::-webkit-details-marker{display:none}
-.acc summary::after{content:"+";position:absolute;right:0.3rem;top:0.85rem;font-size:1.6rem;color:var(--aqua)}
-.acc details[open] summary::after{content:"\2212"}
-.acc .cols{columns:2;column-gap:3rem;padding-bottom:1.2rem}
-.acc h4{font:700 1rem "Public Sans",sans-serif;margin:0 0 0.4rem;break-after:avoid;color:var(--deep)}
-.acc ul{list-style:none;padding:0;margin:0 0 1.2rem;break-inside:avoid;font-size:0.95rem}
-.acc li{padding:0.25rem 0;border-bottom:1px solid var(--line)}
+/* Inner Page Header & Gallery */
+.guide-header { background: linear-gradient(120deg, var(--navy) 0%, var(--deep) 60%, var(--aqua) 100%); color: #FFFFFF; padding: 2.5rem 0; }
+.guide-header p { margin: 0.6rem 0 0; color: #E3EEFB; }
+.grid-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+.grid-gallery > img { width: 100%; border-radius: 10px; border: 1px solid var(--line); }
+.brand-images { margin-bottom: 2.5rem; }
 
-/* Process */
-.process{background:var(--deep);color:#fff}
-.process ol{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;list-style:none;padding:0;margin:2.5rem 0 0;counter-reset:s}
-.process li{counter-increment:s;border-top:3px solid var(--aqua);padding-top:1rem}
-.process li::before{content:counter(s);font:800 2rem "Bricolage Grotesque",sans-serif;color:var(--amber);display:block}
-.process h3{font-size:1.15rem;margin:0.2rem 0 0.4rem}
-.process p{margin:0;color:#d7ecee;font-size:0.95rem}
+/* OPTIMIZED MOBILE STYLES */
+@media (max-width: 768px) {
+  .wrap { padding: 0 1rem; }
+  section { padding: 2.5rem 0; }
 
-/* Plant Care Guide App-like Layout */
-.guide-header{background:linear-gradient(135deg,var(--deep) 0%,#0e6473 100%);color:#fff;padding:3rem 0}
-.guide-header p{color:#d7ecee;max-width:50rem;margin:0.75rem 0 0}
-.guide-wrapper{display:grid;grid-template-columns:280px 1fr;gap:2rem;margin-top:2.5rem;align-items:start}
-.guide-nav{position:sticky;top:90px;background:var(--mist);border:1.5px solid var(--line);border-radius:8px;padding:0.75rem;max-height:calc(100vh - 110px);overflow-y:auto}
-.guide-nav h4{font-size:0.85rem;text-transform:uppercase;color:#4a6268;letter-spacing:0.05em;padding:0.4rem 0.6rem}
-.guide-nav ul{list-style:none;margin:0;padding:0}
-.guide-nav button{width:100%;text-align:left;background:none;border:none;padding:0.6rem 0.75rem;font:600 0.92rem inherit;color:var(--ink);cursor:pointer;border-radius:5px;transition:0.15s;display:flex;align-items:center;justify-content:space-between}
-.guide-nav button:hover{background:#dfeef0;color:var(--deep)}
-.guide-nav button.active{background:var(--deep);color:#fff}
-.guide-card{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:2rem;box-shadow:0 4px 15px rgba(0,0,0,0.03)}
-.guide-panel{display:none}
-.guide-panel.active{display:block}
+  /* Mobile Navigation Overlay */
+  .mobile-menu-toggle { display: block; z-index: 1001; }
+  
+  .nav-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background-color: #FFFFFF;
+    padding: 5rem 1.5rem 2rem 1.5rem;
+    z-index: 1000;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-menu.active { display: flex; flex-direction: column; justify-content: flex-start; }
+  .nav-menu ul { flex-direction: column; align-items: stretch; gap: 0.5rem; width: 100%; }
+  .nav-menu li { width: 100%; }
+  
+  .nav-menu a, .dd-label { 
+    display: block; 
+    width: 100%; 
+    padding: 0.85rem 1rem; 
+    font-size: 1.05rem;
+    border-bottom: 1px solid var(--line); 
+    border-radius: 6px;
+    text-align: left;
+    color: var(--ink);
+  }
 
-/* Troubleshooting & Comparison Tables */
-.data-table{width:100%;border-collapse:collapse;margin:1.2rem 0}
-.data-table th,.data-table td{padding:0.75rem 0.9rem;border:1px solid var(--line);text-align:left;font-size:0.95rem}
-.data-table th{background:var(--mist);color:var(--deep);font-weight:700}
-.grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1.5rem 0}
-.panel-box{padding:1.25rem;border-radius:8px;border:1px solid}
-.panel-box.problems{background:var(--danger-bg);border-color:var(--danger-border)}
-.panel-box.problems h4{color:var(--danger-ink);margin-bottom:0.6rem}
-.panel-box.solutions{background:var(--success-bg);border-color:var(--success-border)}
-.panel-box.solutions h4{color:var(--success-ink);margin-bottom:0.6rem}
-.panel-box ul{margin:0;padding-left:1.2rem;font-size:0.95rem}
-.panel-box li{margin-bottom:0.4rem}
+  /* Mobile Dropdown Overrides */
+  .dd { width: 100%; }
+  .dd-menu { 
+    position: static; 
+    box-shadow: none; 
+    border: none; 
+    background: var(--mist); 
+    padding-left: 0.75rem; 
+    margin-top: 0.2rem; 
+  }
 
-/* Brochure Viewer */
-.brochure-header{background:linear-gradient(135deg,var(--deep) 0%,#0e6473 100%);color:#fff;padding:3rem 0}
-.brochure-header p{color:#d7ecee;max-width:50rem;margin:0.75rem 0 0}
-.brochure-viewer{margin:2.5rem auto 4rem;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:var(--mist);box-shadow:0 4px 15px rgba(0,0,0,0.05)}
-.brochure-bar{display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#fff;border-bottom:1.5px solid var(--line)}
-.brochure-bar strong{font:700 1.05rem "Bricolage Grotesque",sans-serif;color:var(--deep)}
-.brochure-bar .actions{display:flex;flex-wrap:wrap;gap:0.5rem}
-.btn.outline{background:#fff;border:2px solid var(--deep);color:var(--deep)}
-.btn.outline:hover{background:var(--mist)}
-.brochure-frame{display:block;width:100%;height:min(85vh,1000px);min-height:520px;border:0;background:#fff}
-.brochure-note{padding:0.9rem 1rem;font-size:0.9rem;color:#4a6268;background:#fff;border-top:1.5px solid var(--line)}
+  /* Content & Layout Adjustments */
+  .top-bar .wrap { flex-direction: column; text-align: center; gap: 0.25rem; }
+  .hero { padding: 2rem 0 3.5rem; }
+  .hero .wrap, footer .f-grid { grid-template-columns: 1fr; gap: 2rem; }
+  
+  .hero .cta, .cta-band .cta, .brochure-actions { display: flex; flex-direction: column; width: 100%; }
+  .btn, .btn.ghost { width: 100%; display: block; margin-bottom: 0.25rem; }
 
-/* Contact Grid */
-.contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem}
-.contact address{font-style:normal;line-height:1.7}
-.f label{display:block;font-weight:600;margin:0.9rem 0 0.35rem;font-size:0.95rem}
-.f textarea{min-height:100px;resize:vertical}
-.f .btn{margin-top:1.1rem}
-.note{font-size:0.9rem;color:#4a6268}
-
-footer{background:var(--ink);color:#b9cfd3;padding:2.5rem 0 1.5rem;font-size:0.92rem;border-top:3px solid var(--aqua)}
-footer .f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
-
-@media (max-width:900px){
-  .hero .wrap,.contact .grid,dl.list,.process ol,.guide-wrapper,.grid-2col,footer .f-grid{grid-template-columns:1fr}
-  .guide-nav{position:static;max-height:none;margin-bottom:1.5rem}
-  .acc .cols{columns:1}
-  .nav ul{gap:0.6rem;flex-wrap:wrap;font-size:0.88rem}
-  section{padding:3rem 0}
+  .brand-logo-img { height: 40px; }
+  .tiles { grid-template-columns: 1fr; }
+  .showcase-grid { grid-template-columns: 1fr; }
+  .brochure-viewer object { height: 50vh; min-height: 320px; }
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.nav a.nav-link,.dd-label{white-space:nowrap}
-.dd{position:relative}
-.dd-label{cursor:pointer;font-weight:500;padding:.35rem .6rem;border-radius:4px;display:inline-block}
-.dd-label:hover,.dd-label.active-link{background:rgba(255,255,255,.12)}
-.dd-menu{display:none;position:absolute;top:100%;left:0;min-width:210px;background:var(--deep);padding:.4rem;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:120}
-.dd:hover .dd-menu,.dd:focus-within .dd-menu{display:block}
-.dd-menu a{display:block;padding:.5rem .7rem}
-.catalog{padding:2rem 0 3rem}
-.cat{padding:1.6rem 0;border-top:2px solid var(--deep)}
-.cat h2{font-size:1.5rem;color:var(--deep);margin-bottom:.9rem}
-.cat p{margin:0 0 .9rem;max-width:52rem}
-.plist{list-style:none;padding:0;margin:0;columns:3 230px;column-gap:2rem}
-.plist li{padding:.35rem 0 .35rem 1.1rem;border-bottom:1px solid var(--line);position:relative;break-inside:avoid;font-size:.95rem}
-.plist li::before{content:"";position:absolute;left:0;top:.95rem;width:6px;height:6px;border-radius:50%;background:var(--aqua)}
-.plist.wide{columns:2 320px}
-.mission{background:var(--mist);border-left:5px solid var(--aqua);padding:1.2rem 1.4rem;border-radius:0 8px 8px 0;margin-top:1.5rem}
-.cta-band{background:var(--deep);color:#fff;padding:2.2rem 0}
-.cta-band .wrap{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
-.cta-band h2{font-size:1.4rem}
-.cta-band .cta{display:flex;gap:.7rem;flex-wrap:wrap}
-.pager{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1.5rem 0 3rem}
-.explore{background:var(--mist);padding:3rem 0}
-@media (max-width:900px){.dd-menu{display:block;position:static;background:none;box-shadow:none;padding:0}.dd{display:flex;flex-wrap:wrap;align-items:center}.dd-menu a{display:inline-block}}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-top:2rem}
-.tile{display:block;text-decoration:none;padding:1.2rem 1.3rem;border:1.5px solid var(--line);border-top:4px solid var(--aqua);border-radius:8px;background:#fff}
-.tile:hover{border-top-color:var(--amber);box-shadow:0 6px 18px rgba(0,0,0,.08)}
-.tile h3{font-size:1.15rem;color:var(--deep);margin-bottom:.35rem}
-.tile p{margin:0;font-size:.93rem;color:#355157}
 
-/* Google Business Profile */
-.gbp-g{width:20px;height:20px;flex-shrink:0}
-.gbp-stars{color:var(--amber);letter-spacing:.08em;font-size:1.05rem}
-.gbp-stars .off{color:#c9d3d5}
-.gbp-summary{display:inline-flex;align-items:center;gap:.55rem;flex-wrap:wrap;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:.5rem 1rem;text-decoration:none;color:var(--ink);font-size:.95rem}
-.gbp-summary:hover{box-shadow:0 4px 14px rgba(0,0,0,.08)}
-.gbp-score{font:800 1.3rem "Bricolage Grotesque",sans-serif;color:var(--deep)}
-.gbp-count{color:#355157}
-.gbp-reviews{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;margin-top:1.5rem}
-.gbp-review{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:1.2rem 1.3rem}
-.gbp-review header{display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem}
-.gbp-review header>div:nth-child(2){flex:1;min-width:0}
-.gbp-review strong{display:block;color:var(--deep)}
-.gbp-review a{text-decoration:none}
-.gbp-review small{color:#4a6268;font-size:.82rem}
-.gbp-review p{margin:.5rem 0 0;font-size:.95rem;color:#243b40}
-.gbp-avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--aqua);color:#fff;display:grid;place-items:center;font-weight:700;flex-shrink:0}
-.gbp-avatar img{width:100%;height:100%;object-fit:cover}
-.gbp-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem}
-.gbp-open{font-weight:700;margin:0 0 .5rem}
-.gbp-open.yes{color:var(--success-ink)}
-.gbp-open.no{color:var(--danger-ink)}
-.gbp-hours{border-collapse:collapse;width:100%;max-width:26rem;font-size:.95rem}
-.gbp-hours th,.gbp-hours td{text-align:left;padding:.35rem .5rem .35rem 0;border-bottom:1px solid var(--line)}
-.gbp-hours th{font-weight:600;color:var(--deep);width:40%}
-.gbp-details{margin:0;display:grid;gap:.6rem}
-.gbp-details dt{font-weight:700;color:var(--deep);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
-.gbp-details dd{margin:.1rem 0 0}
-.gbp-photo{margin:0}
-.gbp-photo figcaption{font-size:.78rem;color:#4a6268;margin-top:.3rem}
-.gbp-map{width:100%;height:380px;border:0;border-radius:10px;display:block}
-.gbp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:1.5rem}
-@media (max-width:900px){.gbp-grid{grid-template-columns:1fr}}
+@media (min-width: 769px) {
+  .nav-menu { display: flex !important; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Plant & Service Photos */
+.plant-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; margin: 2rem 0 0; }
+.plant-cards > div { display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(11,47,122,0.07); transition: transform 0.2s, box-shadow 0.2s; }
+.plant-cards > div:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(11,47,122,0.13); }
+.plant-cards dd.thumb { order: -1; margin: 0; border-bottom: 3px solid transparent; border-image: var(--brand-gradient) 1; }
+.plant-cards dd.thumb img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.plant-cards dt { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--navy); padding: 1rem 1.1rem 0.3rem; }
+.plant-cards dd:not(.thumb) { margin: 0; padding: 0 1.1rem 1.1rem; font-size: 0.93rem; color: #4A5D80; }
+
+.plant-grid-title { margin: 2rem 0 1rem; font-size: 1.25rem; color: var(--navy); }
+.plant-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.plant-grid figure { margin: 0; background: #FFFFFF; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(11,47,122,0.07); }
+.plant-grid img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.plant-grid figcaption { background: linear-gradient(90deg, var(--navy), var(--deep)); color: #FFFFFF; padding: 0.6rem 0.8rem; text-align: center; line-height: 1.3; }
+.plant-grid figcaption strong { display: block; font-size: 0.98rem; }
+.plant-grid figcaption span { font-size: 0.8rem; color: #D3E2F6; }
+
+.side-photo { float: right; width: min(360px, 42%); margin: 0 0 1rem 1.5rem; background: #FFFFFF; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(11,47,122,0.10); }
+.side-photo img { display: block; width: 100%; height: auto; }
+.side-photo figcaption { padding: 0.55rem 0.8rem; font-size: 0.85rem; color: #4A5D80; border-top: 3px solid transparent; border-image: var(--brand-gradient) 1; }
+@media (max-width: 768px) { .side-photo { float: none; width: 100%; margin: 0 0 1rem; } }

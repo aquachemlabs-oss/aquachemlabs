@@ -26,34 +26,65 @@
  </div>
 </div>
 
-<header>
- <div class="white*space: nowrap nav">
-  <a class="brand" href="index.html">
-   <!-- Instruction: Save the isolated drop logo from your letterhead as 'logo.png' in the same folder -->
-   <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
-   <div class="brand-text">
-    <!-- Updated to match letterhead typography -->
-    <span class="brand-name">ACL</span>
-    <span class="brand-tag">Water Treatment Chemicals &amp; Plants</span>
-   </div>
-  </a>
-  <nav aria-label="Main"><ul><li><a href="index.html" class="nav-link ">Home</a></li><li><a href="plant-division.html" class="nav-link ">About Us</a></li><li><a href="services.html" class="nav-link  active-link">Services</a></li><li class="dd"><span class="dd-label" tabindex="0">Products &#9662;</span><div class="dd-menu"><a href="products.html" class="nav-link ">All Products</a><a href="chemicals.html" class="nav-link ">Chemicals</a><a href="plant-spares.html" class="nav-link ">Plant Spares</a><a href="ibr-valves.html" class="nav-link ">IBR Valves</a><a href="strainers-kits.html" class="nav-link ">Strainers & Kits</a><a href="boiler-spares.html" class="nav-link ">Boiler Spares</a></div></li><li><a href="gallery.html" class="nav-link ">Gallery</a></li><li><a href="reviews.html" class="nav-link ">Reviews</a></li><li><a href="plant-care-guide.html" class="nav-link guide-btn">Plant Care Guide</a></li><li><a href="brochure.html" class="nav-link brochure-btn">View Brochure</a></li><li><a href="contact.html" class="nav-link ">Contact</a></li></ul></nav>
- </div>
+<header class="site-header">
+  <div class="wrap header-container">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Aqua Chem Labs Logo" class="brand-logo-img">
+      <div class="brand-text">
+        <span class="brand-name">AQUA CHEM LABS (ACL)</span>
+        <span class="brand-tag">WATER TREATMENT CHEMICALS & PLANTS</span>
+      </div>
+    </a>
+
+    <!-- Hamburger Toggle Button -->
+    <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      ☰
+    </button>
+
+    <!-- Navigation Menu Container -->
+    <nav class="nav-menu" id="navMenu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="plant-division.html">About Us</a></li>
+        <li><a href="services.html" aria-current="page">Services</a></li>
+        
+        <!-- Products Dropdown -->
+        <li class="dd" id="productsDropdown">
+          <button class="dd-label" type="button">Products ▾</button>
+          <ul class="dd-menu">
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="ro-plant.html">Industrial RO Plant</a></li>
+            <li><a href="chemicals.html">Chemicals</a></li>
+            <li><a href="plant-spares.html">Plant Spares</a></li>
+            <li><a href="ibr-valves.html">IBR Valves</a></li>
+            <li><a href="strainers-kits.html">Strainers & Kits</a></li>
+            <li><a href="boiler-spares.html">Boiler Spares</a></li>
+          </ul>
+        </li>
+
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="plant-care-guide.html" class="guide-btn">Plant Care Guide</a></li>
+        <li><a href="ACL_2025.pdf" target="_blank" rel="noopener" class="brochure-btn">View Brochure</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 <main>
 <div class="guide-header"><div class="wrap"><h1 style="font-size:clamp(2rem,4vw,3rem)">Our Services</h1><p>Descaling, erection, commissioning, maintenance and water testing.</p></div></div><section class="services" id="services">
    <div class="wrap">
     <h2 class="title">Water treatment, from design to maintenance</h2>
     <p class="intro">We design, supply, install, commission and operate complete industrial treatment plants across Madhya Pradesh and central India.</p>
-    <dl class="list">
-     <div><dt>Effluent Treatment Plants (ETP)</dt><dd>Wastewater characterization, coagulant optimization, aeration & biological load management.</dd></div>
-     <div><dt>Sewage Treatment Plants (STP)</dt><dd>Screening, biological balance, clarification, disinfection, and sludge handling systems.</dd></div>
-     <div><dt>Reverse Osmosis (RO) Plants</dt><dd>Dissolved salt removal, antiscalants, membrane fouling control, CIP cleaning and maintenance.</dd></div>
-     <div><dt>Boiler Water Treatment</dt><dd>Scale & corrosion inhibitors, oxygen scavengers, alkalinity boosters and blowdown optimization.</dd></div>
-     <div><dt>Cooling Tower Water Treatment</dt><dd>Cycles of concentration review, biocide management, corrosion and scale control programs.</dd></div>
-     <div><dt>Water Softener & DM Plants</dt><dd>Ion-exchange resin regeneration, iron fouling cleaning, demineralisation and mixed bed units.</dd></div>
-     <div><dt>Zero Liquid Discharge (ZLD)</dt><dd>Advanced recovery systems to recycle process water and eliminate liquid discharge.</dd></div>
-     <div><dt>Filtration & Clarification</dt><dd>Sand, carbon, cartridge, bag, ultrafiltration, and multi-grade suspended solids removal.</dd></div>
+    <dl class="list plant-cards">
+     <div><dt>Effluent Treatment Plants (ETP)</dt><dd class="thumb"><img src="images/plants/etp.jpg" alt="Effluent treatment plant with aeration tanks" loading="lazy"></dd><dd>Wastewater characterization, coagulant optimization, aeration & biological load management.</dd></div>
+     <div><dt>Sewage Treatment Plants (STP)</dt><dd class="thumb"><img src="images/plants/stp.jpg" alt="Circular sewage treatment clarifier" loading="lazy"></dd><dd>Screening, biological balance, clarification, disinfection, and sludge handling systems.</dd></div>
+     <div><dt>Reverse Osmosis (RO) Plants</dt><dd class="thumb"><img src="images/plants/ro.jpg" alt="Industrial reverse osmosis plant with membrane pressure vessels" loading="lazy"></dd><dd>Dissolved salt removal, antiscalants, membrane fouling control, CIP cleaning and maintenance.</dd></div>
+     <div><dt>Boiler Water Treatment</dt><dd class="thumb"><img src="images/plants/boiler.jpg" alt="Industrial boiler for boiler water treatment" loading="lazy"></dd><dd>Scale & corrosion inhibitors, oxygen scavengers, alkalinity boosters and blowdown optimization.</dd></div>
+     <div><dt>Cooling Tower Water Treatment</dt><dd class="thumb"><img src="images/plants/cooling-tower.jpg" alt="Industrial cooling tower" loading="lazy"></dd><dd>Cycles of concentration review, biocide management, corrosion and scale control programs.</dd></div>
+     <div><dt>Water Softener & DM Plants</dt><dd class="thumb"><img src="images/plants/softener.jpg" alt="Water softener plant with blue resin vessels" loading="lazy"></dd><dd>Ion-exchange resin regeneration, iron fouling cleaning, demineralisation and mixed bed units.</dd></div>
+     <div><dt>Zero Liquid Discharge (ZLD)</dt><dd class="thumb"><img src="images/plants/all-systems.jpg" alt="Skid-mounted water treatment and recovery system" loading="lazy"></dd><dd>Advanced recovery systems to recycle process water and eliminate liquid discharge.</dd></div>
+     <div><dt>Filtration & Clarification</dt><dd class="thumb"><img src="images/plants/dm.jpg" alt="Stainless steel filtration and demineralisation vessels" loading="lazy"></dd><dd>Sand, carbon, cartridge, bag, ultrafiltration, and multi-grade suspended solids removal.</dd></div>
    </dl>
     <h3 style="margin-top:2.5rem;color:var(--deep)">On-site services & AMC</h3>
     <ul class="tags">
@@ -75,7 +106,7 @@
    <div>
     <h3 style="color:#fff;font-size:1.2rem;margin-bottom:0.6rem">Aqua Chem Labs</h3>
     <p style="font-size:0.9rem;margin:0 0 1rem;max-width:28rem">Professional water treatment services, plant manufacturing, specialty chemicals, and genuine spares. ISO 9001:2015 certified company based in Raisen, MP.</p>
-    <p style="color:#7ee4ee;font-size:0.88rem;margin:0"><strong>Pure Water | Sustainable Tomorrow</strong></p>
+    <p style="color:#9BD35A;font-size:0.88rem;margin:0"><strong>Pure Water | Sustainable Tomorrow</strong></p>
    </div>
    <div>
     <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Quick Links</h4>
@@ -93,6 +124,6 @@
   </div>
  </div>
 </footer>
-<script src="site.js"></script>
+<script src="site.js" defer></script>
 </body>
 </html>
