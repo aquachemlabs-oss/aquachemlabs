@@ -30,7 +30,7 @@
 }
 </script>
 <link rel="icon" type="image/png" href="logo.png">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles_2.css">
 </head>
 <body>
 
@@ -189,12 +189,12 @@
  <div class="wrap">
   <div class="f-grid">
    <div>
-    <h3 style="color:#fff;font-size:1.2rem;margin-bottom:0.6rem">Aqua Chem Labs</h3>
+    <h3 style="color:var(--deep);font-size:1.2rem;margin-bottom:0.6rem">Aqua Chem Labs</h3>
     <p style="font-size:0.9rem;margin:0 0 1rem;max-width:28rem">Professional water treatment services, plant manufacturing, specialty chemicals, and genuine spares. ISO 9001:2015 certified company based in Raisen, MP.</p>
-    <p style="color:#00A3E0;font-size:0.88rem;margin:0"><strong>Pure Water | Sustainable Tomorrow</strong></p>
+    <p style="color:var(--deep);font-size:0.88rem;margin:0"><strong>Pure Water | Sustainable Tomorrow</strong></p>
    </div>
    <div>
-    <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Quick Links</h4>
+    <h4 style="color:var(--ink);font-size:1rem;margin-bottom:0.6rem">Quick Links</h4>
     <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:2">
       <li><a href="index.html">Home</a></li>
       <li><a href="plant-division.html">About Us</a></li>
@@ -209,13 +209,13 @@
     </ul>
    </div>
    <div>
-    <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Direct Contact</h4>
+    <h4 style="color:var(--ink);font-size:1rem;margin-bottom:0.6rem">Direct Contact</h4>
     <p style="font-size:0.9rem;margin:0 0 0.4rem">Kartik Verma: <a href="tel:+917974999929">+91 79749 99929</a></p>
     <p style="font-size:0.9rem;margin:0 0 0.4rem">Pramod Aladiya: <a href="tel:+918871959481">+91 88719 59481</a></p>
     <p style="font-size:0.9rem;margin:0"><a href="mailto:aquachemlabs@gmail.com">aquachemlabs@gmail.com</a></p>
    </div>
   </div>
-  <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:1.2rem;text-align:center;font-size:0.85rem">
+  <div style="border-top:1px solid rgba(0,0,0,0.1);padding-top:1.2rem;text-align:center;font-size:0.85rem">
    &copy; <span id="yr">2026</span> Aqua Chem Labs, Raisen, Madhya Pradesh. All rights reserved.
   </div>
  </div>
@@ -227,6 +227,7 @@
     const navMenu = document.getElementById('navMenu');
     const productsDropdown = document.getElementById('productsDropdown');
 
+    // Mobile Hamburger Menu Toggle
     if (menuToggle && navMenu) {
       menuToggle.addEventListener('click', () => {
         const isActive = navMenu.classList.toggle('active');
@@ -236,36 +237,13 @@
       });
     }
 
-    if (productsDropdown) {
-      productsDropdown.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
-          productsDropdown.classList.toggle('active');
-        }
-      });
-    }
-  });
-</script>
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    const productsDropdown = document.getElementById('productsDropdown');
-
-    if (menuToggle && navMenu) {
-      menuToggle.addEventListener('click', () => {
-        const isActive = navMenu.classList.toggle('active');
-        document.body.classList.toggle('menu-open', isActive);
-        menuToggle.setAttribute('aria-expanded', isActive);
-        menuToggle.textContent = isActive ? '✕' : '☰';
-      });
-    }
-
+    // Dropdown Logic (Click for mobile / fallback for desktop)
     if (productsDropdown) {
       const ddLabel = productsDropdown.querySelector('.dd-label');
       
       // Toggle dropdown on click
       ddLabel.addEventListener('click', (e) => {
-        e.stopPropagation();
+        e.stopPropagation(); // Prevents the click from immediately bubbling up to the document
         productsDropdown.classList.toggle('active');
       });
 
