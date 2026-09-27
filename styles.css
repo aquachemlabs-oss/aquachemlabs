@@ -148,6 +148,21 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
 .showcase-grid img, .grid-gallery img { display: block; width: 100%; height: auto; }
 .showcase-grid figcaption, .grid-gallery figcaption { padding: 0.7rem 1rem; font-size: 0.9rem; color: #4A5D80; border-top: 3px solid transparent; border-image: var(--brand-gradient) 1; }
 
+/* Documentation & Certifications */
+.certifications { background: var(--navy); color: #E3EEFB; position: relative; overflow: hidden; }
+.certifications::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 92% 8%, rgba(124,194,66,.2), transparent 30%), linear-gradient(135deg, transparent 48%, rgba(46,163,230,.08) 48%, rgba(46,163,230,.08) 52%, transparent 52%); }
+.certifications .wrap { position: relative; }
+.certifications h2.title { color: #FFFFFF; }
+.certifications .intro { color: #C9DCF2; }
+.section-kicker { margin: 0 0 .45rem; color: #9BD35A; font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.certification-grid { display: grid; grid-template-columns: 1.12fr .88fr 1.12fr .88fr; gap: 1rem; align-items: start; }
+.certification-card { margin: 2.4rem 0 0; background: #FFFFFF; border-radius: 8px; overflow: hidden; box-shadow: 0 18px 42px rgba(2,18,51,.35); transition: transform .25s, box-shadow .25s; }
+.certification-card--tall { margin-top: 0; }
+.certification-card:hover { transform: translateY(-5px); box-shadow: 0 24px 48px rgba(2,18,51,.48); }
+.certification-card a { display: block; background: #EDF4FA; }
+.certification-card img { display: block; width: 100%; height: auto; }
+.certification-card figcaption { padding: .75rem 1rem; color: var(--navy); font-size: .88rem; font-weight: 700; border-top: 3px solid var(--lime); }
+
 /* Inner Page Header & Gallery */
 .guide-header { background: linear-gradient(120deg, var(--navy) 0%, var(--deep) 60%, var(--aqua) 100%); color: #FFFFFF; padding: 2.5rem 0; }
 .guide-header p { margin: 0.6rem 0 0; color: #E3EEFB; }
@@ -215,7 +230,13 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
   .brand-logo-img { height: 40px; }
   .tiles { grid-template-columns: 1fr; }
   .showcase-grid { grid-template-columns: 1fr; }
+  .certification-grid { grid-template-columns: 1fr 1fr; }
+  .certification-card, .certification-card--tall { margin-top: 0; }
   .brochure-viewer object { height: 50vh; min-height: 320px; }
+}
+
+@media (max-width: 520px) {
+  .certification-grid { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 769px) {
