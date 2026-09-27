@@ -11,22 +11,50 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "Manufacturer"],
   "name": "Aqua Chem Labs",
-  "legalName": "Aqua Chem Labs",
-  "description": "Manufacturer and service provider for industrial water treatment plants, treatment chemicals, and plant spares.",
+  "image": "https://aquachemlabs.com/logo.png",
+  "@id": "https://aquachemlabs.com/",
+  "url": "https://aquachemlabs.com",
   "telephone": "+917974999929",
   "email": "aquachemlabs@gmail.com",
+  "description": "ISO 9001:2015 certified manufacturer of industrial water treatment plants, specialized chemicals, and genuine spares. Services include ETP, STP, RO, boiler, and cooling tower water treatment.",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Plot No. 368, Ward No. 9, Old Subhash Nagar, Sanchi Road",
     "addressLocality": "Raisen",
     "addressRegion": "Madhya Pradesh",
-    "postalCode": "464551",
     "addressCountry": "IN"
   },
-  "geo": {"@type": "GeoCoordinates", "latitude": 23.3320565, "longitude": 77.7828951},
-  "hasMap": "https://www.google.com/maps?cid=10116669877027612464"
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "23.3333",
+    "longitude": "77.7833"
+  },
+  "areaServed": [
+    {
+      "@type": "State",
+      "name": "Madhya Pradesh"
+    },
+    {
+      "@type": "City",
+      "name": "Bhopal"
+    },
+    {
+      "@type": "City",
+      "name": "Raisen"
+    }
+  ],
+  "sameAs": [
+    "https://aquachemlabs.com"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+917974999929",
+    "contactType": "technical support",
+    "contactOption": "TollFree",
+    "areaServed": "IN",
+    "availableLanguage": ["English", "Hindi"]
+  }
 }
 </script>
 <link rel="icon" type="image/png" href="logo.png">
