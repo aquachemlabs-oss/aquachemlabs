@@ -120,7 +120,16 @@
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero hero--slideshow">
+   <div class="hero-slides" data-hero-slides>
+    <figure class="hero-slide is-active" data-label="Effluent Treatment Plant (ETP)"><img src="images/hero/hero-etp.jpg" width="1920" height="1080" alt="Aerated lagoon of an industrial effluent treatment plant"></figure>
+    <figure class="hero-slide" data-label="Reverse Osmosis (RO) Plant"><img src="images/hero/hero-ro.jpg" width="1920" height="1080" alt="Reverse osmosis plant with membrane pressure vessels and high-pressure pumps"></figure>
+    <figure class="hero-slide" data-label="Industrial Boiler"><img src="images/hero/hero-boiler.jpg" width="1920" height="1080" alt="Fire-tube steam boiler with gas / oil burner"></figure>
+    <figure class="hero-slide" data-label="Cooling Tower"><img src="images/hero/hero-cooling-tower.jpg" width="1920" height="1080" alt="Induced draft counter-flow cooling towers"></figure>
+    <figure class="hero-slide" data-label="Sewage Treatment Plant (STP)"><img src="images/hero/hero-stp.jpg" width="1920" height="1080" alt="Aerial view of sewage treatment plant clarifiers"></figure>
+    <figure class="hero-slide" data-label="Filtration System"><img src="images/hero/hero-filtration.jpg" width="1920" height="1080" alt="Ultrafiltration water treatment plant with filter headers and valves"></figure>
+    <div class="hero-slides__ui"><span class="hero-slides__label" aria-live="polite">Effluent Treatment Plant (ETP)</span><div class="hero-slides__dots"><button type="button" aria-label="Show Effluent Treatment Plant (ETP)" aria-current="true"></button><button type="button" aria-label="Show Reverse Osmosis (RO) Plant" aria-current="false"></button><button type="button" aria-label="Show Industrial Boiler" aria-current="false"></button><button type="button" aria-label="Show Cooling Tower" aria-current="false"></button><button type="button" aria-label="Show Sewage Treatment Plant (STP)" aria-current="false"></button><button type="button" aria-label="Show Filtration System" aria-current="false"></button></div></div>
+   </div>
    <div class="wrap">
     <div>
      <h1>Clean, treated water for your plant, boiler and building.</h1>
@@ -159,14 +168,10 @@
     <div class="wrap">
       <h2 class="title">Professional water treatment services</h2>
       <p class="intro">Manufacturer of industrial water treatment plants, chemicals &amp; spares, covering design, installation, operation, water analysis and AMC support.</p>
-      <div class="showcase-grid">
+      <div class="showcase-grid showcase-grid--single">
         <figure>
           <a href="images/acl-services-banner.jpg" target="_blank" rel="noopener"><img src="images/acl-services-banner.jpg" width="1600" height="900" alt="Aqua Chem Labs services overview: ETP, STP, RO, boiler, cooling tower, softener and DM plants plus water treatment chemicals" loading="lazy"></a>
           <figcaption>Our services, plants &amp; systems, and water treatment chemicals</figcaption>
-        </figure>
-        <figure>
-          <a href="images/acl-company-poster.jpg" target="_blank" rel="noopener"><img src="images/acl-company-poster.jpg" width="1055" height="1491" alt="Aqua Chem Labs company poster: ISO 9001:2015 certified, contact details and Raisen address" loading="lazy"></a>
-          <figcaption>ISO 9001:2015 certified, Raisen (M.P.)</figcaption>
         </figure>
       </div>
     </div>
@@ -224,8 +229,18 @@
     <div class="wrap">
       <h2 class="title">What our customers say</h2>
       <div data-gbp="summary" style="margin-top:1rem"><a class="gbp-summary" href="https://www.google.com/maps?cid=10116669877027612464" target="_blank" rel="noopener">Read our reviews on Google</a></div>
-      <div data-gbp="reviews" data-limit="3"></div>
-      <div class="gbp-actions" style="margin-top:1rem;"><a class="btn" href="reviews.html">All reviews &amp; business profile</a></div>
+      <div data-gbp="reviews"></div>
+      <div class="gbp-actions" style="margin-top:1rem;" data-gbp="links"><a class="btn" href="https://www.google.com/maps?cid=10116669877027612464" target="_blank" rel="noopener">Review us on Google</a></div>
+      <p style="margin-top:.6rem"><a href="reviews.html">All reviews &amp; business profile →</a></p>
+    </div>
+  </section>
+
+  <section class="company-reviews-sec" id="company-reviews">
+    <div class="wrap">
+      <p class="section-kicker">Client companies</p>
+      <h2 class="title">Trusted by the companies we serve</h2>
+      <div data-company-reviews data-limit="6"><p class="company-reviews__empty">Reviews from our client companies will appear here soon.</p></div>
+      <div class="gbp-actions"><a class="btn" href="reviews.html#write-company-review">Write a company review</a><a class="btn outline" href="reviews.html#company-reviews">All company reviews</a></div>
     </div>
   </section>
 
@@ -273,7 +288,7 @@
       <li><a href="products.html">Products</a></li>
       <li><a href="ro-plant.html">Industrial RO Plant</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="reviews.html">Google Reviews</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
       <li><a href="plant-care-guide.html">Plant Care Guide</a></li>
       <li><a href="ACL_2025.pdf" target="_blank" rel="noopener">View Brochure (ACL 2025)</a></li>
       <li><a href="contact.html">Contact Us</a></li>
@@ -296,5 +311,6 @@
 
 <script src="site.js" defer></script>
 <script src="gbp.js" defer></script>
+<script src="company-reviews.js" defer></script>
 </body>
 </html>

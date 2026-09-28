@@ -120,13 +120,56 @@
   </div>
 </header>
 <main>
-<div class="guide-header"><div class="wrap"><h1 style="font-size:clamp(2rem,4vw,3rem)">Google Reviews &amp; Business Profile</h1><p>What our customers say about Aqua Chem Labs, plus our Google Business Profile details, hours, photos and location.</p></div></div>
+<div class="guide-header"><div class="wrap"><h1 style="font-size:clamp(2rem,4vw,3rem)">Reviews &amp; Business Profile</h1><p>What our customers and client companies say about Aqua Chem Labs, plus our Google Business Profile details, hours, photos and location.</p><p><a class="btn" href="#write-company-review">Write a company review</a></p></div></div>
 <section id="reviews">
  <div class="wrap">
   <h2 class="title">Customer reviews</h2>
   <div data-gbp="summary" style="margin-top:1rem"><a class="gbp-summary" href="https://www.google.com/maps?cid=10116669877027612464" target="_blank" rel="noopener">Read our reviews on Google</a></div>
   <div data-gbp="reviews"><p class="intro">Reviews from our Google Business Profile appear here. You can also <a href="https://www.google.com/maps?cid=10116669877027612464" target="_blank" rel="noopener">read them on Google Maps</a>.</p></div>
   <div class="gbp-actions" data-gbp="links"><a class="btn" href="https://www.google.com/maps?cid=10116669877027612464" target="_blank" rel="noopener">Review us on Google</a></div>
+ </div>
+</section>
+<section class="company-reviews-sec" id="company-reviews">
+ <div class="wrap">
+  <p class="section-kicker">Client companies</p>
+  <h2 class="title">Reviews from companies we work with</h2>
+  <p class="intro">Industries, hospitals, hotels and institutions across Madhya Pradesh rely on our plants, chemicals and AMC support. Here is what our client companies say.</p>
+  <div data-company-reviews><p class="company-reviews__empty">Client company reviews will appear here soon. Worked with us? Be the first to share your experience below.</p></div>
+
+  <div class="company-review-form" id="write-company-review">
+   <div class="company-review-form__intro">
+    <h3>Share your company's experience</h3>
+    <p>Tell other plant owners how our water treatment plants, chemicals, spares or service performed at your site. Every review is checked by our team before it is published.</p>
+    <ul>
+     <li>Your email and phone are never shown publicly.</li>
+     <li>Only your company name, your name, designation, industry, city, rating and review are published.</li>
+    </ul>
+   </div>
+   <form data-company-review-form novalidate>
+    <div class="company-review-form__grid">
+     <label>Company name*<input name="company" required maxlength="120" autocomplete="organization"></label>
+     <label>Your name*<input name="reviewer_name" required maxlength="80" autocomplete="name"></label>
+     <label>Designation<input name="designation" maxlength="80" placeholder="e.g. Plant Manager" autocomplete="organization-title"></label>
+     <label>Industry<select name="industry"><option value="">Select industry</option><option>Pharmaceutical</option><option>Food &amp; Beverage</option><option>Dairy</option><option>Textile</option><option>Chemical</option><option>Power &amp; Energy</option><option>Hospital / Healthcare</option><option>Hotel / Hospitality</option><option>Educational Institution</option><option>Residential / Township</option><option>Engineering / Manufacturing</option><option>Other</option></select></label>
+     <label>City<input name="city" maxlength="80" autocomplete="address-level2"></label>
+     <fieldset class="company-review-form__rating"><legend>Rating*</legend>
+      <div class="star-input">
+       <input type="radio" id="cr5" name="rating" value="5" required><label for="cr5" title="5 stars">★</label>
+       <input type="radio" id="cr4" name="rating" value="4"><label for="cr4" title="4 stars">★</label>
+       <input type="radio" id="cr3" name="rating" value="3"><label for="cr3" title="3 stars">★</label>
+       <input type="radio" id="cr2" name="rating" value="2"><label for="cr2" title="2 stars">★</label>
+       <input type="radio" id="cr1" name="rating" value="1"><label for="cr1" title="1 star">★</label>
+      </div>
+     </fieldset>
+     <label class="company-review-form__wide">Your review*<textarea name="review" required minlength="20" maxlength="1500" rows="5" placeholder="Which plant, chemical or service did you use, and how has it worked for you?"></textarea></label>
+     <label>Email (not published)<input type="email" name="email" maxlength="120" autocomplete="email"></label>
+     <label>Phone (not published)<input type="tel" name="phone" maxlength="30" autocomplete="tel"></label>
+     <label class="company-review-form__hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+    </div>
+    <button class="btn" type="submit">Submit review</button>
+    <p class="company-review-form__status" data-form-status role="status" aria-live="polite"></p>
+   </form>
+  </div>
  </div>
 </section>
 <section class="services" id="profile">
@@ -176,7 +219,7 @@
    </div>
    <div>
     <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Quick Links</h4>
-    <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:2"><li><a href="index.html">Home</a></li><li><a href="plant-division.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Google Reviews</a></li><li><a href="plant-care-guide.html">Plant Care Guide</a></li><li><a href="brochure.html">Brochure (ACL 2025)</a></li><li><a href="contact.html">Contact Us</a></li></ul>
+    <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:2"><li><a href="index.html">Home</a></li><li><a href="plant-division.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="plant-care-guide.html">Plant Care Guide</a></li><li><a href="brochure.html">Brochure (ACL 2025)</a></li><li><a href="contact.html">Contact Us</a></li></ul>
    </div>
    <div>
     <h4 style="color:#fff;font-size:1rem;margin-bottom:0.6rem">Direct Contact</h4>
@@ -194,5 +237,6 @@
 </footer>
 <script src="site.js" defer></script>
 <script src="gbp.js" defer></script>
+<script src="company-reviews.js" defer></script>
 </body>
 </html>

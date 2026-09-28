@@ -164,3 +164,42 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => { if (activeItem && !preview.hidden) place(activeItem); }, { passive: true });
   }
 });
+
+// Hero slideshows (home & About Us): advance to the next plant photo every 5 seconds
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-hero-slides]').forEach((root) => {
+    const slides = [...root.querySelectorAll('.hero-slide')];
+    const dots = [...root.querySelectorAll('.hero-slides__dots button')];
+    const label = root.querySelector('.hero-slides__label');
+    let current = 0;
+    let timer;
+
+    const show = (next) => {
+      if (next === current) return;
+      slides.forEach((s) => s.classList.remove('is-prev'));
+      slides[current].classList.replace('is-active', 'is-prev');
+      slides[next].classList.add('is-active');
+      dots.forEach((d, i) => d.setAttribute('aria-current', i === next ? 'true' : 'false'));
+      label.textContent = slides[next].dataset.label;
+      current = next;
+    };
+    const start = () => { clearInterval(timer); timer = setInterval(() => show((current + 1) % slides.length), 5000); };
+
+    dots.forEach((d, i) => d.addEventListener('click', () => { show(i); start(); }));
+    document.addEventListener('visibilitychange', () => (document.hidden ? clearInterval(timer) : start()));
+    start();
+  });
+});
+
+// Gallery category filters
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-gallery-filter]').forEach((group) => {
+    const grid = document.getElementById(group.dataset.galleryFilter);
+    const buttons = [...group.querySelectorAll('button')];
+    buttons.forEach((btn) => btn.addEventListener('click', () => {
+      const cat = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+      grid.querySelectorAll('figure').forEach((fig) => { fig.hidden = cat !== 'all' && fig.dataset.cat !== cat; });
+    }));
+  });
+});
