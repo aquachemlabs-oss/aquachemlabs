@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Company review approval | Aqua Chem Labs</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+ .ra { max-width: 1100px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+ .ra header { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; }
+ .ra header img { height: 44px; }
+ .ra h1 { font-size: 1.6rem; margin: 0; color: var(--navy); }
+ .ra-login, .ra-item { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem 1.4rem; box-shadow: 0 6px 18px rgba(11,47,122,.06); }
+ .ra-login { display: flex; flex-wrap: wrap; gap: .8rem; align-items: end; }
+ .ra-login label { display: flex; flex-direction: column; gap: .3rem; font-weight: 600; flex: 1; min-width: 240px; }
+ .ra input { font: inherit; padding: .65rem .75rem; border: 1px solid #b9cde4; border-radius: 8px; }
+ .ra-tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0 1rem; }
+ .ra-tabs button { font: inherit; font-weight: 600; padding: .5rem 1rem; border-radius: 999px; border: 1.5px solid var(--deep); background: #fff; color: var(--deep); cursor: pointer; }
+ .ra-tabs button[aria-pressed="true"] { background: var(--deep); color: #fff; }
+ .ra-list { display: grid; gap: 1rem; }
+ .ra-item h2 { margin: 0; font-size: 1.1rem; color: var(--navy); }
+ .ra-item .meta { color: #52627f; font-size: .88rem; margin: .2rem 0 .6rem; }
+ .ra-item .text { white-space: pre-wrap; margin: .6rem 0; }
+ .ra-item .contact { font-size: .88rem; color: #3d4f70; background: var(--mist); padding: .5rem .7rem; border-radius: 8px; }
+ .ra-item .actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+ .ra-item .actions .btn { padding: .5rem 1rem; font-size: .9rem; }
+ .ra .btn.danger { background: #b42318; }
+ .ra-msg { margin: 1rem 0; font-weight: 600; }
+ .ra-msg.is-error { color: #b42318; }
+</style>
+</head>
+<body>
+<main class="ra">
+ <header><img src="logo.png" alt=""><h1>Company review approval</h1></header>
+ <p>New company reviews stay hidden until you approve them here. Approved reviews appear on the <a href="reviews.html#company-reviews">Reviews page</a> and the <a href="index.html#company-reviews">Home page</a> within a minute or two.</p>
+
+ <form class="ra-login" id="login">
+  <label>Admin key<input type="password" id="key" autocomplete="current-password" required></label>
+  <button class="btn" type="submit">Open reviews</button>
+  <button class="btn outline" type="button" id="logout" hidden>Sign out</button>
+ </form>
+
+ <div id="panel" hidden>
+  <div class="ra-tabs" role="group" aria-label="Filter reviews">
+   <button type="button" data-status="pending" aria-pressed="true">Waiting for approval</button>
+   <button type="button" data-status="approved" aria-pressed="false">Published</button>
+   <button type="button" data-status="rejected" aria-pressed="false">Rejected</button>
+  </div>
+  <div class="ra-list" id="list"></div>
+ </div>
+ <p class="ra-msg" id="msg" role="status" aria-live="polite"></p>
+</main>
+<script>
+(function () {
+  var API = "/api/company-reviews/admin";
+  var LABELS = { pending: "Waiting for approval", approved: "Published", rejected: "Rejected" };
+  var key = sessionStorage.getItem("acl-review-key") || "";
+  var status = "pending";
+  var $ = function (id) { return document.getElementById(id); };
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function msg(text, isError) { $("msg").textContent = text || ""; $("msg").className = "ra-msg" + (isError ? " is-error" : ""); }
+
+  function call(method, body) {
+    return fetch(API + (method === "GET" ? "?status=" + status : ""), {
+      method: method,
+      headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
+      body: body ? JSON.stringify(body) : undefined,
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (d) {
+        if (!res.ok) throw Object.assign(new Error(d.error || "Request failed (" + res.status + ")"), { status: res.status });
+        return d;
+      });
+    });
+  }
+
+  function item(r) {
+    var buttons = [];
+    if (r.status !== "approved") buttons.push('<button class="btn" data-act="approve" data-id="' + r.id + '">Approve &amp; publish</button>');
+    if (r.status !== "rejected") buttons.push('<button class="btn outline" data-act="reject" data-id="' + r.id + '">' + (r.status === "approved" ? "Unpublish" : "Reject") + "</button>");
+    buttons.push('<button class="btn danger" data-act="delete" data-id="' + r.id + '">Delete</button>');
+    var contact = [r.email && "Email: " + esc(r.email), r.phone && "Phone: " + esc(r.phone)].filter(Boolean).join(" · ");
+    return '<article class="ra-item"><h2>' + esc(r.company) + " — " + "★★★★★".slice(0, r.rating) + "</h2>" +
+      '<p class="meta">' + [r.reviewer_name, r.designation, r.industry, r.city].filter(Boolean).map(esc).join(" · ") +
+      " · submitted " + esc(new Date(r.created_at).toLocaleString("en-IN")) + "</p>" +
+      '<p class="text">' + esc(r.review) + "</p>" +
+      (contact ? '<p class="contact">Private (not published): ' + contact + "</p>" : "") +
+      '<div class="actions">' + buttons.join("") + "</div></article>";
+  }
+
+  function load() {
+    msg("Loading…");
+    call("GET").then(function (d) {
+      sessionStorage.setItem("acl-review-key", key);
+      $("panel").hidden = false; $("logout").hidden = false;
+      document.querySelectorAll(".ra-tabs button").forEach(function (b) {
+        var s = b.getAttribute("data-status");
+        b.setAttribute("aria-pressed", String(s === status));
+        b.textContent = LABELS[s] + " (" + ((d.counts && d.counts[s]) || 0) + ")";
+      });
+      $("list").innerHTML = d.reviews.length ? d.reviews.map(item).join("") : "<p>No reviews here.</p>";
+      msg("");
+    }).catch(function (err) {
+      if (err.status === 401) { sessionStorage.removeItem("acl-review-key"); $("panel").hidden = true; }
+      msg(err.message, true);
+    });
+  }
+
+  $("login").addEventListener("submit", function (e) { e.preventDefault(); key = $("key").value.trim(); load(); });
+  $("logout").addEventListener("click", function () { sessionStorage.removeItem("acl-review-key"); location.reload(); });
+  document.querySelector(".ra-tabs").addEventListener("click", function (e) {
+    var s = e.target.getAttribute("data-status"); if (s) { status = s; load(); }
+  });
+  $("list").addEventListener("click", function (e) {
+    var act = e.target.getAttribute("data-act"); if (!act) return;
+    if (act === "delete" && !confirm("Delete this review permanently?")) return;
+    e.target.disabled = true;
+    call("POST", { id: Number(e.target.getAttribute("data-id")), action: act })
+      .then(load)
+      .catch(function (err) { e.target.disabled = false; msg(err.message, true); });
+  });
+
+  if (key) load();
+})();
+</script>
+</body>
+</html>
