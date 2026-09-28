@@ -294,3 +294,150 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
 .side-photo img { display: block; width: 100%; height: auto; }
 .side-photo figcaption { padding: 0.55rem 0.8rem; font-size: 0.85rem; color: #4A5D80; border-top: 3px solid transparent; border-image: var(--brand-gradient) 1; }
 @media (max-width: 768px) { .side-photo { float: none; width: 100%; margin: 0 0 1rem; } }
+
+/* About Aqua Chem Labs — industrial editorial profile */
+.about-hero { padding: clamp(3.5rem, 7vw, 7rem) 0; background: linear-gradient(120deg, #071d46 0%, var(--navy) 67%, #0c5f82 100%); color: #fff; overflow: hidden; }
+.about-hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.about-hero h1 { font-size: clamp(2.7rem, 5.6vw, 5.4rem); letter-spacing: -.045em; line-height: .98; max-width: 780px; }
+.about-hero h1 em { color: #9bd35a; font-style: normal; }
+.about-lead { max-width: 650px; margin: 1.5rem 0 2rem; color: #d8e7f5; font-size: clamp(1.05rem, 1.7vw, 1.25rem); }
+.about-hero .cta { display: flex; flex-wrap: wrap; gap: .8rem; }
+.about-hero .btn.ghost { color: #fff; border-color: rgba(255,255,255,.7); }
+.about-hero figure { margin: 0; position: relative; transform: rotate(1.5deg); }
+.about-hero figure::before { content: ""; position: absolute; inset: -18px 18px 18px -18px; border: 1px solid rgba(155,211,90,.55); z-index: 0; }
+.about-hero figure img { position: relative; display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: saturate(.8) contrast(1.08); }
+.about-hero figcaption { position: absolute; left: -1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1rem 1.2rem; background: rgba(7,29,70,.92); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; }
+.about-hero figcaption span { display: block; color: #9bd35a; font-weight: 800; }
+.about-intro { background: #f4f1e9; }
+.about-intro__grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2rem, 7vw, 7rem); }
+.about-intro h2, .spares-section h2, .service-area h2, .quality-vision h2 { color: var(--navy); font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -.035em; }
+.about-intro p { margin-top: 0; color: #40516d; }
+.expertise { background: #fff; }
+.capability-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 2rem; }
+.capability { position: relative; min-height: 410px; overflow: hidden; background: var(--navy); }
+.capability--wide { grid-column: 1/-1; min-height: 520px; }
+.capability img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; opacity: .68; transition: transform .5s, opacity .5s; }
+.capability::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(4,22,54,.96), rgba(4,22,54,.08) 78%); }
+.capability:hover img { transform: scale(1.025); opacity: .83; }
+.capability div { position: absolute; z-index: 1; left: clamp(1.3rem,3vw,2.5rem); right: 1.5rem; bottom: clamp(1.3rem,3vw,2.5rem); color: #fff; }
+.capability span { color: #9bd35a; text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 800; }
+.capability h3 { font-size: clamp(1.6rem,3vw,2.5rem); margin: .35rem 0; }
+.capability p { max-width: 650px; margin: 0 0 .7rem; color: #d9e7f5; }
+.capability a, .text-link { color: #9bd35a; font-weight: 800; }
+.function-section { background: #e9f4f7; }
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 2rem; }
+.section-heading h2 { color: var(--navy); font-size: clamp(2rem,4vw,3.5rem); }
+.section-heading > p { max-width: 360px; margin: 0; color: #4a5d80; }
+.function-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; }
+.function-card { min-height: 330px; position: relative; overflow: hidden; border: 0; background: #092d61 var(--card-image) center/cover no-repeat; color: #fff; }
+.function-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(15deg, rgba(5,27,65,.98) 5%, rgba(8,46,97,.35)); transition: background .3s; }
+.function-card summary { position: relative; z-index: 1; min-height: 330px; padding: 1.3rem; cursor: pointer; list-style: none; display: flex; flex-direction: column; justify-content: flex-end; }
+.function-card summary::-webkit-details-marker, .chemical-grid summary::-webkit-details-marker { display: none; }
+.function-card summary span { position: absolute; top: 1rem; color: #9bd35a; font: 800 .75rem/1 "Public Sans",sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.function-card h3 { font-size: 1.4rem; }
+.function-card summary b { color: #9bd35a; font-size: .72rem; margin-top: .6rem; text-transform: uppercase; letter-spacing: .09em; }
+.function-card p { position: absolute; z-index: 2; inset: auto 0 0; margin: 0; padding: 1.3rem; background: #fff; color: var(--ink); transform: translateY(102%); opacity: 0; transition: transform .3s, opacity .3s; font-size: .9rem; line-height: 1.5; }
+.function-card:hover p, .function-card:focus-within p, .function-card[open] p { transform: translateY(0); opacity: 1; }
+.range-note, .chem-note { margin: 1.3rem 0 0; padding-left: 1rem; border-left: 4px solid #7cc242; color: #425570; }
+.function-section--dark { background: #071d46; color: #dce8f4; }
+.function-section--dark .section-heading h2 { color: #fff; }
+.function-section--dark .section-heading > p { color: #b9cce0; }
+.chemical-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.16); }
+.chemical-grid details { background: #0b2b5b; }
+.chemical-grid summary { display: grid; grid-template-columns: 2.5rem 1fr; align-items: center; gap: .6rem; padding: 1.2rem; cursor: pointer; list-style: none; }
+.chemical-grid summary span { color: #9bd35a; font-weight: 800; }
+.chemical-grid h3 { font-size: 1.15rem; }
+.chemical-grid p { display: none; margin: 0; padding: 0 1.2rem 1.2rem 4.3rem; color: #c7d8e9; }
+.chemical-grid details:hover p, .chemical-grid details:focus-within p, .chemical-grid details[open] p { display: block; }
+.chem-note { color: #c7d8e9; }
+.spares-section { background: #f4f1e9; }
+.spares-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem,6vw,6rem); align-items: center; }
+.spares-grid figure { margin: 0; position: relative; }
+.spares-grid figure img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; filter: saturate(.75); }
+.spares-grid figcaption { position: absolute; right: -1rem; bottom: 1rem; background: #9bd35a; color: #082550; padding: .6rem 1rem; font-weight: 800; }
+.tag-list { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 1.3rem 0; }
+.tag-list li { background: #fff; border: 1px solid #d5d9d5; padding: .35rem .65rem; font-size: .83rem; }
+.lifecycle { background: #fff; }
+.lifecycle-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 2rem; }
+.lifecycle-grid article { padding: 2rem; border-top: 5px solid var(--deep); background: #eef5fa; }
+.lifecycle-grid span { color: var(--leaf); font-weight: 800; }
+.lifecycle-grid h3 { color: var(--navy); margin: .8rem 0; font-size: 1.35rem; }
+.lifecycle-grid p { margin: 0; color: #4a5d80; }
+.lifecycle-grid ul { margin: 1rem 0 0; padding-left: 1.1rem; color: #4a5d80; font-size: .9rem; }
+.lifecycle-grid li { margin-bottom: .25rem; }
+.lifecycle-grid .maintenance-chain { margin: 1rem 0; color: var(--navy); font-weight: 700; }
+.service-area { background: #c7dcdf; }
+.service-area__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem,6vw,6rem); align-items: center; }
+.region-list { display: flex; flex-wrap: wrap; gap: .55rem; }
+.region-list span { padding: .45rem .75rem; border: 1px solid rgba(11,47,122,.22); background: rgba(255,255,255,.5); color: var(--navy); font-weight: 700; font-size: .86rem; }
+.quality-vision { background: #f4f1e9; }
+.quality-vision .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,7vw,7rem); align-items: center; }
+.quality-vision blockquote { margin: 0; padding: clamp(1.5rem,4vw,3.5rem); background: var(--navy); color: #fff; }
+.quality-vision blockquote p { font: 700 clamp(1.3rem,2.6vw,2rem)/1.35 "Bricolage Grotesque",sans-serif; margin: 0 0 1.5rem; }
+.quality-vision cite { color: #9bd35a; font-style: normal; text-transform: uppercase; font-size: .75rem; letter-spacing: .1em; }
+@media (max-width: 900px) {
+ .about-hero__grid, .about-intro__grid, .spares-grid, .service-area__grid, .quality-vision .wrap { grid-template-columns: 1fr; }
+ .about-hero figure { max-width: 650px; }
+ .function-grid { grid-template-columns: repeat(2,1fr); }
+ .lifecycle-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+ .about-hero h1 { font-size: clamp(2.35rem,12vw,3.35rem); }
+ .about-hero figure { transform: none; }
+ .capability-grid, .chemical-grid { grid-template-columns: 1fr; }
+ .capability--wide { grid-column: auto; min-height: 410px; }
+ .function-grid { grid-template-columns: 1fr; }
+ .section-heading { display: block; }
+ .section-heading > p { margin-top: .7rem; }
+}
+
+/* Water-treatment plant photo behind every page */
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(rgba(255,255,255,.86), rgba(241,248,254,.9)), var(--page-bg, url('images/web/plant-ro-skid.jpg')) center/cover no-repeat; }
+.hero, .brand-showcase { background: linear-gradient(180deg, rgba(227,241,252,.82) 0%, rgba(255,255,255,.7) 100%); }
+.about-intro, .spares-section, .quality-vision { background: rgba(244,241,233,.88); }
+.expertise, .lifecycle { background: rgba(255,255,255,.8); }
+.function-section:not(.function-section--dark) { background: rgba(233,244,247,.84); }
+.service-area { background: rgba(199,220,223,.86); }
+.guide-header { position: relative; overflow: hidden; background: linear-gradient(120deg, rgba(11,47,122,.95) 0%, rgba(21,88,184,.88) 60%, rgba(46,163,230,.8) 100%), var(--page-bg, none) center/cover; }
+
+/* About: notes and positioning */
+.catalog-note { margin: 1.6rem 0 0; padding: 1rem 1.3rem; background: rgba(255,255,255,.78); border-left: 5px solid var(--leaf); color: #425570; }
+.catalog-note--dark { background: rgba(255,255,255,.065); border-color: #9bd35a; color: #c7d8e9; }
+.preview-hint { margin: 1.2rem 0 .8rem; font-size: .85rem; font-weight: 600; color: var(--leaf); }
+.positioning { padding: clamp(3.5rem,7vw,6rem) 0; color: #fff; background: linear-gradient(120deg, rgba(7,29,70,.94), rgba(11,47,122,.86)), url('images/web/plant-ro.jpg') center/cover; }
+.positioning h2 { font-size: clamp(2rem,4vw,3.3rem); letter-spacing: -.03em; max-width: 18ch; }
+.positioning__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,5vw,4rem); margin-top: 1.5rem; color: #dce8f4; }
+.positioning__grid p { margin: 0; }
+.positioning__pillars { display: flex; flex-wrap: wrap; gap: .6rem; list-style: none; padding: 0; margin: 2.2rem 0 0; }
+.positioning__pillars li { padding: .5rem .9rem; border: 1px solid rgba(155,211,90,.6); color: #fff; font-weight: 700; font-size: .85rem; }
+.positioning__tagline { margin: 2rem 0 0; color: #9bd35a; font: 800 clamp(1.1rem,2vw,1.4rem)/1.3 "Bricolage Grotesque", sans-serif; }
+
+/* Product image previews */
+.has-preview { cursor: pointer; border-radius: 4px; transition: background .15s, color .15s; }
+.plist .has-preview, .acc .has-preview { width: fit-content; padding: .1rem .35rem; margin-left: -.35rem; }
+.has-preview:hover, .has-preview.is-previewing { background: var(--mist); color: var(--deep); }
+.tag-list .has-preview:hover, .tag-list .has-preview.is-previewing { border-color: var(--deep); }
+.product-preview { position: fixed; z-index: 300; width: min(320px, calc(100vw - 24px)); margin: 0; background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--leaf); border-radius: 8px; overflow: hidden; box-shadow: 0 18px 40px rgba(11,47,122,.25); pointer-events: none; }
+.product-preview img { display: block; width: 100%; height: 220px; object-fit: cover; background: var(--mist); }
+.product-preview figcaption { padding: .7rem .9rem; line-height: 1.35; }
+.product-preview strong { display: block; color: var(--navy); font-size: .95rem; }
+.product-preview span { color: var(--leaf); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.product-preview__close { display: none; position: absolute; top: .5rem; right: .5rem; width: 2rem; height: 2rem; border: 0; border-radius: 50%; background: rgba(11,47,122,.85); color: #fff; cursor: pointer; }
+.product-preview--sheet { left: 12px; right: 12px; bottom: 12px; top: auto; width: auto; pointer-events: auto; }
+.product-preview--sheet .product-preview__close { display: block; }
+.product-preview--sheet img { height: 200px; }
+.tile--image { padding-top: 0; overflow: hidden; }
+.tile--image img { display: block; width: calc(100% + 2.6rem); height: 150px; margin: 0 -1.3rem 1rem; object-fit: cover; }
+@media (max-width: 760px) { .positioning__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .has-preview { transition: none; } }
+
+
+/* Image credits */
+.credits { padding: 3rem 0; }
+.credit-list { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: .8rem; }
+.credit-list li { display: flex; gap: .8rem; align-items: center; padding: .6rem; background: rgba(255,255,255,.9); border: 1px solid var(--line); border-radius: 8px; font-size: .85rem; line-height: 1.35; }
+.credit-list img { flex-shrink: 0; width: 80px; height: 60px; object-fit: cover; border-radius: 4px; }
+.credit-list a { color: var(--deep); font-weight: 600; word-break: break-word; }
+.credit-list span { display: block; color: #4A5D80; margin-top: .2rem; }
+.image-credit-note { font-size: .8rem; color: #4A5D80; margin: 1.5rem 0; }
+.image-credit-note a { color: var(--deep); }
