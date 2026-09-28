@@ -51,7 +51,6 @@
     "@type": "ContactPoint",
     "telephone": "+917974999929",
     "contactType": "technical support",
-    "contactOption": "TollFree",
     "areaServed": "IN",
     "availableLanguage": ["English", "Hindi"]
   }
@@ -140,12 +139,19 @@
       <div data-gbp="hours"><p>Call us to confirm current opening hours.</p></div>
       <p style="margin-top:1.2rem;font-size:0.9rem;color:#4a6268"><em>Certified Quality Management System — ISO 9001:2015</em></p>
      </div>
-     <form class="f" id="qf">
-      <label for="n">Your name</label><input id="n" required>
-      <label for="c">Company or plant location</label><input id="c">
-      <label for="m">Requirement details</label><textarea id="m" required placeholder="Specify your plant type (RO, Boiler, ETP, STP), capacity, water analysis parameters, or chemical requirements..."></textarea>
-      <button class="btn" type="submit">Send on WhatsApp</button>
-      <p class="note">Opens WhatsApp with your technical enquiry ready to dispatch.</p>
+     <form class="f" id="qf" name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="quote-request">
+      <input type="hidden" name="subject" value="New Aqua Chem Labs quote request">
+      <p class="form-hp" aria-hidden="true"><label>Leave this field empty<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <label for="n">Your name</label><input id="n" name="name" autocomplete="name" required>
+      <label for="e">Your email</label><input id="e" name="email" type="email" autocomplete="email" required>
+      <label for="p">Phone number</label><input id="p" name="phone" type="tel" autocomplete="tel">
+      <label for="c">Company or plant location</label><input id="c" name="company" autocomplete="organization">
+      <label for="m">Requirement details</label><textarea id="m" name="requirement" required placeholder="Specify your plant type (RO, Boiler, ETP, STP), capacity, water analysis parameters, or chemical requirements..."></textarea>
+      <button class="btn" type="submit">Email my quote request</button>
+      <p class="note">Your request is recorded securely for our technical team. You can also <a href="mailto:info@aquachemlabs.com?subject=Quote%20request">email info@aquachemlabs.com directly</a>.</p>
+      <p class="note" data-form-status role="status" aria-live="polite"></p>
+      <noscript><p class="note">JavaScript is unavailable. The form still submits normally, or you can <a href="mailto:info@aquachemlabs.com?subject=Quote%20request">email us directly</a>.</p></noscript>
      </form>
     </div>
    </div>

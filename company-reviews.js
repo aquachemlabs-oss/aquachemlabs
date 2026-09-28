@@ -49,7 +49,7 @@
           el.innerHTML =
             '<p class="company-reviews__summary">' + stars(d.average) +
             " <strong>" + esc(Number(d.average).toFixed(1)) + "</strong> average from " +
-            esc(d.count) + " verified client compan" + (d.count === 1 ? "y" : "ies") + "</p>" +
+            esc(d.count) + " published client compan" + (d.count === 1 ? "y" : "ies") + "</p>" +
             '<div class="company-reviews">' + list.map(card).join("") + "</div>";
         });
       })

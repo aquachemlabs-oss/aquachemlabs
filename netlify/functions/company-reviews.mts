@@ -28,6 +28,14 @@ function cleanReview(value: unknown): string {
     .slice(0, LIMITS.review);
 }
 
+async function submitterHash(req: Request): Promise<string> {
+  const forwarded = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const address = forwarded || req.headers.get("x-nf-client-connection-ip") || "unknown";
+  const bytes = new TextEncoder().encode(`aqua-chem-reviews:${address}`);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
 async function readBody(req: Request): Promise<Record<string, unknown>> {
   const type = req.headers.get("content-type") || "";
   if (type.includes("application/json")) return (await req.json()) as Record<string, unknown>;
@@ -93,10 +101,36 @@ export default async (req: Request) => {
       return Response.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
+    const fingerprint = await submitterHash(req);
+    const [recent] = await db.sql`
+      SELECT COUNT(*)::int AS count
+      FROM company_reviews
+      WHERE submitter_hash = ${fingerprint} AND created_at > NOW() - INTERVAL '1 hour'
+    `;
+    if (recent.count >= 3) {
+      return Response.json(
+        { error: "Too many reviews were submitted from this connection. Please try again later." },
+        { status: 429, headers: { "Retry-After": "3600" } },
+      );
+    }
+
+    const [duplicate] = await db.sql`
+      SELECT EXISTS(
+        SELECT 1 FROM company_reviews
+        WHERE LOWER(company) = LOWER(${review.company})
+          AND LOWER(reviewer_name) = LOWER(${review.reviewer_name})
+          AND review = ${review.review}
+          AND created_at > NOW() - INTERVAL '24 hours'
+      ) AS exists
+    `;
+    if (duplicate.exists) {
+      return Response.json({ error: "This review has already been received." }, { status: 409 });
+    }
+
     await db.sql`
-      INSERT INTO company_reviews (company, reviewer_name, designation, city, industry, rating, review, email, phone)
+      INSERT INTO company_reviews (company, reviewer_name, designation, city, industry, rating, review, email, phone, submitter_hash)
       VALUES (${review.company}, ${review.reviewer_name}, ${review.designation}, ${review.city}, ${review.industry},
-              ${review.rating}, ${review.review}, ${review.email}, ${review.phone})
+              ${review.rating}, ${review.review}, ${review.email}, ${review.phone}, ${fingerprint})
     `;
     return Response.json({ ok: true }, { status: 201 });
   }
