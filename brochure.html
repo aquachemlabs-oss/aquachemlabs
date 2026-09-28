@@ -52,7 +52,6 @@
     "@type": "ContactPoint",
     "telephone": "+917974999929",
     "contactType": "technical support",
-    "contactOption": "TollFree",
     "areaServed": "IN",
     "availableLanguage": ["English", "Hindi"]
   }
@@ -138,8 +137,10 @@
       <a class="btn sm" href="ACL_2025.pdf" download="ACL_2025.pdf">Download PDF</a>
      </div>
     </div>
-    <!-- src is set only when this page is opened, so the large PDF does not slow down the home page -->
-    <iframe id="brochureFrame" class="brochure-frame" src="ACL_2025.pdf#view=FitH" title="Aqua Chem Labs brochure ACL 2025"></iframe>
+    <div class="brochure-load" data-pdf="ACL_2025.pdf#view=FitH">
+     <p><strong>15 MB company brochure</strong><span>Load the document here when you are ready, or use the open and download options above.</span></p>
+     <button class="btn" type="button">Load brochure</button>
+    </div>
     <p class="brochure-note">If the brochure does not appear on your device, use <em>Open in new tab</em> or <em>Download PDF</em> above.</p>
    </div>
   </div>

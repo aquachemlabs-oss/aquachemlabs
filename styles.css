@@ -112,6 +112,12 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 .finder label { display: block; font-weight: 600; margin: 1rem 0 0.4rem; font-size: 0.95rem; }
 .finder select { width: 100%; font: inherit; padding: 0.7rem 0.8rem; border: 1.5px solid var(--line); border-radius: 6px; background: #FFFFFF; color: var(--ink); }
 .result { margin-top: 1.1rem; padding: 1rem; background: var(--mist); border-left: 5px solid var(--deep); border-radius: 0 6px 6px 0; min-height: 5.5rem; }
+.result--solution { display: grid; gap: .45rem; border-left-color: var(--leaf); }
+.result--solution strong { color: var(--navy); font: 700 1.08rem/1.25 "Bricolage Grotesque",sans-serif; }
+.result--solution > span { color: #33476B; font-size: .9rem; line-height: 1.5; }
+.result__actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: .25rem; }
+.result__actions a { padding: .42rem .68rem; border-radius: 4px; background: var(--deep); color: #fff; font-size: .78rem; font-weight: 700; }
+.result__actions a + a { background: transparent; border: 1px solid var(--deep); color: var(--deep); }
 
 /* Content Sections & Cards */
 section { padding: 4rem 0; }
@@ -130,6 +136,17 @@ h2.title::after { content: ""; display: block; width: 90px; height: 4px; margin-
 .brochure-viewer { border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--mist); }
 .brochure-viewer object { display: block; width: 100%; height: 75vh; min-height: 400px; }
 .brochure-viewer p { padding: 1.5rem; margin: 0; text-align: center; }
+.brochure-preview { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 12px; color: #fff; background: linear-gradient(115deg, rgba(7,29,70,.97), rgba(21,88,184,.9)), url('images/web/plant-ro-skid.jpg') center/cover; box-shadow: 0 18px 40px rgba(11,47,122,.18); }
+.brochure-preview::after { content: ""; position: absolute; width: 16rem; height: 16rem; right: 12%; top: -9rem; border: 1px solid rgba(155,211,90,.55); border-radius: 50%; pointer-events: none; }
+.brochure-preview span { display: block; color: #9BD35A; font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.brochure-preview strong { display: block; margin-top: .25rem; font: 800 clamp(2rem,5vw,4rem)/1 "Bricolage Grotesque",sans-serif; }
+.brochure-preview p { max-width: 42rem; margin: .7rem 0 0; color: #DCE8F4; }
+.brochure-preview .btn { position: relative; z-index: 1; white-space: nowrap; }
+.brochure-load { min-height: min(62vh, 620px); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; padding: 2rem; background: linear-gradient(145deg, #EAF4FC, #F8FBFE); text-align: center; }
+.brochure-load p { padding: 0; }
+.brochure-load strong, .brochure-load span { display: block; }
+.brochure-load strong { color: var(--navy); font-size: 1.2rem; }
+.brochure-load span { max-width: 34rem; margin-top: .4rem; color: #4A5D80; }
 
 /* Call-to-Action Band & Footer */
 .cta-band { background: linear-gradient(90deg, var(--deep) 0%, #1F7FD0 60%, var(--aqua) 100%); color: #FFFFFF; padding: 2.2rem 0; }
@@ -479,12 +496,15 @@ body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-even
 .hero-slides__dots { display: flex; gap: .45rem; }
 .hero-slides__dots button { width: 12px; height: 12px; padding: 0; border-radius: 50%; border: 2px solid #fff; background: rgba(255,255,255,.35); cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
 .hero-slides__dots button[aria-current="true"] { background: var(--leaf); border-color: #fff; }
+.hero-slides__pause { min-width: 4.3rem; padding: .38rem .65rem; border: 1px solid rgba(255,255,255,.8); border-radius: 4px; background: rgba(7,29,70,.85); color: #fff; font: 700 .72rem/1 "Public Sans",sans-serif; cursor: pointer; }
+.hero-slides__pause:hover { background: #fff; color: var(--navy); }
 .hero--slideshow .finder { box-shadow: 0 18px 40px rgba(7,29,70,.28); }
 @media (max-width: 900px) {
   .hero-slides::after { background: linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.78) 60%, rgba(255,255,255,.3) 100%); }
   .hero-slides__ui { left: 1rem; right: 1rem; justify-content: space-between; bottom: 3rem; }
 }
 @media (prefers-reduced-motion: reduce) { .hero-slide.is-active, .hero-slide.is-prev { transition: none; } }
+@media (max-width: 650px) { .brochure-preview { grid-template-columns: 1fr; gap: 1.25rem; } }
 
 /* Gallery: plant & spares sections with category filters */
 .gallery--section { padding-top: 1rem; }
@@ -667,6 +687,11 @@ form.f textarea { min-height: 160px; resize: vertical; }
 form.f input:focus, form.f textarea:focus { outline: 2px solid var(--deep); outline-offset: 1px; border-color: var(--deep); }
 form.f .btn { margin-top: 1.2rem; align-self: flex-start; }
 form.f .note { margin: 0.8rem 0 0; }
+form.f .note a { color: var(--deep); font-weight: 700; text-decoration: underline; }
+form.f .form-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+form.f .form-status { min-height: 1.5em; }
+form.f .form-status.is-ok { color: var(--success-ink); font-weight: 700; }
+form.f .form-status.is-error { color: var(--danger-ink); font-weight: 700; }
 
 /* Google Business Profile blocks (map, details, hours) */
 .gbp-map { display: block; width: 100%; height: clamp(300px, 45vw, 460px); border: 1px solid var(--line); border-radius: 12px; background: var(--mist); box-shadow: 0 8px 24px rgba(11,47,122,.08); }

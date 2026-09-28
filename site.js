@@ -5,26 +5,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mobile Hamburger Menu Toggle
   if (menuToggle && navMenu) {
+    menuToggle.setAttribute('aria-controls', 'navMenu');
+    menuToggle.setAttribute('aria-label', 'Open navigation');
+    const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const closeMenu = (restoreFocus = true) => {
+      navMenu.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation');
+      menuToggle.textContent = '☰';
+      if (restoreFocus) menuToggle.focus();
+    };
+    const openMenu = () => {
+      navMenu.classList.add('active');
+      document.body.classList.add('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      menuToggle.setAttribute('aria-label', 'Close navigation');
+      menuToggle.textContent = '✕';
+      navMenu.querySelector(focusableSelector)?.focus();
+    };
     menuToggle.addEventListener('click', () => {
-      const isActive = navMenu.classList.toggle('active');
-      document.body.classList.toggle('menu-open', isActive);
-      menuToggle.setAttribute('aria-expanded', isActive);
-      menuToggle.textContent = isActive ? '✕' : '☰';
+      navMenu.classList.contains('active') ? closeMenu() : openMenu();
+    });
+    navMenu.addEventListener('click', (event) => {
+      if (event.target.closest('a') && window.innerWidth <= 1024) closeMenu(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (!navMenu.classList.contains('active')) return;
+      if (event.key === 'Escape') { event.preventDefault(); closeMenu(); return; }
+      if (event.key !== 'Tab') return;
+      const focusable = [menuToggle, ...navMenu.querySelectorAll(focusableSelector)].filter((el) => el.offsetParent !== null);
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1024 && navMenu.classList.contains('active')) closeMenu(false);
     });
   }
 
   // Dropdown Logic (Click for mobile / fallback for desktop)
   if (productsDropdown) {
     const ddLabel = productsDropdown.querySelector('.dd-label');
+    ddLabel.setAttribute('aria-expanded', 'false');
 
     ddLabel.addEventListener('click', (e) => {
       e.stopPropagation();
-      productsDropdown.classList.toggle('active');
+      const open = productsDropdown.classList.toggle('active');
+      ddLabel.setAttribute('aria-expanded', String(open));
     });
 
     document.addEventListener('click', (e) => {
       if (!productsDropdown.contains(e.target)) {
         productsDropdown.classList.remove('active');
+        ddLabel.setAttribute('aria-expanded', 'false');
       }
     });
   }
@@ -32,6 +67,92 @@ document.addEventListener('DOMContentLoaded', () => {
   // Footer year
   const yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
+
+  // Submit quote enquiries to Netlify Forms; email notifications route them to ACL.
+  const quoteForm = document.getElementById('qf');
+  if (quoteForm) {
+    const formStatus = quoteForm.querySelector('[data-form-status]');
+    const submitButton = quoteForm.querySelector('button[type="submit"]');
+    quoteForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!quoteForm.reportValidity()) return;
+      submitButton.disabled = true;
+      if (formStatus) { formStatus.className = 'note form-status'; formStatus.textContent = 'Sending your quote request…'; }
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(quoteForm)).toString(),
+        });
+        if (!response.ok) throw new Error('Submission failed');
+        quoteForm.reset();
+        if (formStatus) {
+          formStatus.className = 'note form-status is-ok';
+          formStatus.textContent = 'Thank you. Your quote request has been received by our technical team.';
+        }
+      } catch {
+        if (formStatus) {
+          formStatus.className = 'note form-status is-error';
+          formStatus.innerHTML = 'The form could not connect. Please <a href="mailto:info@aquachemlabs.com?subject=Quote%20request">email info@aquachemlabs.com directly</a>.';
+        }
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  }
+
+  // Route each common water problem to its matching treatment solution.
+  const problemSelect = document.getElementById('prob');
+  const problemResult = document.getElementById('res');
+  if (problemSelect && problemResult) {
+    const solutions = {
+      hard: { title: 'Water Softener Plant', text: 'Ion-exchange softening removes hardness that causes scale in pipes, heaters and process equipment.', href: 'plant-care-guide.html#softener', link: 'View softener solution' },
+      tds: { title: 'Industrial RO Plant', text: 'Reverse osmosis reduces dissolved salts and high TDS for process, utility and potable-water applications.', href: 'ro-plant.html', link: 'View RO plant solution' },
+      pure: { title: 'DM / Mixed-Bed Plant', text: 'Demineralisation and mixed-bed polishing produce the low-conductivity water required by demanding industrial processes.', href: 'plant-care-guide.html#dm', link: 'View DM plant solution' },
+      boiler: { title: 'Boiler Water Treatment', text: 'A combined chemical, blowdown and monitoring programme controls boiler scale, oxygen corrosion and deposits.', href: 'plant-care-guide.html#boiler', link: 'View boiler solution' },
+      cool: { title: 'Cooling Tower Treatment', text: 'Scale inhibitors, corrosion control, biocides and cycle management protect cooling-water performance.', href: 'plant-care-guide.html#cooling', link: 'View cooling tower solution' },
+      etp: { title: 'Effluent Treatment Plant (ETP)', text: 'Physical, chemical and biological treatment reduces industrial COD, BOD, solids and pollutants before reuse or discharge.', href: 'plant-care-guide.html#etp', link: 'View ETP solution' },
+      stp: { title: 'Sewage Treatment Plant (STP)', text: 'Screening, biological treatment, clarification and disinfection control sewage odour, BOD and suspended solids.', href: 'plant-care-guide.html#stp', link: 'View STP solution' },
+      turb: { title: 'Filtration & Clarification System', text: 'Media filtration, clarification and cartridge or bag filtration remove turbidity and suspended particles.', href: 'plant-division.html#plant-functions', link: 'View filtration solution' },
+    };
+    const renderSolution = () => {
+      const solution = solutions[problemSelect.value];
+      if (!solution) {
+        problemResult.className = 'result';
+        problemResult.textContent = 'Pick a problem and our diagnostic guide will suggest where to start.';
+        return;
+      }
+      problemResult.className = 'result result--solution';
+      problemResult.replaceChildren();
+      const title = document.createElement('strong');
+      title.textContent = solution.title;
+      const description = document.createElement('span');
+      description.textContent = solution.text;
+      const actions = document.createElement('span');
+      actions.className = 'result__actions';
+      const solutionLink = document.createElement('a');
+      solutionLink.href = solution.href;
+      solutionLink.textContent = solution.link;
+      const quoteLink = document.createElement('a');
+      quoteLink.href = `contact.html#qf`;
+      quoteLink.textContent = 'Request a quote';
+      actions.append(solutionLink, quoteLink);
+      problemResult.append(title, description, actions);
+    };
+    problemSelect.addEventListener('change', renderSolution);
+    renderSolution();
+  }
+
+  // Large PDFs load only after a visitor explicitly requests them.
+  document.querySelectorAll('[data-pdf]').forEach((placeholder) => {
+    placeholder.querySelector('button')?.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.className = 'brochure-frame';
+      frame.src = placeholder.dataset.pdf;
+      frame.title = 'Aqua Chem Labs brochure ACL 2025';
+      placeholder.replaceWith(frame);
+    }, { once: true });
+  });
 
   // Service manuals load only when their matching service is opened.
   document.querySelectorAll('.service-guide[data-document]').forEach((guide) => {
@@ -173,6 +294,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const label = root.querySelector('.hero-slides__label');
     let current = 0;
     let timer;
+    let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pauseButton = document.createElement('button');
+    pauseButton.type = 'button';
+    pauseButton.className = 'hero-slides__pause';
+    pauseButton.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+    pauseButton.textContent = paused ? 'Play' : 'Pause';
+    root.querySelector('.hero-slides__ui')?.append(pauseButton);
 
     const show = (next) => {
       if (next === current) return;
@@ -183,10 +311,19 @@ document.addEventListener('DOMContentLoaded', () => {
       label.textContent = slides[next].dataset.label;
       current = next;
     };
-    const start = () => { clearInterval(timer); timer = setInterval(() => show((current + 1) % slides.length), 5000); };
+    const start = () => {
+      clearInterval(timer);
+      if (!paused && !document.hidden) timer = setInterval(() => show((current + 1) % slides.length), 5000);
+    };
 
     dots.forEach((d, i) => d.addEventListener('click', () => { show(i); start(); }));
-    document.addEventListener('visibilitychange', () => (document.hidden ? clearInterval(timer) : start()));
+    pauseButton.addEventListener('click', () => {
+      paused = !paused;
+      pauseButton.textContent = paused ? 'Play' : 'Pause';
+      pauseButton.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      start();
+    });
+    document.addEventListener('visibilitychange', start);
     start();
   });
 });
