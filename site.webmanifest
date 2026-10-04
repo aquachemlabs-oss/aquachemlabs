@@ -1,0 +1,9 @@
+{
+  "name":"Aqua Chem Labs",
+  "short_name":"Aqua Chem Labs",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#ffffff",
+  "theme_color":"#0b2b40",
+  "icons":[{"src":"/logo.png","sizes":"any","type":"image/png","purpose":"any maskable"}]
+}

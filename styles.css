@@ -1570,3 +1570,31 @@ input:focus,select:focus,textarea:focus{
   html{scroll-behavior:auto}
   .homepage-highlight,.tile,.industry-card,.service-card,.product-card,.part-card,.project-card{transition:none}
 }
+
+
+/* SEO hardening */
+.skip-link{
+  position:fixed;left:12px;top:12px;z-index:2000;
+  transform:translateY(-180%);padding:10px 14px;border-radius:10px;
+  background:#fff;color:var(--acl-ink);font-weight:800;
+  box-shadow:0 8px 30px rgba(0,0,0,.18);
+}
+.skip-link:focus{transform:none}
+.page-hero .btn.ghost,.inner-hero .btn.ghost{
+  color:var(--acl-ink);border-color:#b9cedc;background:#fff;
+}
+.page-hero .btn.ghost:hover,.inner-hero .btn.ghost:hover{
+  color:var(--acl-blue);background:#f5fbfd;
+}
+main>section{content-visibility:auto;contain-intrinsic-size:1px 700px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+.calculator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.calculator-card{border:1px solid var(--acl-line);border-radius:18px;background:#fff;padding:24px;box-shadow:var(--acl-shadow-sm)}
+.calculator-card h2{margin:.1rem 0 1rem;color:var(--acl-ink);font-size:1.25rem}
+.calculator-card label{display:grid;gap:7px;margin:.75rem 0;font-size:.82rem;font-weight:700;color:var(--acl-ink-2)}
+.calculator-card input{width:100%;padding:.78rem .85rem}
+.calculator-result{display:block;margin-top:16px;padding:14px;border-radius:10px;background:var(--acl-sky);color:var(--acl-ink);font-weight:800}
+@media(max-width:700px){.calculator-grid{grid-template-columns:1fr}}
