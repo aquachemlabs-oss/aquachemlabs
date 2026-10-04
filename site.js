@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Hero slideshows (home & About Us): advance to the next plant photo every 5 seconds
+// Hero slideshows (home & About Us): advance to the next plant photo every 10 seconds
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-hero-slides]').forEach((root) => {
     const slides = [...root.querySelectorAll('.hero-slide')];
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const start = () => {
       clearInterval(timer);
-      if (!paused && !document.hidden) timer = setInterval(() => show((current + 1) % slides.length), 5000);
+      if (!paused && !document.hidden) timer = setInterval(() => show((current + 1) % slides.length), 10000);
     };
 
     dots.forEach((d, i) => d.addEventListener('click', () => { show(i); start(); }));
