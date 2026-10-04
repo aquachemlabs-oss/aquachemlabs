@@ -1624,3 +1624,7 @@ main>section{content-visibility:auto;contain-intrinsic-size:1px 700px}
 .engineering-workflow__grid p{margin:0;color:var(--acl-muted);font-size:.86rem;line-height:1.6}
 @media(max-width:700px){.engineering-workflow__grid{grid-template-columns:1fr}.engineering-workflow__grid li{padding:18px;gap:14px}}
 @media(prefers-reduced-motion:reduce){.engineering-workflow__grid li{transition:none}}
+
+
+/* Service-area coverage lists */
+.location-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem 1.25rem;list-style:none;padding:0;margin:1.25rem 0}.location-list li{padding:.65rem .8rem;border:1px solid rgba(11,43,64,.1);border-radius:10px;background:#fff;font-weight:500}.location-list li::before{content:'•';margin-right:.45rem}@media(max-width:900px){.location-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.location-list{grid-template-columns:1fr}}
