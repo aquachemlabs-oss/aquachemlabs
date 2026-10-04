@@ -1007,3 +1007,16 @@ footer .f-grid a { transition: color .2s; }
 .ro-product-card__actions{display:flex;flex-wrap:wrap;gap:.6rem}
 .ro-product-card:hover{box-shadow:0 12px 28px rgba(11,47,122,.1)}
 @media(max-width:760px){.ro-product-card{grid-template-columns:1fr}}
+
+/* Recent Products & Chemicals work shown on Services page */
+.service-upgrade-section{padding:3rem 0;background:#f7fbff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.service-upgrade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.6rem}
+.service-upgrade-card{display:grid;grid-template-columns:auto 1fr;gap:.9rem;padding:1.25rem;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 7px 22px rgba(11,47,122,.07)}
+.service-upgrade-card__icon{display:grid;place-items:center;width:3rem;height:3rem;border-radius:10px;background:var(--navy);color:#fff;font-weight:800;font-size:.82rem;letter-spacing:.08em}
+.service-upgrade-card h3{color:var(--navy);font-size:1.18rem;margin:0 0 .45rem}
+.service-upgrade-card p{margin:0 0 .7rem;color:#4a5d80;font-size:.9rem}
+.service-upgrade-card ul{margin:.5rem 0 1rem;padding-left:1.1rem;color:#40516d;font-size:.86rem}
+.service-upgrade-card li+li{margin-top:.2rem}
+.service-upgrade-card:hover{transform:translateY(-2px);box-shadow:0 11px 26px rgba(11,47,122,.1)}
+.service-upgrade-note{margin-top:1.2rem;padding:1rem 1.1rem;border-left:4px solid var(--lime);border-radius:0 8px 8px 0;background:#fff;color:#465a72;font-size:.88rem}
+@media(max-width:900px){.service-upgrade-grid{grid-template-columns:1fr}}
