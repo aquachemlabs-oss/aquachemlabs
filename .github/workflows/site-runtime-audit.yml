@@ -16,6 +16,10 @@ jobs:
           cache: npm
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npm run audit
-      - run: node scripts/qa-server.mjs &
-      - run: npm run runtime-audit
+      - name: Static and script QA
+        run: |
+          npm run audit
+          npm run script-audit
+          npm run structured-data-audit
+      - name: Browser runtime QA
+        run: npm run runtime-audit
