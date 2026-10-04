@@ -32,7 +32,7 @@ if(/Privacy Policy/.test(read('index.html'))&&/Terms/.test(read('index.html'))&&
 pass(19,'static QA script is repository controlled');
 const navRequired=['/','/about-us','/projects','/plant-chemical-guide','/services','/products','/gallery','/reviews','/plant-care-guide','/technical-documents','/locations','/engineering-tools','/technical-resources','/contact'];
 const sharedNav=read('site.js');
-for(const f of htmlFiles){const h=read(f);if(!/src=["']\\/?site\\.js["']/i.test(h))fail(21,f+' missing shared site.js navigation normalizer');if(!/<nav[^>]+id=["']navMenu["']/i.test(h))fail(21,f+' missing shared nav container');}
+for(const f of htmlFiles){const h=read(f);if(!/src=["']\/?site\.js["']/i.test(h))fail(21,f+' missing shared site.js navigation normalizer');if(!/<nav[^>]+id=["']navMenu["']/i.test(h))fail(21,f+' missing shared nav container');}
 for(const href of navRequired)if(!sharedNav.includes('href="'+href+'"'))fail(21,'shared site.js navigation missing '+href);
 if(!errors.some(e=>e.startsWith('P21:')))pass(21,'all public HTML pages use the shared navigation and site.js contains every required destination');
 if(exists('scripts/site-runtime-audit.mjs')&&exists('.github/workflows/site-runtime-audit.yml')&&exists('scripts/structured-data-audit.mjs'))pass(20,'browser/runtime QA and structured-data validation are wired into CI');else fail(20,'runtime/structured-data QA missing');
