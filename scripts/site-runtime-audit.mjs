@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {spawn} from 'node:child_process';
-import {chromium} from '@playwright/test';
+import {chromium, request} from '@playwright/test';
 
 const root=process.cwd();
 const base='http://127.0.0.1:4173';
@@ -38,8 +38,9 @@ function routeFor(file){return file==='index.html'?'/' : '/'+file.replace(/\.htm
 try{
   await waitForServer();
   const browser=await chromium.launch({headless:true});
-  const request=await browser.request.newContext();
-  const page=await browser.newPage();
+  const context=await browser.newContext();
+  const api=await request.newContext();
+  const page=await context.newPage();
 
   page.on('pageerror',error=>failures.push('pageerror: '+error.message));
   page.on('console',message=>{
@@ -62,7 +63,7 @@ try{
       .map(h=>h.split('#')[0])
       .filter(Boolean));
     for(const url of [...new Set(localLinks)]){
-      const rr=await request.get(url);
+      const rr=await api.get(url);
       if(!rr.ok()) failures.push(route+' broken '+url+' '+rr.status());
     }
 
@@ -126,6 +127,8 @@ try{
   }
 
   await request.dispose();
+  await api.dispose();
+  await context.close();
   await browser.close();
 } catch(error){
   failures.push(error.message);
