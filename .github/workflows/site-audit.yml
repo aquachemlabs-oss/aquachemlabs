@@ -17,8 +17,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm install
-      - name: Static 20-point audit
+      - name: Static site audit
         run: npm run audit
+      - name: Script integrity audit
+        run: npm run script-audit
       - name: Structured-data validation
         run: npm run structured-data-audit
       - name: Production build
@@ -26,5 +28,4 @@ jobs:
       - name: Browser and interaction QA
         run: |
           npx playwright install --with-deps chromium
-          node scripts/qa-server.mjs &
           npm run runtime-audit
