@@ -1,19 +1,19 @@
 name: Website quality gate
-
 on:
   push:
-    branches: [main, seo-performance-10-10]
+    branches: [main]
   pull_request:
     branches: [main]
-
 permissions:
   contents: read
-
 jobs:
   site-audit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Audit HTML, metadata, links and sitemap
-        run: npm run audit
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm install
+      - run: npm run audit
