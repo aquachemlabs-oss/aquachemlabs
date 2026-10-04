@@ -1490,29 +1490,6 @@ input:focus,select:focus,textarea:focus{
 .procurement-panel .btn{white-space:nowrap}
 .procurement-panel .btn:not(.ghost){background:#fff;color:var(--acl-ink)}
 .procurement-panel .btn.ghost{border-color:#547084}
-.technical-toc{
-  width:min(calc(100% - 40px),var(--acl-max));
-  margin:0 auto 24px;
-  padding:18px 20px;
-  border:1px solid var(--acl-line);
-  border-radius:14px;
-  background:#fff;
-  box-shadow:var(--acl-shadow-sm);
-  position:sticky;
-  top:92px;
-  z-index:10;
-}
-.technical-toc strong{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
-.technical-toc nav{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.technical-toc a{
-  padding:6px 9px;
-  border-radius:8px;
-  background:var(--acl-sky);
-  color:var(--acl-ink-2);
-  font-size:.76rem;
-  text-decoration:none;
-}
-.technical-toc a:hover{background:#dceef6;color:var(--acl-blue)}
 .reading-progress{
   position:fixed;
   z-index:1000;
