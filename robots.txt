@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /review-admin.html
 
 Sitemap: https://aquachemlabs.com/sitemap.xml

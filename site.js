@@ -106,14 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const problemResult = document.getElementById('res');
   if (problemSelect && problemResult) {
     const solutions = {
-      hard: { title: 'Water Softener Plant', text: 'Ion-exchange softening removes hardness that causes scale in pipes, heaters and process equipment.', href: 'plant-care-guide.html#softener', link: 'View softener solution' },
-      tds: { title: 'Industrial RO Plant', text: 'Reverse osmosis reduces dissolved salts and high TDS for process, utility and potable-water applications.', href: 'ro-plant.html', link: 'View RO plant solution' },
-      pure: { title: 'DM / Mixed-Bed Plant', text: 'Demineralisation and mixed-bed polishing produce the low-conductivity water required by demanding industrial processes.', href: 'plant-care-guide.html#dm', link: 'View DM plant solution' },
-      boiler: { title: 'Boiler Water Treatment', text: 'A combined chemical, blowdown and monitoring programme controls boiler scale, oxygen corrosion and deposits.', href: 'plant-care-guide.html#boiler', link: 'View boiler solution' },
-      cool: { title: 'Cooling Tower Treatment', text: 'Scale inhibitors, corrosion control, biocides and cycle management protect cooling-water performance.', href: 'plant-care-guide.html#cooling', link: 'View cooling tower solution' },
-      etp: { title: 'Effluent Treatment Plant (ETP)', text: 'Physical, chemical and biological treatment reduces industrial COD, BOD, solids and pollutants before reuse or discharge.', href: 'plant-care-guide.html#etp', link: 'View ETP solution' },
-      stp: { title: 'Sewage Treatment Plant (STP)', text: 'Screening, biological treatment, clarification and disinfection control sewage odour, BOD and suspended solids.', href: 'plant-care-guide.html#stp', link: 'View STP solution' },
-      turb: { title: 'Filtration & Clarification System', text: 'Media filtration, clarification and cartridge or bag filtration remove turbidity and suspended particles.', href: 'About-Us.html#plant-functions', link: 'View filtration solution' },
+      hard: { title: 'Water Softener Plant', text: 'Ion-exchange softening removes hardness that causes scale in pipes, heaters and process equipment.', href: '/plant-care-guide#softener', link: 'View softener solution' },
+      tds: { title: 'Industrial RO Plant', text: 'Reverse osmosis reduces dissolved salts and high TDS for process, utility and potable-water applications.', href: '/ro-plant', link: 'View RO plant solution' },
+      pure: { title: 'DM / Mixed-Bed Plant', text: 'Demineralisation and mixed-bed polishing produce the low-conductivity water required by demanding industrial processes.', href: '/plant-care-guide#dm', link: 'View DM plant solution' },
+      boiler: { title: 'Boiler Water Treatment', text: 'A combined chemical, blowdown and monitoring programme controls boiler scale, oxygen corrosion and deposits.', href: '/plant-care-guide#boiler', link: 'View boiler solution' },
+      cool: { title: 'Cooling Tower Treatment', text: 'Scale inhibitors, corrosion control, biocides and cycle management protect cooling-water performance.', href: '/plant-care-guide#cooling', link: 'View cooling tower solution' },
+      etp: { title: 'Effluent Treatment Plant (ETP)', text: 'Physical, chemical and biological treatment reduces industrial COD, BOD, solids and pollutants before reuse or discharge.', href: '/plant-care-guide#etp', link: 'View ETP solution' },
+      stp: { title: 'Sewage Treatment Plant (STP)', text: 'Screening, biological treatment, clarification and disinfection control sewage odour, BOD and suspended solids.', href: '/plant-care-guide#stp', link: 'View STP solution' },
+      turb: { title: 'Filtration & Clarification System', text: 'Media filtration, clarification and cartridge or bag filtration remove turbidity and suspended particles.', href: '/about-us#plant-functions', link: 'View filtration solution' },
     };
     const renderSolution = () => {
       const solution = solutions[problemSelect.value];
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
       solutionLink.href = solution.href;
       solutionLink.textContent = solution.link;
       const quoteLink = document.createElement('a');
-      quoteLink.href = `contact.html#qf`;
+      quoteLink.href = `/contact#qf`;
       quoteLink.textContent = 'Request a quote';
       actions.append(solutionLink, quoteLink);
       problemResult.append(title, description, actions);
