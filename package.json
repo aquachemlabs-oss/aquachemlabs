@@ -4,5 +4,8 @@
   "type": "module",
   "dependencies": {
     "@netlify/database": "^2.0.1"
+  },
+  "scripts": {
+    "audit": "node scripts/site-audit.mjs"
   }
 }
