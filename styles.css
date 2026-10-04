@@ -1637,3 +1637,9 @@ body.calculator-modal-open{overflow:hidden}
 
 /* Homepage headline sizing: keep the manufacturer/location message prominent without dominating the hero. */
 .hero h1{font-size:clamp(1.65rem,3vw,2.45rem);line-height:1.08;max-width:54rem}
+
+/* Fluid full-page layout: remove fixed content-width restrictions while retaining safe viewport gutters. */
+html,body{width:100%;max-width:none;margin:0}
+.wrap{width:100%;max-width:none;margin-inline:0;padding-inline:clamp(.75rem,2vw,2rem);box-sizing:border-box}
+section,.page-hero,.site-header,footer,.top-bar,.cta-band{width:100%;box-sizing:border-box}
+main{width:100%;max-width:none}
