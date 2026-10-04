@@ -1598,3 +1598,17 @@ main>section{content-visibility:auto;contain-intrinsic-size:1px 700px}
 .calculator-card input{width:100%;padding:.78rem .85rem}
 .calculator-result{display:block;margin-top:16px;padding:14px;border-radius:10px;background:var(--acl-sky);color:var(--acl-ink);font-weight:800}
 @media(max-width:700px){.calculator-grid{grid-template-columns:1fr}}
+
+/* 20-point completion UI */
+.resource-grid,.location-grid,.document-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.resource-card,.location-card,.document-card{background:#fff;border:1px solid rgba(11,43,64,.12);border-radius:18px;padding:1.25rem;box-shadow:0 8px 30px rgba(11,43,64,.06)}
+.resource-card h2,.location-card h2,.document-card h2{margin-top:0}
+.proof-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem 1.5rem}
+.document-status{display:inline-flex;padding:.25rem .55rem;border-radius:999px;background:#eef6f8;font-size:.78rem;font-weight:700}
+.location-hero{padding:3rem 0 2rem;background:linear-gradient(135deg,#0b2b40,#123f55);color:#fff}
+.location-hero h1{color:#fff}
+.location-hero p{max-width:48rem}
+.faq-list{display:grid;gap:.8rem}
+.faq-item{border:1px solid rgba(11,43,64,.14);border-radius:14px;padding:1rem;background:#fff}
+.faq-item h2,.faq-item h3{margin:.1rem 0 .45rem}
+@media(max-width:800px){.resource-grid,.location-grid,.document-grid,.proof-list{grid-template-columns:1fr}}
