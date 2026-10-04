@@ -6,7 +6,7 @@ import {promisify} from 'node:util';
 const exec=promisify(execFile);
 const root=process.cwd();
 const ignored=new Set(['.git','node_modules','dist']);
-const extensions=new Set(['.js','.mjs','.cjs','.mts']);
+const scriptExtensions=new Set(['.js','.mjs','.cjs','.mts']);
 const errors=[];
 
 async function walk(dir){
@@ -15,12 +15,15 @@ async function walk(dir){
     if(ignored.has(entry.name)) continue;
     const full=path.join(dir,entry.name);
     if(entry.isDirectory()) result.push(...await walk(full));
-    else if(extensions.has(path.extname(entry.name).toLowerCase())) result.push(full);
+    else result.push(full);
   }
   return result;
 }
 
-const scripts=await walk(root);
+const allFiles=await walk(root);
+const scripts=allFiles.filter(file=>scriptExtensions.has(path.extname(file).toLowerCase()));
+const htmlFiles=allFiles.filter(file=>path.extname(file).toLowerCase()==='.html');
+
 for(const file of scripts){
   const rel=path.relative(root,file);
   const args=path.extname(file).toLowerCase()==='.mts'
@@ -30,7 +33,6 @@ for(const file of scripts){
   catch(error){errors.push(rel+': '+String(error.stderr||error.message).trim());}
 }
 
-const htmlFiles=(await walk(root)).filter(file=>file.endsWith('.html'));
 for(const file of htmlFiles){
   const rel=path.relative(root,file);
   const html=await fs.readFile(file,'utf8');
@@ -53,7 +55,8 @@ for(const file of htmlFiles){
     try{await fs.access(target);}catch{errors.push(rel+': referenced script does not exist: '+src);}
   }
 }
-console.log('Script audit: '+scripts.length+' source scripts and '+htmlFiles.length+' HTML pages scanned.');
+
+console.log('Script audit: '+scripts.length+' source scripts, '+htmlFiles.length+' HTML pages scanned.');
 errors.forEach(error=>console.error('ERROR '+error));
 if(errors.length) process.exit(1);
 console.log('Script syntax and HTML script-reference checks passed.');
