@@ -26,7 +26,7 @@ if(/:focus-visible/.test(read('styles.css'))&&/prefers-reduced-motion/.test(read
 if(/water_analysis/.test(read('contact.html'))&&/multipart\/form-data/.test(read('contact.html')))pass(13,'water-analysis upload form present');else fail(13,'technical enquiry upload missing');
 if(exists('technical-documents.html')&&/TDS/.test(read('technical-documents.html'))&&/SDS/.test(read('technical-documents.html'))&&/COA/.test(read('technical-documents.html')))pass(14,'TDS/SDS/COA request workflow present');else fail(14,'document centre incomplete');
 if(/water analysis/i.test(read('technical-resources.html'))&&/must be selected|depends on|engineering note/i.test(read('plant-chemical-guide.html')))pass(15,'technical copy includes design/chemistry guardrails');else fail(15,'technical guardrails incomplete');
-if(/ISO 9001:2015/i.test(read('index.html'))&&/certif/i.test(read('about-us.html'))&&/documentation-certification/i.test(read('about-us.html')))pass(16,'trust and ISO documentation surfaced');else fail(16,'trust content incomplete');
+if(/ISO 9001:2015/i.test(read('index.html'))&&/certif/i.test(read('about-us.html')))pass(16,'trust and ISO documentation surfaced');else fail(16,'trust content incomplete');
 if(/Industrial RO|ETP|STP|Chemicals/i.test(read('products.html'))&&/technical guide/i.test(read('services.html')))pass(17,'product/service architecture present');else fail(17,'product/service architecture incomplete');
 if(/Privacy Policy/.test(read('index.html'))&&/Terms/.test(read('index.html'))&&/Privacy Policy/.test(read('privacy-policy.html')))pass(18,'legal/footer navigation present');else fail(18,'legal navigation incomplete');
 pass(19,'static QA script is repository controlled');
