@@ -624,3 +624,126 @@ document.addEventListener('DOMContentLoaded', () => {
     update();
   }
 });
+
+
+/* SEO / accessibility / performance hardening */
+document.addEventListener('DOMContentLoaded', () => {
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const pageUrl = canonical ? canonical.href : window.location.href.split('#')[0];
+  const path = new URL(pageUrl, window.location.origin).pathname.replace(/\\/+$/, '') || '/';
+
+  const ensureMeta = (name, content, attr = 'name') => {
+    if (!content) return;
+    let node = document.querySelector(`meta[${attr}="${name}"]`);
+    if (!node) {
+      node = document.createElement('meta');
+      node.setAttribute(attr, name);
+      document.head.appendChild(node);
+    }
+    node.setAttribute('content', content);
+  };
+
+  ensureMeta('theme-color', '#0b2b40');
+  ensureMeta('robots', 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
+
+  const title = document.title.trim();
+  const description = document.querySelector('meta[name="description"]')?.content?.trim() || '';
+  const ogImage = document.querySelector('meta[property="og:image"]')?.content || new URL('/logo.png', window.location.origin).href;
+  ensureMeta('og:title', title, 'property');
+  ensureMeta('og:description', description, 'property');
+  ensureMeta('og:url', pageUrl, 'property');
+  ensureMeta('og:image', ogImage, 'property');
+  ensureMeta('og:type', 'website', 'property');
+  ensureMeta('twitter:card', 'summary_large_image');
+  ensureMeta('twitter:title', title);
+  ensureMeta('twitter:description', description);
+  ensureMeta('twitter:image', ogImage);
+
+  // Keep the primary content understandable without requiring JavaScript.
+  const main = document.querySelector('main');
+  if (main && !document.querySelector('.skip-link')) {
+    const skip = document.createElement('a');
+    skip.className = 'skip-link';
+    skip.href = '#main-content';
+    skip.textContent = 'Skip to main content';
+    document.body.prepend(skip);
+    main.id = 'main-content';
+  }
+
+  // Mark the active navigation destination for assistive technology.
+  const currentPath = path === '/' ? '/' : path.replace(/\\/$/, '');
+  document.querySelectorAll('.nav-menu a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href || /^(https?:|mailto:|tel:|#)/i.test(href)) return;
+    const linkPath = new URL(href, window.location.origin).pathname.replace(/\\/$/, '') || '/';
+    if (linkPath === currentPath) link.setAttribute('aria-current', 'page');
+  });
+
+  // Avoid loading non-visible embeds and images eagerly where the markup omitted a hint.
+  document.querySelectorAll('iframe:not([loading])').forEach((frame) => frame.loading = 'lazy');
+  document.querySelectorAll('img:not([loading])').forEach((img) => {
+    if (!img.closest('.hero')) img.loading = 'lazy';
+  });
+  document.querySelectorAll('img:not([decoding])').forEach((img) => img.decoding = 'async');
+
+  // Generate a lightweight, page-specific semantic graph. It complements, rather than replaces,
+  // any existing page schema and does not invent ratings, reviews, products or credentials.
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://aquachemlabs.com/#organization',
+        name: 'Aqua Chem Labs',
+        url: 'https://aquachemlabs.com/',
+        logo: 'https://aquachemlabs.com/logo.png',
+        email: 'mailto:info@aquachemlabs.com',
+        telephone: '+91-79749-99929'
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://aquachemlabs.com/#website',
+        url: 'https://aquachemlabs.com/',
+        name: 'Aqua Chem Labs',
+        publisher: { '@id': 'https://aquachemlabs.com/#organization' }
+      },
+      {
+        '@type': 'WebPage',
+        '@id': pageUrl + '#webpage',
+        url: pageUrl,
+        name: title,
+        description: description || undefined,
+        isPartOf: { '@id': 'https://aquachemlabs.com/#website' }
+      }
+    ]
+  };
+  if (path !== '/') {
+    const parts = path.split('/').filter(Boolean);
+    const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aquachemlabs.com/' }];
+    let cumulative = '';
+    parts.forEach((part, index) => {
+      cumulative += '/' + part;
+      items.push({ '@type': 'ListItem', position: index + 2, name: part.replace(/[-_]/g, ' ').replace(/\\b\\w/g, c => c.toUpperCase()), item: 'https://aquachemlabs.com' + cumulative });
+    });
+    graph['@graph'].push({ '@type': 'BreadcrumbList', itemListElement: items });
+  }
+  const schemaScript = document.createElement('script');
+  schemaScript.type = 'application/ld+json';
+  schemaScript.textContent = JSON.stringify(graph);
+  document.head.appendChild(schemaScript);
+
+  // Build FAQ structured data only when the page visibly contains FAQ-style question/answer content.
+  const faqItems = [...document.querySelectorAll('.faq-item')];
+  const faqEntities = faqItems.map(item => {
+    const q = item.querySelector('h3,h4,summary');
+    const a = item.querySelector('p,div');
+    if (!q || !a) return null;
+    return { '@type': 'Question', name: q.textContent.trim(), acceptedAnswer: { '@type': 'Answer', text: a.textContent.trim() } };
+  }).filter(Boolean);
+  if (faqEntities.length) {
+    const faqScript = document.createElement('script');
+    faqScript.type = 'application/ld+json';
+    faqScript.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqEntities });
+    document.head.appendChild(faqScript);
+  }
+});
