@@ -78,7 +78,7 @@ async function validateLink(page, rawValue) {
 
 for (const page of pages) {
   const html = await readFile(join(root, page), "utf8");
-  const title = html.match(/<title>([\\s\\S]*?)<\\/title>/i)?.[1]?.trim();
+  const title = html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.trim();
   const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)/i)?.[1]?.trim();
   const h1s = [...html.matchAll(/<h1\b[^>]*>/gi)].length;
 
@@ -91,20 +91,20 @@ for (const page of pages) {
     if (!/\balt\s*=/.test(attrs)) warnings.push(`${page}: image without alt attribute`);
   }
 
-  for (const match of html.matchAll(/<(?:a|area)\\b[^>]*href=["']([^"']+)["']/gi)) {
+  for (const match of html.matchAll(/<(?:a|area)\b[^>]*href=["']([^"']+)["']/gi)) {
     await validateLink(page, match[1]);
   }
-  for (const match of html.matchAll(/<script\\b[^>]+src=["']([^"']+)["']/gi)) {
+  for (const match of html.matchAll(/<script\b[^>]+src=["']([^"']+)["']/gi)) {
     await validateLink(page, match[1]);
   }
-  for (const match of html.matchAll(/<link\\b[^>]+href=["']([^"']+)["']/gi)) {
+  for (const match of html.matchAll(/<link\b[^>]+href=["']([^"']+)["']/gi)) {
     await validateLink(page, match[1]);
   }
-  for (const match of html.matchAll(/<img\\b[^>]+src=["']([^"']+)["']/gi)) {
+  for (const match of html.matchAll(/<img\b[^>]+src=["']([^"']+)["']/gi)) {
     await validateLink(page, match[1]);
   }
 
-  if (/(?:href|src)=["'][^"']+\\.html(?:["'#])/i.test(html)) {
+  if (/(?:href|src)=["'][^"']+\.html(?:["'#])/i.test(html)) {
     warnings.push(`${page}: legacy .html internal URL found; prefer clean route`);
   }
 }
