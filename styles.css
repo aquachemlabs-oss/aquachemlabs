@@ -1020,3 +1020,18 @@ footer .f-grid a { transition: color .2s; }
 .service-upgrade-card:hover{transform:translateY(-2px);box-shadow:0 11px 26px rgba(11,47,122,.1)}
 .service-upgrade-note{margin-top:1.2rem;padding:1rem 1.1rem;border-left:4px solid var(--lime);border-radius:0 8px 8px 0;background:#fff;color:#465a72;font-size:.88rem}
 @media(max-width:900px){.service-upgrade-grid{grid-template-columns:1fr}}
+
+
+/* Homepage treatment impact highlights */
+.homepage-highlights{padding:3.2rem 0;background:linear-gradient(180deg,#f7fbff 0%,#eef6fb 100%);border-top:1px solid rgba(19,59,91,.08);border-bottom:1px solid rgba(19,59,91,.08)}
+.homepage-highlights__grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:1rem;margin-top:1.5rem}
+.homepage-highlight{position:relative;padding:1.5rem;border:1px solid #d6e4ed;border-radius:16px;background:rgba(255,255,255,.96);box-shadow:0 12px 30px rgba(17,55,82,.08);overflow:hidden}
+.homepage-highlight::after{content:"";position:absolute;right:-35px;top:-35px;width:110px;height:110px;border-radius:50%;background:rgba(155,211,90,.16)}
+.homepage-highlight__value{display:block;color:#123b5b;font-family:"Bricolage Grotesque",sans-serif;font-size:clamp(2rem,4vw,3.25rem);font-weight:800;line-height:1;margin-bottom:.7rem;letter-spacing:-.04em}
+.homepage-highlight h3{margin:0 0 .45rem;color:#173b64;font-size:1.18rem}
+.homepage-highlight p{margin:0;color:#53677a;line-height:1.6;font-size:.92rem}
+.homepage-highlight--recovery{border-top:4px solid #9bd35a}
+.homepage-highlight--volume{border-top:4px solid #173b64}
+.homepage-highlight--scope{border-top:4px solid #4f8eb5}
+@media(max-width:900px){.homepage-highlights__grid{grid-template-columns:1fr 1fr}.homepage-highlight--volume{grid-column:1/-1}}
+@media(max-width:560px){.homepage-highlights{padding:2.4rem 0}.homepage-highlights__grid{grid-template-columns:1fr}.homepage-highlight--volume{grid-column:auto}.homepage-highlight{padding:1.25rem}.homepage-highlight__value{font-size:2.35rem}}
