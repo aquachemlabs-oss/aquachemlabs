@@ -148,7 +148,10 @@
       <label for="e">Your email</label><input id="e" name="email" type="email" autocomplete="email" required>
       <label for="p">Phone number</label><input id="p" name="phone" type="tel" autocomplete="tel">
       <label for="c">Company or plant location</label><input id="c" name="company" autocomplete="organization">
-      <label for="m">Requirement details</label><textarea id="m" name="requirement" required placeholder="Specify your plant type (RO, Boiler, ETP, STP), capacity, water analysis parameters, or chemical requirements..."></textarea>
+      <label for="cap">Plant capacity (optional)</label><input id="cap" name="plant_capacity" placeholder="e.g. 5,000 LPH RO / 100 KLD ETP">
+      <label for="src">Raw-water or wastewater source (optional)</label><input id="src" name="water_source" placeholder="e.g. borewell, process effluent, domestic sewage">
+      <label for="quality">Required treated-water quality (optional)</label><input id="quality" name="target_quality" placeholder="e.g. RO permeate, boiler feed, reuse quality">
+      <label for="m">Requirement details</label><textarea id="m" name="requirement" required placeholder="Specify the plant type, current problem, water-analysis parameters, chemical or spare requirement, and any deadline."></textarea>
       <button class="btn" type="submit">Email my quote request</button>
       <p class="note">Your request is recorded securely for our technical team. You can also <a href="mailto:info@aquachemlabs.com?subject=Quote%20request">email info@aquachemlabs.com directly</a>.</p>
       <p class="note" data-form-status role="status" aria-live="polite"></p>

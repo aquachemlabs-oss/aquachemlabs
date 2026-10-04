@@ -326,6 +326,64 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('visibilitychange', start);
     start();
   });
+
+  // Add consistent Organization / WebSite structured data where page-level schema is absent.
+  if (!document.querySelector('script[data-acl-site-schema]')) {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          '@id': 'https://aquachemlabs.com/#organization',
+          name: 'Aqua Chem Labs',
+          url: 'https://aquachemlabs.com/',
+          logo: 'https://aquachemlabs.com/logo.png',
+          telephone: '+91 79749 99929',
+          email: 'info@aquachemlabs.com',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Raisen',
+            addressRegion: 'Madhya Pradesh',
+            addressCountry: 'IN'
+          },
+          sameAs: ['https://www.google.com/maps?cid=10116669877027612464']
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://aquachemlabs.com/#website',
+          url: 'https://aquachemlabs.com/',
+          name: 'Aqua Chem Labs',
+          publisher: { '@id': 'https://aquachemlabs.com/#organization' },
+          inLanguage: 'en-IN'
+        }
+      ]
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.dataset.aclSiteSchema = 'true';
+    script.textContent = JSON.stringify(schema);
+    document.head.append(script);
+  }
+
+  // Add social metadata for legacy pages that do not yet have Open Graph tags.
+  const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.href.split('#')[0];
+  const title = document.title;
+  const description = document.querySelector('meta[name="description"]')?.content || '';
+  const ensureMeta = (property, content) => {
+    let node = document.querySelector(`meta[property="${property}"]`);
+    if (!node) {
+      node = document.createElement('meta');
+      node.setAttribute('property', property);
+      document.head.append(node);
+    }
+    node.content = content;
+  };
+  ensureMeta('og:title', title);
+  ensureMeta('og:description', description);
+  ensureMeta('og:url', canonical);
+  ensureMeta('og:type', 'website');
+  ensureMeta('og:image', 'https://aquachemlabs.com/logo.png');
+
 });
 
 // Gallery category filters
@@ -339,4 +397,87 @@ document.addEventListener('DOMContentLoaded', () => {
       grid.querySelectorAll('figure').forEach((fig) => { fig.hidden = cat !== 'all' && fig.dataset.cat !== cat; });
     }));
   });
+});
+
+
+// Site-wide accessibility, navigation and conversion enhancements.
+document.addEventListener('DOMContentLoaded', () => {
+  const normalizePath = (value) => {
+    const path = new URL(value, window.location.origin).pathname.replace(/\\.html$/i, '').replace(/\\/+$/,'');
+    return path || '/';
+  };
+
+  const currentPath = normalizePath(window.location.href);
+
+  // Keep the active navigation state accurate on every page.
+  document.querySelectorAll('.nav-menu a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) return;
+    if (normalizePath(href) === currentPath) link.setAttribute('aria-current', 'page');
+  });
+
+  // Secure all new-tab links consistently.
+  document.querySelectorAll('a[target="_blank"]').forEach((link) => {
+    const rel = new Set((link.getAttribute('rel') || '').split(/\\s+/).filter(Boolean));
+    rel.add('noopener');
+    rel.add('noreferrer');
+    link.setAttribute('rel', [...rel].join(' '));
+  });
+
+  // Image performance: preserve the first viewport hero while lazy-loading the rest.
+  const heroImage = document.querySelector('.hero img');
+  document.querySelectorAll('main img').forEach((img) => {
+    if (img === heroImage) {
+      img.loading = 'eager';
+      img.decoding = 'async';
+      img.setAttribute('fetchpriority', 'high');
+    } else {
+      if (!img.getAttribute('loading')) img.loading = 'lazy';
+      if (!img.getAttribute('decoding')) img.decoding = 'async';
+    }
+
+    if (!img.hasAttribute('alt')) {
+      const figure = img.closest('figure');
+      const caption = figure?.querySelector('figcaption')?.textContent?.trim();
+      const filename = img.currentSrc || img.src || '';
+      const name = filename.split('/').pop()?.replace(/[-_]+/g, ' ').replace(/\\.[a-z0-9]+$/i, '').trim();
+      img.alt = caption || name || 'Aqua Chem Labs water treatment equipment';
+    }
+  });
+
+  // Add lightweight breadcrumbs to internal pages for users and search engines.
+  if (currentPath !== '/' && document.querySelector('main') && !document.querySelector('.site-breadcrumbs')) {
+    const main = document.querySelector('main');
+    const h1 = main.querySelector('h1');
+    const label = h1?.textContent?.replace(/\\s+/g, ' ').trim() || document.title.split('|')[0].trim();
+    const nav = document.createElement('nav');
+    nav.className = 'site-breadcrumbs wrap';
+    nav.setAttribute('aria-label', 'Breadcrumb');
+    nav.innerHTML = '<a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page"></span>';
+    nav.querySelector('[aria-current="page"]').textContent = label;
+    main.prepend(nav);
+
+    const breadcrumbJsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aquachemlabs.com/' },
+        { '@type': 'ListItem', position: 2, name: label, item: window.location.href.split('#')[0] }
+      ]
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(breadcrumbJsonLd);
+    document.head.append(script);
+  }
+
+  // Add a compact technical enquiry bar to high-intent pages.
+  const highIntent = /\\/(services|products|ro-plant|chemicals|plant-spares|ibr-valves|strainers-kits|boiler-spares|etp-plant|stp-plant|dm-plant|softener-plant|filtration-systems|boiler-water-treatment|cooling-tower-water-treatment|zld-plant)(?:\\/)?$/i.test(currentPath);
+  if (highIntent && !document.querySelector('.technical-cta-bar')) {
+    const bar = document.createElement('aside');
+    bar.className = 'technical-cta-bar';
+    bar.setAttribute('aria-label', 'Technical enquiry');
+    bar.innerHTML = '<div><strong>Need the right system or chemical programme?</strong><span>Share your water analysis and operating requirement with our technical team.</span></div><div class="technical-cta-bar__actions"><a href="/contact#qf" class="btn">Request a technical quote</a><a href="https://wa.me/917974999929?text=Hello%20Aqua%20Chem%20Labs%2C%20I%20need%20technical%20advice." target="_blank" rel="noopener noreferrer" class="btn ghost">WhatsApp</a></div>';
+    document.body.append(bar);
+  }
 });
