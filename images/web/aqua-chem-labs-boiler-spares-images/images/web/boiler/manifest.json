@@ -1,0 +1,86 @@
+{
+  "destination": "images/web/boiler/",
+  "items": [
+    {
+      "file": "acoset-castable-cement.jpg",
+      "name": "Acocet Castable Cement"
+    },
+    {
+      "file": "asbestos-sleeve.jpg",
+      "name": "Asbestos Sleeve"
+    },
+    {
+      "file": "bag-filters.jpg",
+      "name": "Bag Filters"
+    },
+    {
+      "file": "bed-coil.jpg",
+      "name": "Bed Coil"
+    },
+    {
+      "file": "blowdown-valbes.jpg",
+      "name": "Blowdown Valves"
+    },
+    {
+      "file": "boiler-bed-material.jpg",
+      "name": "Boiler Bed Material"
+    },
+    {
+      "file": "boiler-feed-pumps.jpg",
+      "name": "Boiler Feed Pumps"
+    },
+    {
+      "file": "boiler-fuse-plug.jpg",
+      "name": "Boiler Fuse Plug"
+    },
+    {
+      "file": "boiler-manhole-doors.jpg",
+      "name": "Boiler Manhole Doors"
+    },
+    {
+      "file": "boiler-sand.jpg",
+      "name": "Boiler Sand"
+    },
+    {
+      "file": "boiler-tube-ferrule.jpg",
+      "name": "Boiler Tube Ferrule"
+    },
+    {
+      "file": "boiler-tubes.jpg",
+      "name": "Boiler Tubes"
+    },
+    {
+      "file": "boiler-water-level-indicator.jpg",
+      "name": "Boiler Water Level Indicator"
+    },
+    {
+      "file": "brushes.jpg",
+      "name": "Boiler Cleaning Brushes"
+    },
+    {
+      "file": "burner.jpg",
+      "name": "Burner"
+    },
+    {
+      "file": "cast-iron-furnance-doors.jpg",
+      "name": "Cast Iron Furnace Doors"
+    },
+    {
+      "file": "champion-joining-sheet.jpg",
+      "name": "Champion Joining Sheet"
+    },
+    {
+      "file": "chemical-dosing-systems.jpg",
+      "name": "Chemical Dosing Systems"
+    },
+    {
+      "file": "circulation-pumps.jpg",
+      "name": "Circulation Pumps"
+    },
+    {
+      "file": "clamp-type-rubber-expansion-bellow.jpg",
+      "name": "Clamp Type Rubber Expansion Bellow"
+    }
+  ],
+  "note": "Optimized JPEG derivatives of the 20 supplied boiler-spares images."
+}
