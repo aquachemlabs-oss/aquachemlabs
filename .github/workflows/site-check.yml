@@ -14,6 +14,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install runtime dependencies
+        run: npm install
       - name: Validate site structure
         run: node scripts/validate-site.mjs
       - name: Validate every JavaScript source and script reference
