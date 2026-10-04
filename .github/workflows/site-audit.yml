@@ -26,4 +26,5 @@ jobs:
       - name: Browser and interaction QA
         run: |
           npx playwright install --with-deps chromium
+          node scripts/qa-server.mjs &
           npm run runtime-audit
