@@ -140,7 +140,7 @@
       <div data-gbp="hours"><p>Call us to confirm current opening hours.</p></div>
       <p style="margin-top:1.2rem;font-size:0.9rem;color:#4a6268"><em>Certified Quality Management System — ISO 9001:2015</em></p>
      </div>
-     <form class="f" id="qf" name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+     <form class="f" id="qf" name="quote-request" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="quote-request">
       <input type="hidden" name="subject" value="New Aqua Chem Labs quote request">
       <p class="form-hp" aria-hidden="true"><label>Leave this field empty<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
@@ -151,6 +151,7 @@
       <label for="cap">Plant capacity (optional)</label><input id="cap" name="plant_capacity" placeholder="e.g. 5,000 LPH RO / 100 KLD ETP">
       <label for="src">Raw-water or wastewater source (optional)</label><input id="src" name="water_source" placeholder="e.g. borewell, process effluent, domestic sewage">
       <label for="quality">Required treated-water quality (optional)</label><input id="quality" name="target_quality" placeholder="e.g. RO permeate, boiler feed, reuse quality">
+      <label for="analysis">Water analysis / laboratory report (optional)</label><input id="analysis" name="water_analysis" type="file" accept=".pdf,.csv,.xlsx,.xls,.jpg,.jpeg,.png" aria-describedby="analysis-help"><span id="analysis-help" class="form-file-help">PDF, Excel, CSV or image; share the latest available analysis so our technical team can review the chemistry.</span>
       <label for="m">Requirement details</label><textarea id="m" name="requirement" required placeholder="Specify the plant type, current problem, water-analysis parameters, chemical or spare requirement, and any deadline."></textarea>
       <button class="btn" type="submit">Email my quote request</button>
       <p class="note">Your request is recorded securely for our technical team. You can also <a href="mailto:info@aquachemlabs.com?subject=Quote%20request">email info@aquachemlabs.com directly</a>.</p>

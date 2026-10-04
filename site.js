@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
       menuToggle.setAttribute('aria-expanded', 'true');
       menuToggle.setAttribute('aria-label', 'Close navigation');
       menuToggle.textContent = '✕';
-      navMenu.querySelector(focusableSelector)?.focus();
+      const firstNavItem = navMenu.querySelector(focusableSelector);
+      if (firstNavItem) firstNavItem.focus();
     };
     menuToggle.addEventListener('click', () => {
       navMenu.classList.contains('active') ? closeMenu() : openMenu();
@@ -76,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     quoteForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!quoteForm.reportValidity()) return;
+      const analysisInput = quoteForm.querySelector('input[type="file"]');
+      if (analysisInput && analysisInput.files && analysisInput.files.length) { quoteForm.submit(); return; }
       submitButton.disabled = true;
       if (formStatus) { formStatus.className = 'note form-status'; formStatus.textContent = 'Sending your quote request…'; }
       try {
@@ -145,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Large PDFs load only after a visitor explicitly requests them.
   document.querySelectorAll('[data-pdf]').forEach((placeholder) => {
-    placeholder.querySelector('button')?.addEventListener('click', () => {
+    const pdfButton = placeholder.querySelector('button');
+    if (pdfButton) pdfButton.addEventListener('click', () => {
       const frame = document.createElement('iframe');
       frame.className = 'brochure-frame';
       frame.src = placeholder.dataset.pdf;
@@ -158,7 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // does not depend on JavaScript. Expanding the card also loads an inline preview.
   document.querySelectorAll('.service-guide[data-document]').forEach((guide) => {
     const documentUrl = guide.dataset.document;
-    const title = guide.querySelector('summary strong')?.textContent || 'service';
+    const titleNode = guide.querySelector('summary strong');
+    const title = (titleNode && titleNode.textContent) || 'service';
     const content = guide.querySelector('.service-guide__content');
 
     guide.addEventListener('toggle', () => {
@@ -236,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
       preview.style.top = `${top}px`;
     };
     const show = (item) => {
-      activeItem?.classList.remove('is-previewing');
+      if (activeItem) activeItem.classList.remove('is-previewing');
       activeItem = item;
       item.classList.add('is-previewing');
       previewImg.src = item.dataset.img;
@@ -249,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hide = () => {
       preview.hidden = true;
       pinned = false;
-      activeItem?.classList.remove('is-previewing');
+      if (activeItem) activeItem.classList.remove('is-previewing');
       activeItem = null;
     };
     previewImg.addEventListener('load', () => activeItem && place(activeItem));
@@ -302,7 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
     pauseButton.className = 'hero-slides__pause';
     pauseButton.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
     pauseButton.textContent = paused ? 'Play' : 'Pause';
-    root.querySelector('.hero-slides__ui')?.append(pauseButton);
+    const heroUi = root.querySelector('.hero-slides__ui');
+    if (heroUi) heroUi.append(pauseButton);
 
     const show = (next) => {
       if (next === current) return;
@@ -368,9 +374,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Add social metadata for legacy pages that do not yet have Open Graph tags.
-  const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.href.split('#')[0];
+  const canonicalNode = document.querySelector('link[rel="canonical"]');
+  const canonical = (canonicalNode && canonicalNode.href) || window.location.href.split('#')[0];
   const title = document.title;
-  const description = document.querySelector('meta[name="description"]')?.content || '';
+  const descriptionNode = document.querySelector('meta[name="description"]');
+  const description = (descriptionNode && descriptionNode.content) || '';
   const ensureMeta = (property, content) => {
     let node = document.querySelector(`meta[property="${property}"]`);
     if (!node) {
@@ -411,6 +419,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const currentPath = normalizePath(window.location.href);
 
+  // Keep new technical resources discoverable from every page without crowding the main navigation.
+  document.querySelectorAll('footer .f-grid > div:nth-child(2) ul').forEach((list) => {
+    const resources = [
+      ['/projects', 'Projects & Case Studies'],
+      ['/plant-chemical-guide', 'Plant Chemical Guide'],
+    ];
+    resources.forEach(([href, label]) => {
+      if (!list.querySelector(`a[href="${href}"]`)) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = label;
+        li.append(a);
+        list.append(li);
+      }
+    });
+  });
+
   // Keep the active navigation state accurate on every page.
   document.querySelectorAll('.nav-menu a[href]').forEach((link) => {
     const href = link.getAttribute('href');
@@ -420,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Secure all new-tab links consistently.
   document.querySelectorAll('a[target="_blank"]').forEach((link) => {
-    const rel = new Set((link.getAttribute('rel') || '').split(/\\s+/).filter(Boolean));
+    const rel = new Set((link.getAttribute('rel') || '').split(/\s+/).filter(Boolean));
     rel.add('noopener');
     rel.add('noreferrer');
     link.setAttribute('rel', [...rel].join(' '));
@@ -440,9 +466,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!img.hasAttribute('alt')) {
       const figure = img.closest('figure');
-      const caption = figure?.querySelector('figcaption')?.textContent?.trim();
+      const captionNode = figure && figure.querySelector('figcaption');
+      const caption = captionNode && captionNode.textContent ? captionNode.textContent.trim() : '';
       const filename = img.currentSrc || img.src || '';
-      const name = filename.split('/').pop()?.replace(/[-_]+/g, ' ').replace(/\\.[a-z0-9]+$/i, '').trim();
+      const filenamePart = filename.split('/').pop();
+      const name = filenamePart ? filenamePart.replace(/[-_]+/g, ' ').replace(/\.[a-z0-9]+$/i, '').trim() : '';
       img.alt = caption || name || 'Aqua Chem Labs water treatment equipment';
     }
   });
@@ -451,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (currentPath !== '/' && document.querySelector('main') && !document.querySelector('.site-breadcrumbs')) {
     const main = document.querySelector('main');
     const h1 = main.querySelector('h1');
-    const label = h1?.textContent?.replace(/\\s+/g, ' ').trim() || document.title.split('|')[0].trim();
+    const label = (h1 && h1.textContent ? h1.textContent.replace(/\s+/g, ' ').trim() : '') || document.title.split('|')[0].trim();
     const nav = document.createElement('nav');
     nav.className = 'site-breadcrumbs wrap';
     nav.setAttribute('aria-label', 'Breadcrumb');
@@ -474,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Add a compact technical enquiry bar to high-intent pages.
-  const highIntent = /\\/(services|products|ro-plant|chemicals|plant-spares|ibr-valves|strainers-kits|boiler-spares|etp-plant|stp-plant|dm-plant|softener-plant|filtration-systems|boiler-water-treatment|cooling-tower-water-treatment|zld-plant)(?:\\/)?$/i.test(currentPath);
+  const highIntent = /\/(services|products|ro-plant|chemicals|plant-spares|ibr-valves|strainers-kits|boiler-spares|etp-plant|stp-plant|dm-plant|softener-plant|filtration-systems|boiler-water-treatment|cooling-tower-water-treatment|zld-plant)(?:\/)?$/i.test(currentPath);
   if (highIntent && !document.querySelector('.technical-cta-bar')) {
     const bar = document.createElement('aside');
     bar.className = 'technical-cta-bar';

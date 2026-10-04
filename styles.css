@@ -893,3 +893,87 @@ footer .f-grid a { transition: color .2s; }
     grid-template-columns:1fr;
   }
 }
+
+
+/* 2026 conversion, chemistry and performance improvements */
+.service-guide__actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.55rem;
+  padding:.9rem 1.25rem 0;
+}
+.service-guide__actions .btn { margin:0; }
+.service-guide__chemistry {
+  margin:.65rem 1.25rem 0;
+  padding:.7rem .8rem;
+  border-left:3px solid var(--lime);
+  background:#fbfef8;
+  color:#40526f;
+  font-size:.9rem;
+}
+.service-guide__chemistry strong { color:var(--navy); }
+.chemical-service-callout {
+  margin-top:1.5rem;
+  padding:1rem 1.1rem;
+  border:1px solid #cfe3b5;
+  border-left:5px solid var(--leaf);
+  border-radius:10px;
+  background:#f8fcf3;
+}
+.chemical-service-callout p { margin:.35rem 0 .7rem; color:#40526f; }
+.form-file-help { display:block; margin:.35rem 0 0; color:#5d6b7c; font-size:.82rem; line-height:1.45; }
+.project-proof-grid, .chemical-guide-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1.2rem;
+}
+.project-proof-card, .chemical-guide-card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(11,47,122,.07);
+}
+.project-proof-card img { display:block; width:100%; aspect-ratio:3/2; object-fit:cover; }
+.project-proof-card > div, .chemical-guide-card { padding:1.2rem 1.3rem; }
+.project-proof-card h2, .chemical-guide-card h2 { color:var(--navy); font-size:1.35rem; margin:.2rem 0 .45rem; }
+.project-proof-card p, .chemical-guide-card p { color:#465873; }
+.chemical-guide-card ul { margin:.7rem 0 1rem; padding-left:1.1rem; }
+.chemical-guide-card li { margin:.28rem 0; }
+.chemical-guide-intro { padding:2rem 0 3rem; }
+.chemical-warning {
+  padding:1rem 1.1rem;
+  border:1px solid #f0d59a;
+  border-left:5px solid #d08a00;
+  border-radius:10px;
+  background:#fffaf0;
+  color:#5d4a22;
+  margin-bottom:1.4rem;
+}
+.project-case-study { padding:2.5rem 0 4rem; }
+.project-case-study__inner {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:2rem;
+  padding:1.5rem;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(135deg,#f5faff,#fff);
+}
+.project-case-study__actions { display:flex; flex-wrap:wrap; gap:.6rem; }
+.project-proof-tags { margin-top:1rem; }
+.project-proof-tags span {
+  display:inline-block;
+  padding:.35rem .65rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  color:var(--deep);
+  font-size:.82rem;
+  font-weight:600;
+}
+@media (max-width: 860px) {
+  .project-proof-grid, .chemical-guide-grid { grid-template-columns:1fr; }
+  .project-case-study__inner { grid-template-columns:1fr; }
+}
