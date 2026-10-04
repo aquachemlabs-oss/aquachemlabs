@@ -33,4 +33,5 @@ pass(19,'static QA script is repository controlled');
 if(exists('scripts/site-runtime-audit.mjs')&&exists('.github/workflows/site-runtime-audit.yml')&&exists('scripts/structured-data-audit.mjs'))pass(20,'browser/runtime QA and structured-data validation are wired into CI');else fail(20,'runtime/structured-data QA missing');
 if(exists('ACL_2025.pdf')&&fs.statSync('ACL_2025.pdf').size>5*1024*1024)warn(3,'source brochure is >5MB; Netlify build will optimize it when Ghostscript is available');
 if(exists('netlify.toml')&&/npm run build/.test(read('netlify.toml')))pass(3,'Netlify production build publishes optimized dist output');else fail(3,'Netlify build pipeline not configured');
+if(exists('netlify.toml')&&/npm run build/.test(read('netlify.toml')))pass(3,'production build pipeline publishes optimized dist output');else fail(3,'production build pipeline missing');
 console.log('20-point audit: '+errors.length+' errors, '+warnings.length+' warnings');warnings.forEach(x=>console.log('WARN '+x));errors.forEach(x=>console.error('ERROR '+x));if(errors.length)process.exit(1);
