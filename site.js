@@ -529,6 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ['/plant-chemical-guide','Plant Chemical Guide'],
       ['/plant-care-guide','Plant Care Guide'],
       ['/technical-resources','Technical Resources'],
+      ['/engineering-tools','Engineering Calculators'],
       ['/reviews','Reviews'],
       ['/gallery','Gallery'],
       ['/brochure','Company Brochure']
