@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!q || !a) return null;
     return { '@type': 'Question', name: q.textContent.trim(), acceptedAnswer: { '@type': 'Answer', text: a.textContent.trim() } };
   }).filter(Boolean);
-  if (faqEntities.length) {
+  if (faqEntities.length && !document.querySelector('script[type="application/ld+json"]')?.textContent.includes('FAQPage')) {
     const faqScript = document.createElement('script');
     faqScript.type = 'application/ld+json';
     faqScript.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqEntities });
