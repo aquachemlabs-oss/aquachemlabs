@@ -47,16 +47,52 @@
 <footer><div class="wrap" style="padding:50px 0"><strong>AQUA CHEM LABS</strong><p>Industrial water treatment plants, chemicals, spares and technical support.</p><p><a href="/contact">Contact</a> · <a href="/services">Services</a> · <a href="/projects">Projects</a></p></div></footer>
 <script src="/site.js" defer></script>
 <script>
-document.addEventListener('DOMContentLoaded',()=>{
- const n=id=>parseFloat(document.getElementById(id).value)||0;
- const fmt=(x,d=2)=>Number.isFinite(x)?x.toLocaleString('en-IN',{maximumFractionDigits:d}):'—';
- const calc=()=>{
-  const f=n('ro-feed'),p=n('ro-perm'); document.getElementById('ro-out').textContent=f>0&&p>=0&&p<=f?'Recovery: '+fmt((p/f)*100,1)+'%':'Enter valid flow values.';
-  const q=n('dose-flow'),ppm=n('dose-ppm'); document.getElementById('dose-out').textContent=q>0&&ppm>=0?'Active chemical mass: '+fmt(q*ppm/1000)+' kg/h':'Enter valid flow and dose.';
-  const l=n('tank-l'),w=n('tank-w'),d=n('tank-d'); document.getElementById('tank-out').textContent=l>0&&w>0&&d>0?'Volume: '+fmt(l*w*d)+' m³ ('+fmt(l*w*d*1000,0)+' L)':'Enter all dimensions.';
-  const m=n('ct-makeup'),c=n('ct-circ'); document.getElementById('ct-out').textContent=m>0&&c>=m?'Estimated cycles: '+fmt(c/m,2):'Enter valid conductivity values.';
- };
- document.querySelectorAll('.calculator-card input').forEach(i=>i.addEventListener('input',calc)); calc();
+document.addEventListener('DOMContentLoaded', () => {
+  const byId = id => document.getElementById(id);
+  const number = id => {
+    const value = Number.parseFloat(byId(id)?.value);
+    return Number.isFinite(value) ? value : NaN;
+  };
+  const fmt = (value, digits = 2) => Number.isFinite(value)
+    ? value.toLocaleString('en-IN', { maximumFractionDigits: digits })
+    : '—';
+
+  const setResult = (id, message) => { byId(id).textContent = message; };
+
+  const calculate = () => {
+    const feed = number('ro-feed');
+    const permeate = number('ro-perm');
+    setResult('ro-out',
+      Number.isFinite(feed) && feed > 0 && Number.isFinite(permeate) && permeate >= 0 && permeate <= feed
+        ? 'Recovery: ' + fmt((permeate / feed) * 100, 1) + '%'
+        : 'Enter feed > 0 and permeate between 0 and feed.');
+
+    const flow = number('dose-flow');
+    const ppm = number('dose-ppm');
+    setResult('dose-out',
+      Number.isFinite(flow) && flow > 0 && Number.isFinite(ppm) && ppm >= 0
+        ? 'Active chemical mass: ' + fmt((flow * ppm) / 1000, 3) + ' kg/h'
+        : 'Enter flow > 0 and dose ≥ 0.');
+
+    const length = number('tank-l');
+    const width = number('tank-w');
+    const depth = number('tank-d');
+    const volume = length * width * depth;
+    setResult('tank-out',
+      Number.isFinite(volume) && length > 0 && width > 0 && depth > 0
+        ? 'Volume: ' + fmt(volume) + ' m³ (' + fmt(volume * 1000, 0) + ' L)'
+        : 'Enter all dimensions greater than 0.');
+
+    const makeup = number('ct-makeup');
+    const circulating = number('ct-circ');
+    setResult('ct-out',
+      Number.isFinite(makeup) && makeup > 0 && Number.isFinite(circulating) && circulating >= makeup
+        ? 'Estimated cycles: ' + fmt(circulating / makeup, 2)
+        : 'Enter make-up > 0 and circulating conductivity ≥ make-up.');
+  };
+
+  document.querySelectorAll('.calculator-card input').forEach(input => input.addEventListener('input', calculate));
+  calculate();
 });
 </script>
 </body></html>
