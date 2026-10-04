@@ -1607,3 +1607,30 @@ main>section{content-visibility:auto;contain-intrinsic-size:1px 700px}
 
 /* Service-area coverage lists */
 .location-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem 1.25rem;list-style:none;padding:0;margin:1.25rem 0}.location-list li{padding:.65rem .8rem;border:1px solid rgba(11,43,64,.1);border-radius:10px;background:#fff;font-weight:500}.location-list li::before{content:'•';margin-right:.45rem}@media(max-width:900px){.location-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.location-list{grid-template-columns:1fr}}
+
+
+/* Full-screen layout, compact page spacing and accessible popup controls */
+.wrap{max-width:1440px;padding-inline:1rem}
+section{padding-block:3rem}
+.page-hero .wrap{padding-block:48px 40px}
+.site-breadcrumbs{padding-top:8px;padding-bottom:4px}
+.calculator-result-modal{position:fixed;inset:0;z-index:2500;display:none;align-items:center;justify-content:center;padding:1.25rem}
+.calculator-result-modal.is-open{display:flex}
+.calculator-result-modal__backdrop{position:absolute;inset:0;background:rgba(5,18,30,.72);backdrop-filter:blur(4px)}
+.calculator-result-modal__panel{position:relative;width:min(520px,100%);padding:2rem;border-radius:18px;background:#fff;color:var(--ink);box-shadow:0 25px 80px rgba(0,0,0,.3);text-align:center}
+.calculator-result-modal__panel h2{margin:.15rem 0 .8rem;color:var(--navy)}
+.calculator-result-modal__value{margin:0 0 1.4rem;padding:1rem;border-radius:12px;background:#eaf8ed;border:2px solid #69b978;color:#164b24;font-size:1.2rem;font-weight:800}
+.calculator-result-modal__value:not(.is-valid){background:#fff5f5;border-color:#e2a5a5;color:#7b2020}
+.calculator-result-modal__close{position:absolute;top:.65rem;right:.75rem;width:40px;height:40px;border:0;border-radius:50%;background:#edf3f7;color:#0b2b40;font-size:1.7rem;line-height:1;cursor:pointer}
+.calculator-result-modal__close:hover{background:#dbe8ef}
+body.calculator-modal-open{overflow:hidden}
+
+/* Technical enquiry popup: high-contrast white copy with an explicit close control */
+.technical-cta-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(1180px,calc(100% - 24px));margin:0;padding:1rem 3.2rem 1rem 1.1rem;background:rgba(9,29,46,.97);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:14px;box-shadow:0 18px 55px rgba(0,0,0,.28);z-index:2200}
+.technical-cta-bar strong,.technical-cta-bar span{color:#fff!important}
+.technical-cta-bar__close{position:absolute;top:.55rem;right:.65rem;width:34px;height:34px;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:1.35rem;line-height:1;cursor:pointer}
+.technical-cta-bar__close:hover{background:rgba(255,255,255,.22)}
+.technical-cta-bar.is-closed{display:none!important}
+.technical-cta-bar__actions .btn.ghost{color:#fff;border-color:#fff}
+@media(max-width:760px){.technical-cta-bar{width:calc(100% - 12px);bottom:6px;padding:.85rem 2.8rem .85rem .85rem}.technical-cta-bar__actions{width:100%}}
+@media(max-width:560px){section{padding-block:2.25rem}.wrap{padding-inline:.8rem}}
