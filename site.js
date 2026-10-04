@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   else {
     const header = document.querySelector('.site-header');
     if (header) header.insertAdjacentHTML('beforebegin', canonicalRibbon);
+    else if (document.body) document.body.insertAdjacentHTML('afterbegin', canonicalRibbon);
   }
   const productsMenu = document.querySelector('#productsDropdown .dd-menu');
   if (productsMenu) productsMenu.querySelectorAll('a[href="/ro-plant"]').forEach((link) => link.closest('li')?.remove());
