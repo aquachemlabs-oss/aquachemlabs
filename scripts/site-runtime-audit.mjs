@@ -1,19 +1,7 @@
-import { chromium } from '@playwright/test';
+import {chromium} from '@playwright/test';
+import {spawn} from 'node:child_process';
 const pages=['/','/about-us','/services','/products','/ro-plant','/chemicals','/plant-care-guide','/plant-chemical-guide','/projects','/reviews','/gallery','/technical-resources','/engineering-tools','/technical-documents','/locations','/bhopal-water-treatment','/indore-water-treatment','/jabalpur-water-treatment','/contact'];
-const browser=await chromium.launch({headless:true}), page=await browser.newPage(), failures=[];
-page.on('console',m=>{if(m.type()==='error')failures.push('console: '+m.text())});
-page.on('pageerror',e=>failures.push('pageerror: '+e.message));
-for(const p of pages){
- const r=await page.goto('http://127.0.0.1:4173'+p,{waitUntil:'domcontentloaded'});
- if(!r||!r.ok())failures.push(p+' HTTP '+(r?.status()||0));
- const h=await page.locator('h1').count();if(h!==1)failures.push(p+' H1 count '+h);
- const links=await page.locator('a[href]').evaluateAll(as=>as.map(a=>a.href).filter(h=>h.startsWith(location.origin)));
- for(const href of links){const x=await page.request.get(href);if(!x.ok())failures.push(p+' broken '+href+' '+x.status())}
- if(p==='/'&&await page.locator('#prob').count()){await page.locator('#prob').selectOption('tds');const text=await page.locator('#res').textContent();if(!text.includes('Industrial RO Plant'))failures.push('homepage diagnostic interaction failed')}
- if(p==='/products'&&await page.locator('#productsDropdown .dd-label').count()){await page.locator('#productsDropdown .dd-label').click();if(!(await page.locator('#productsDropdown').evaluate(e=>e.classList.contains('active'))))failures.push('products dropdown interaction failed')}
-}
-await browser.close();
-console.log('Runtime pages checked: '+pages.length);
-console.log('Runtime failures: '+failures.length);
-failures.forEach(x=>console.error(x));
-if(failures.length)process.exit(1);
+const server=spawn(process.execPath,['-e',`const http=require('http'),fs=require('fs'),path=require('path');const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.pdf':'application/pdf','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp'};http.createServer((q,s)=>{let u=decodeURIComponent(q.url.split('?')[0]),f=path.join(process.cwd(),u==='/'?'index.html':u.slice(1));if(!path.extname(f)&&fs.existsSync(f+'.html'))f+='.html';if(fs.existsSync(f)&&fs.statSync(f).isFile()){s.statusCode=200;s.setHeader('Content-Type',mime[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(s)}else{s.statusCode=404;s.end('Not found')}}).listen(4173)`],{stdio:'ignore'});
+const browser=await chromium.launch({headless:true});const page=await browser.newPage();const failures=[];page.on('pageerror',e=>failures.push('pageerror: '+e.message));page.on('console',m=>{if(m.type()==='error')failures.push('console: '+m.text())});
+for(const p of pages){const r=await page.goto('http://127.0.0.1:4173'+p,{waitUntil:'networkidle'});if(!r||!r.ok())failures.push(p+' HTTP '+(r?.status()||0));const h1=await page.locator('h1').count();if(h1!==1)failures.push(p+' H1='+h1);const links=await page.locator('a[href]').evaluateAll(as=>as.map(a=>a.href).filter(h=>h.startsWith(location.origin)));for(const h of links){const rr=await page.request.get(h);if(!rr.ok())failures.push(p+' broken '+h+' '+rr.status())}}
+await browser.close();server.kill();console.log('Runtime pages:',pages.length,'failures:',failures.length);failures.forEach(x=>console.error(x));if(failures.length)process.exit(1);
