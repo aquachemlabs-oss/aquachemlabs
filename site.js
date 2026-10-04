@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hide = () => {
       preview.hidden = true;
       pinned = false;
-      activeItem?.classList.remove('is-previewing');
+      if (activeItem) activeItem.classList.remove('is-previewing');
       activeItem = null;
     };
     previewImg.addEventListener('load', () => activeItem && place(activeItem));
