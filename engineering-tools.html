@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="canonical" href="https://aquachemlabs.com/engineering-tools">
-<title>Water Treatment Calculators | RO Recovery, Chemical Dosing & Tank Volume | Aqua Chem Labs</title>
-<meta name="description" content="Free practical water-treatment calculators for RO recovery, chemical dosing, tank volume and cooling-tower cycles. Use as preliminary engineering checks, not final design calculations.">
+<title>Water Treatment Engineering Calculators | RO, ETP, Cooling Tower &amp; Pump Calculators | Aqua Chem Labs</title>
+<meta name="description" content="Free preliminary water-treatment engineering calculators for RO recovery, chemical dosing, tank volume, cooling-tower cycles, COD load, chlorine dosing, pump power, detention time, filter loading and ETP F/M ratio.">
 <meta property="og:title" content="Water Treatment Engineering Calculators | Aqua Chem Labs">
-<meta property="og:description" content="Preliminary calculators for RO recovery, chemical dosing, tank volume and cooling-tower cycles.">
+<meta property="og:description" content="Practical preliminary calculators for industrial water and wastewater treatment engineering.">
 <meta property="og:url" content="https://aquachemlabs.com/engineering-tools">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://aquachemlabs.com/logo.png">
@@ -27,39 +27,146 @@
 </div></header>
 <main>
 <section class="page-hero"><div class="wrap" style="padding:76px 0 62px">
-<p class="section-kicker">Engineering tools</p><h1>Water Treatment Calculators</h1>
-<p class="intro">Use these calculators for quick preliminary checks during plant discussions. They are intentionally simple and transparent; final equipment sizing, chemical selection and operating limits require actual site data and engineering review.</p>
+<p class="section-kicker">Engineering tools</p>
+<h1>Water Treatment Engineering Calculators</h1>
+<p class="intro">Enter values in any calculator. Results update immediately as you type and the Calculate button opens a clear calculation popup showing the exact values and formula used.</p>
 </div></section>
 <div class="wrap site-breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Engineering Tools</span></div>
 
 <section><div class="wrap">
 <div class="calculator-grid">
-<article class="calculator-card"><p class="section-kicker">RO</p><h2>Recovery calculator</h2><label>Feed flow (m³/h)<input id="ro-feed" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Permeate flow (m³/h)<input id="ro-perm" type="number" min="0" step="0.01" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="ro">Calculate recovery</button><output id="ro-out" class="calculator-result" aria-live="polite">Enter feed and permeate flow.</output></article>
-<article class="calculator-card"><p class="section-kicker">CHEMICAL DOSING</p><h2>ppm dosing calculator</h2><label>Water flow (m³/h)<input id="dose-flow" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Dose (ppm / mg/L)<input id="dose-ppm" type="number" min="0" step="0.1" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="dose">Calculate dosing</button><output id="dose-out" class="calculator-result" aria-live="polite">Enter flow and target dose.</output></article>
-<article class="calculator-card"><p class="section-kicker">TANK</p><h2>Rectangular tank volume</h2><label>Length (m)<input id="tank-l" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Width (m)<input id="tank-w" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Water depth (m)<input id="tank-d" type="number" min="0" step="0.01" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="tank">Calculate volume</button><output id="tank-out" class="calculator-result" aria-live="polite">Enter dimensions.</output></article>
-<article class="calculator-card"><p class="section-kicker">COOLING TOWER</p><h2>Estimated cycles of concentration</h2><label>Make-up conductivity<input id="ct-makeup" type="number" min="0" step="0.1" inputmode="decimal"></label><label>Circulating-water conductivity<input id="ct-circ" type="number" min="0" step="0.1" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="ct">Calculate cycles</button><output id="ct-out" class="calculator-result" aria-live="polite">Enter both conductivity values.</output></article>
+
+<article class="calculator-card">
+<p class="section-kicker">RO</p><h2>RO Recovery</h2>
+<label>Feed flow (m³/h)<input id="ro-feed" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Permeate flow (m³/h)<input id="ro-perm" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> Recovery = Permeate ÷ Feed × 100</p>
+<button type="button" class="btn calculator-run" data-calc="ro">Calculate recovery</button>
+<output id="ro-out" class="calculator-result" aria-live="polite">Enter feed and permeate flow.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">CHEMICAL</p><h2>ppm Dosing</h2>
+<label>Water flow (m³/h)<input id="dose-flow" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Dose (ppm / mg/L)<input id="dose-ppm" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> Chemical mass = Flow × Dose ÷ 1000 kg/h</p>
+<button type="button" class="btn calculator-run" data-calc="dose">Calculate dosing</button>
+<output id="dose-out" class="calculator-result" aria-live="polite">Enter flow and target dose.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">TANK</p><h2>Rectangular Tank Volume</h2>
+<label>Length (m)<input id="tank-l" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Width (m)<input id="tank-w" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Water depth (m)<input id="tank-d" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> Volume = Length × Width × Depth</p>
+<button type="button" class="btn calculator-run" data-calc="tank">Calculate volume</button>
+<output id="tank-out" class="calculator-result" aria-live="polite">Enter dimensions.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">COOLING TOWER</p><h2>Cycles of Concentration</h2>
+<label>Make-up conductivity (µS/cm)<input id="ct-makeup" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<label>Circulating conductivity (µS/cm)<input id="ct-circ" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> Cycles = Circulating ÷ Make-up</p>
+<button type="button" class="btn calculator-run" data-calc="ct">Calculate cycles</button>
+<output id="ct-out" class="calculator-result" aria-live="polite">Enter both conductivity values.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">ETP</p><h2>COD Load</h2>
+<label>Flow (m³/day)<input id="cod-flow" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<label>COD (mg/L)<input id="cod-conc" type="number" min="0" step="1" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> COD load = Flow × COD ÷ 1000 kg/day</p>
+<button type="button" class="btn calculator-run" data-calc="cod">Calculate COD load</button>
+<output id="cod-out" class="calculator-result" aria-live="polite">Enter flow and COD.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">DISINFECTION</p><h2>Chlorine Dosing</h2>
+<label>Water flow (m³/h)<input id="chlor-flow" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Target chlorine dose (mg/L)<input id="chlor-dose" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<label>Available chlorine (%)<input id="chlor-strength" type="number" min="0.01" step="0.1" value="10" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> Product ≈ Flow × Dose ÷ (10 × Strength) L/h</p>
+<button type="button" class="btn calculator-run" data-calc="chlorine">Calculate chlorine feed</button>
+<output id="chlor-out" class="calculator-result" aria-live="polite">Enter flow, dose and product strength.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">PUMP</p><h2>Hydraulic Pump Power</h2>
+<label>Flow (m³/h)<input id="pump-flow" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Total dynamic head (m)<input id="pump-head" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<label>Pump efficiency (%)<input id="pump-eff" type="number" min="0.1" max="100" step="0.1" value="70" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> Power = ρgQH ÷ η</p>
+<button type="button" class="btn calculator-run" data-calc="pump">Calculate pump power</button>
+<output id="pump-out" class="calculator-result" aria-live="polite">Enter flow, head and efficiency.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">PROCESS</p><h2>Tank Detention Time</h2>
+<label>Tank volume (m³)<input id="det-volume" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Flow (m³/h)<input id="det-flow" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> HRT = Volume ÷ Flow hours</p>
+<button type="button" class="btn calculator-run" data-calc="detention">Calculate HRT</button>
+<output id="det-out" class="calculator-result" aria-live="polite">Enter tank volume and flow.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">FILTRATION</p><h2>Filter Loading Rate</h2>
+<label>Flow (m³/h)<input id="filter-flow" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<label>Filter diameter (m)<input id="filter-dia" type="number" min="0" step="0.01" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> Loading rate = Flow ÷ filter area</p>
+<button type="button" class="btn calculator-run" data-calc="filter">Calculate loading</button>
+<output id="filter-out" class="calculator-result" aria-live="polite">Enter flow and filter diameter.</output>
+</article>
+
+<article class="calculator-card">
+<p class="section-kicker">BIOLOGICAL</p><h2>ETP F/M Ratio</h2>
+<label>Flow (m³/day)<input id="fm-flow" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<label>Influent BOD (mg/L)<input id="fm-bod" type="number" min="0" step="1" inputmode="decimal"></label>
+<label>MLSS (mg/L)<input id="fm-mlss" type="number" min="0" step="10" inputmode="decimal"></label>
+<label>Aeration tank volume (m³)<input id="fm-volume" type="number" min="0" step="0.1" inputmode="decimal"></label>
+<p class="note"><strong>Formula:</strong> F/M = BOD load ÷ biomass inventory</p>
+<button type="button" class="btn calculator-run" data-calc="fm">Calculate F/M</button>
+<output id="fm-out" class="calculator-result" aria-live="polite">Enter flow, BOD, MLSS and tank volume.</output>
+</article>
+
 </div>
-<p class="note" style="margin-top:22px"><strong>Engineering note:</strong> These outputs are screening calculations. Do not use them alone to select membranes, pumps, dosing equipment, chemical concentration, boiler limits or cooling-water control limits. Confirm the calculation basis with current laboratory data, equipment/OEM limits and applicable requirements.</p>
+<p class="note" style="margin-top:22px"><strong>Engineering note:</strong> These are preliminary screening calculations, not final design tools. Confirm membrane limits, chemical concentration, pump selection, process kinetics, filter media limits, boiler/cooling chemistry and statutory requirements using current site data, laboratory analysis and OEM/design criteria.</p>
 </div></section>
 
-<section class="seo-services"><div class="wrap"><p class="section-kicker">Next step</p><h2 class="title">Turn a preliminary check into an engineering design</h2><p class="intro">Send the latest water analysis, flow requirement, treated-water target and existing plant information to the technical team.</p><div class="cta"><a class="btn" href="/contact#qf">Submit technical enquiry</a><a class="btn ghost" href="/technical-resources">Technical resources</a><a class="btn ghost" href="/projects">Project evidence</a></div></div></section>
+<section class="seo-services"><div class="wrap">
+<p class="section-kicker">More engineering references</p><h2 class="title">Use the calculators with the technical resources</h2>
+<p class="intro">For process-selection context, water chemistry, troubleshooting and procurement checklists, continue to the technical resource library.</p>
+<div class="cta"><a class="btn" href="/technical-resources">Technical resources</a><a class="btn ghost" href="/plant-care-guide">Plant care guide</a><a class="btn ghost" href="/contact#qf">Submit technical enquiry</a></div>
+</div></section>
 </main>
 <footer><div class="wrap" style="padding:50px 0"><strong>AQUA CHEM LABS</strong><p>Industrial water treatment plants, chemicals, spares and technical support.</p><p><a href="/contact">Contact</a> · <a href="/services">Services</a> · <a href="/projects">Projects</a></p></div></footer>
 <script src="/site.js" defer></script>
 <script>
 (() => {
+  'use strict';
+
   const byId = id => document.getElementById(id);
   const number = id => {
     const node = byId(id);
     const value = Number.parseFloat(node?.value ?? '');
     return Number.isFinite(value) ? value : NaN;
   };
-  const fmt = (value, digits = 2) => Number.isFinite(value)
-    ? value.toLocaleString('en-IN', { maximumFractionDigits: digits })
-    : '—';
+  const fmt = (value, digits = 2) =>
+    Number.isFinite(value)
+      ? value.toLocaleString('en-IN', { maximumFractionDigits: digits })
+      : '—';
 
-  const showPopup = (title, message, valid) => {
-    let modal = document.getElementById('calculator-result-modal');
+  const setResult = (id, message, valid = false) => {
+    const node = byId(id);
+    if (!node) return;
+    node.textContent = message;
+    node.classList.toggle('is-valid', valid);
+  };
+
+  const popup = (title, formula, values, message, valid) => {
+    let modal = byId('calculator-result-modal');
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'calculator-result-modal';
@@ -67,14 +174,33 @@
       modal.setAttribute('role', 'dialog');
       modal.setAttribute('aria-modal', 'true');
       modal.setAttribute('aria-labelledby', 'calculator-result-title');
-      modal.innerHTML = '<div class="calculator-result-modal__backdrop" data-close-calculator></div><div class="calculator-result-modal__panel"><button type="button" class="calculator-result-modal__close" aria-label="Close calculation result" data-close-calculator>×</button><p class="section-kicker">Calculation result</p><h2 id="calculator-result-title"></h2><p class="calculator-result-modal__value"></p><button type="button" class="btn" data-close-calculator>Close</button></div>';
+      modal.innerHTML = '<div class="calculator-result-modal__backdrop" data-close-calculator></div>' +
+        '<div class="calculator-result-modal__panel">' +
+        '<button type="button" class="calculator-result-modal__close" aria-label="Close calculation result" data-close-calculator>×</button>' +
+        '<p class="section-kicker">Calculation result</p>' +
+        '<h2 id="calculator-result-title"></h2>' +
+        '<p class="calculator-result-modal__formula"></p>' +
+        '<p class="calculator-result-modal__inputs"></p>' +
+        '<p class="calculator-result-modal__value"></p>' +
+        '<button type="button" class="btn" data-close-calculator>Close</button>' +
+        '</div>';
       document.body.append(modal);
-      modal.querySelectorAll('[data-close-calculator]').forEach(button => button.addEventListener('click', () => {
-        modal.classList.remove('is-open');
-        document.body.classList.remove('calculator-modal-open');
-      }));
+      modal.querySelectorAll('[data-close-calculator]').forEach(button => {
+        button.addEventListener('click', () => {
+          modal.classList.remove('is-open');
+          document.body.classList.remove('calculator-modal-open');
+        });
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          modal.classList.remove('is-open');
+          document.body.classList.remove('calculator-modal-open');
+        }
+      });
     }
-    modal.querySelector('#calculator-result-title').textContent = title;
+    byId('calculator-result-title').textContent = title;
+    modal.querySelector('.calculator-result-modal__formula').textContent = 'Formula: ' + formula;
+    modal.querySelector('.calculator-result-modal__inputs').textContent = 'Values used: ' + values;
     const value = modal.querySelector('.calculator-result-modal__value');
     value.textContent = message;
     value.classList.toggle('is-valid', valid);
@@ -83,53 +209,110 @@
     modal.querySelector('.calculator-result-modal__close').focus();
   };
 
-  const setResult = (id, message, ok = false) => {
-    const node = byId(id);
-    if (!node) return;
-    node.textContent = message;
-    node.classList.toggle('is-valid', ok);
-  };
-
-  const calculate = (show = false, type = '') => {
-    const feed = number('ro-feed'), permeate = number('ro-perm');
-    const roOk = Number.isFinite(feed) && feed > 0 && Number.isFinite(permeate) && permeate >= 0 && permeate <= feed;
-    const roMessage = roOk ? 'Recovery: ' + fmt((permeate / feed) * 100, 1) + '%' : 'Enter feed > 0 and permeate between 0 and feed.';
-    setResult('ro-out', roMessage, roOk);
-
-    const flow = number('dose-flow'), ppm = number('dose-ppm');
-    const doseOk = Number.isFinite(flow) && flow > 0 && Number.isFinite(ppm) && ppm >= 0;
-    const doseMessage = doseOk ? 'Active chemical mass: ' + fmt((flow * ppm) / 1000, 3) + ' kg/h' : 'Enter flow > 0 and dose ≥ 0.';
-    setResult('dose-out', doseMessage, doseOk);
-
-    const length = number('tank-l'), width = number('tank-w'), depth = number('tank-d');
-    const volume = length * width * depth;
-    const tankOk = Number.isFinite(volume) && length > 0 && width > 0 && depth > 0;
-    const tankMessage = tankOk ? 'Volume: ' + fmt(volume) + ' m³ (' + fmt(volume * 1000, 0) + ' L)' : 'Enter all dimensions greater than 0.';
-    setResult('tank-out', tankMessage, tankOk);
-
-    const makeup = number('ct-makeup'), circulating = number('ct-circ');
-    const ctOk = Number.isFinite(makeup) && makeup > 0 && Number.isFinite(circulating) && circulating >= makeup;
-    const ctMessage = ctOk ? 'Estimated cycles: ' + fmt(circulating / makeup, 2) : 'Enter make-up > 0 and circulating conductivity ≥ make-up.';
-    setResult('ct-out', ctMessage, ctOk);
-
-    if (show) {
-      const data = {
-        ro: ['RO Recovery', roMessage, roOk],
-        dose: ['Chemical Dosing', doseMessage, doseOk],
-        tank: ['Rectangular Tank Volume', tankMessage, tankOk],
-        ct: ['Cooling Tower Cycles', ctMessage, ctOk]
-      }[type];
-      if (data) showPopup(data[0], data[1], data[2]);
+  const calculations = {
+    ro: () => {
+      const feed = number('ro-feed'), permeate = number('ro-perm');
+      const ok = Number.isFinite(feed) && feed > 0 && Number.isFinite(permeate) && permeate >= 0 && permeate <= feed;
+      const result = ok ? 'Recovery: ' + fmt(permeate / feed * 100, 1) + '%' : 'Enter feed > 0 and permeate between 0 and feed.';
+      return { title:'RO Recovery', formula:'Permeate ÷ Feed × 100', values:permeate + ' ÷ ' + feed + ' × 100', output:'ro-out', result, ok };
+    },
+    dose: () => {
+      const flow = number('dose-flow'), ppm = number('dose-ppm');
+      const ok = Number.isFinite(flow) && flow > 0 && Number.isFinite(ppm) && ppm >= 0;
+      const result = ok ? 'Chemical mass: ' + fmt(flow * ppm / 1000, 3) + ' kg/h' : 'Enter flow > 0 and dose ≥ 0.';
+      return { title:'Chemical Dosing', formula:'Flow × Dose ÷ 1000', values:flow + ' × ' + ppm + ' ÷ 1000', output:'dose-out', result, ok };
+    },
+    tank: () => {
+      const l = number('tank-l'), w = number('tank-w'), d = number('tank-d');
+      const v = l * w * d, ok = Number.isFinite(v) && l > 0 && w > 0 && d > 0;
+      const result = ok ? 'Volume: ' + fmt(v) + ' m³ (' + fmt(v * 1000, 0) + ' L)' : 'Enter all dimensions greater than 0.';
+      return { title:'Rectangular Tank Volume', formula:'Length × Width × Depth', values:l + ' × ' + w + ' × ' + d, output:'tank-out', result, ok };
+    },
+    ct: () => {
+      const makeup = number('ct-makeup'), circulating = number('ct-circ');
+      const ok = Number.isFinite(makeup) && makeup > 0 && Number.isFinite(circulating) && circulating >= makeup;
+      const result = ok ? 'Estimated cycles: ' + fmt(circulating / makeup, 2) : 'Enter make-up > 0 and circulating conductivity ≥ make-up.';
+      return { title:'Cooling Tower Cycles', formula:'Circulating conductivity ÷ Make-up conductivity', values:circulating + ' ÷ ' + makeup, output:'ct-out', result, ok };
+    },
+    cod: () => {
+      const flow = number('cod-flow'), cod = number('cod-conc');
+      const ok = Number.isFinite(flow) && flow > 0 && Number.isFinite(cod) && cod >= 0;
+      const result = ok ? 'COD load: ' + fmt(flow * cod / 1000, 2) + ' kg/day' : 'Enter flow > 0 and COD ≥ 0.';
+      return { title:'ETP COD Load', formula:'Flow × COD ÷ 1000', values:flow + ' × ' + cod + ' ÷ 1000', output:'cod-out', result, ok };
+    },
+    chlorine: () => {
+      const flow = number('chlor-flow'), dose = number('chlor-dose'), strength = number('chlor-strength');
+      const ok = Number.isFinite(flow) && flow > 0 && Number.isFinite(dose) && dose >= 0 && Number.isFinite(strength) && strength > 0;
+      const product = flow * dose / (10 * strength);
+      const result = ok ? 'Approx. product feed: ' + fmt(product, 3) + ' L/h' : 'Enter flow > 0, dose ≥ 0 and strength > 0.';
+      return { title:'Chlorine Product Feed', formula:'Flow × Dose ÷ (10 × Strength)', values:flow + ' × ' + dose + ' ÷ (10 × ' + strength + ')', output:'chlor-out', result, ok };
+    },
+    pump: () => {
+      const flow = number('pump-flow'), head = number('pump-head'), efficiency = number('pump-eff');
+      const ok = Number.isFinite(flow) && flow > 0 && Number.isFinite(head) && head > 0 && Number.isFinite(efficiency) && efficiency > 0 && efficiency <= 100;
+      const power = (1000 * 9.81 * (flow / 3600) * head) / (efficiency / 100) / 1000;
+      const result = ok ? 'Hydraulic input power: ' + fmt(power, 2) + ' kW' : 'Enter positive flow/head and efficiency between 0 and 100%.';
+      return { title:'Hydraulic Pump Power', formula:'ρgQH ÷ η', values:'ρ=1000 kg/m³, g=9.81 m/s², Q=' + flow + ' m³/h, H=' + head + ' m, η=' + efficiency + '%', output:'pump-out', result, ok };
+    },
+    detention: () => {
+      const volume = number('det-volume'), flow = number('det-flow');
+      const ok = Number.isFinite(volume) && volume > 0 && Number.isFinite(flow) && flow > 0;
+      const hours = volume / flow;
+      const result = ok ? 'HRT: ' + fmt(hours, 2) + ' h (' + fmt(hours * 60, 1) + ' min)' : 'Enter tank volume and flow greater than 0.';
+      return { title:'Tank Detention Time', formula:'Volume ÷ Flow', values:volume + ' ÷ ' + flow, output:'det-out', result, ok };
+    },
+    filter: () => {
+      const flow = number('filter-flow'), diameter = number('filter-dia');
+      const area = Math.PI * Math.pow(diameter / 2, 2);
+      const ok = Number.isFinite(flow) && flow > 0 && Number.isFinite(diameter) && diameter > 0;
+      const result = ok ? 'Filter area: ' + fmt(area, 3) + ' m²; loading rate: ' + fmt(flow / area, 2) + ' m³/m²/h' : 'Enter flow and filter diameter greater than 0.';
+      return { title:'Filter Loading Rate', formula:'Flow ÷ (π × diameter² ÷ 4)', values:flow + ' ÷ [π × (' + diameter + '²) ÷ 4]', output:'filter-out', result, ok };
+    },
+    fm: () => {
+      const flow = number('fm-flow'), bod = number('fm-bod'), mlss = number('fm-mlss'), volume = number('fm-volume');
+      const food = flow * bod / 1000;
+      const biomass = mlss * volume / 1000;
+      const ok = Number.isFinite(flow) && flow > 0 && Number.isFinite(bod) && bod >= 0 && Number.isFinite(mlss) && mlss > 0 && Number.isFinite(volume) && volume > 0;
+      const ratio = food / biomass;
+      const result = ok ? 'F/M ratio: ' + fmt(ratio, 3) + ' kg BOD/kg MLSS·day' : 'Enter flow, BOD ≥ 0, MLSS > 0 and tank volume > 0.';
+      return { title:'ETP F/M Ratio', formula:'[Flow × BOD ÷ 1000] ÷ [MLSS × Volume ÷ 1000]', values:'(' + flow + ' × ' + bod + ' ÷ 1000) ÷ (' + mlss + ' × ' + volume + ' ÷ 1000)', output:'fm-out', result, ok };
     }
   };
 
-  const init = () => {
-    document.querySelectorAll('.calculator-card input').forEach(input => input.addEventListener('input', () => calculate()));
-    document.querySelectorAll('.calculator-run').forEach(button => button.addEventListener('click', () => calculate(true, button.dataset.calc)));
-    calculate();
+  const run = (type, openPopup = false) => {
+    const calc = calculations[type];
+    if (!calc) return;
+    const data = calc();
+    setResult(data.output, data.result, data.ok);
+    if (openPopup) popup(data.title, data.formula, data.values, data.result, data.ok);
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
-  else init();
+
+  const init = () => {
+    document.querySelectorAll('.calculator-card input').forEach(input => {
+      const card = input.closest('.calculator-card');
+      const button = card?.querySelector('[data-calc]');
+      input.addEventListener('input', () => {
+        if (button) run(button.dataset.calc, false);
+      });
+      input.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && button) {
+          event.preventDefault();
+          run(button.dataset.calc, true);
+        }
+      });
+    });
+    document.querySelectorAll('[data-calc]').forEach(button => {
+      button.addEventListener('click', () => run(button.dataset.calc, true));
+    });
+    Object.keys(calculations).forEach(type => run(type, false));
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once:true });
+  } else {
+    init();
+  }
 })();
 </script>
-</body></html>
+</body>
+</html>
