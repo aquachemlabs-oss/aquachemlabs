@@ -30,6 +30,7 @@ if(/ISO 9001:2015/.test(read('index.html'))&&/certification/i.test(read('about-u
 if(/Industrial RO|ETP|STP|Chemicals/i.test(read('products.html'))&&/technical guide/i.test(read('services.html')))pass(17,'product/service architecture present');else fail(17,'product/service architecture incomplete');
 if(/Privacy Policy/.test(read('index.html'))&&/Terms/.test(read('index.html')))pass(18,'legal/footer navigation present');else fail(18,'legal navigation incomplete');
 pass(19,'static QA script is repository controlled');
-if(exists('scripts/site-runtime-audit.mjs')&&exists('.github/workflows/site-runtime-audit.yml'))pass(20,'browser/runtime QA is wired into CI');else fail(20,'runtime QA missing');
-if(exists('ACL_2025.pdf')&&fs.statSync('ACL_2025.pdf').size>5*1024*1024)warn(3,'source brochure is >5MB; build pipeline compresses it when possible');
+if(exists('scripts/site-runtime-audit.mjs')&&exists('.github/workflows/site-runtime-audit.yml')&&exists('scripts/structured-data-audit.mjs'))pass(20,'browser/runtime QA and structured-data validation are wired into CI');else fail(20,'runtime/structured-data QA missing');
+if(exists('ACL_2025.pdf')&&fs.statSync('ACL_2025.pdf').size>5*1024*1024)warn(3,'source brochure is >5MB; Netlify build will optimize it when Ghostscript is available');
+if(exists('netlify.toml')&&/npm run build/.test(read('netlify.toml')))pass(3,'Netlify production build publishes optimized dist output');else fail(3,'Netlify build pipeline not configured');
 console.log('20-point audit: '+errors.length+' errors, '+warnings.length+' warnings');warnings.forEach(x=>console.log('WARN '+x));errors.forEach(x=>console.error('ERROR '+x));if(errors.length)process.exit(1);
