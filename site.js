@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Secure all new-tab links consistently.
   document.querySelectorAll('a[target="_blank"]').forEach((link) => {
-    const rel = new Set((link.getAttribute('rel') || '').split(/\\s+/).filter(Boolean));
+    const rel = new Set((link.getAttribute('rel') || '').split(/\s+/).filter(Boolean));
     rel.add('noopener');
     rel.add('noreferrer');
     link.setAttribute('rel', [...rel].join(' '));
@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const caption = captionNode && captionNode.textContent ? captionNode.textContent.trim() : '';
       const filename = img.currentSrc || img.src || '';
       const filenamePart = filename.split('/').pop();
-      const name = filenamePart ? filenamePart.replace(/[-_]+/g, ' ').replace(/\\.[a-z0-9]+$/i, '').trim() : '';
+      const name = filenamePart ? filenamePart.replace(/[-_]+/g, ' ').replace(/\.[a-z0-9]+$/i, '').trim() : '';
       img.alt = caption || name || 'Aqua Chem Labs water treatment equipment';
     }
   });
@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (currentPath !== '/' && document.querySelector('main') && !document.querySelector('.site-breadcrumbs')) {
     const main = document.querySelector('main');
     const h1 = main.querySelector('h1');
-    const label = (h1 && h1.textContent ? h1.textContent.replace(/\\s+/g, ' ').trim() : '') || document.title.split('|')[0].trim();
+    const label = (h1 && h1.textContent ? h1.textContent.replace(/\s+/g, ' ').trim() : '') || document.title.split('|')[0].trim();
     const nav = document.createElement('nav');
     nav.className = 'site-breadcrumbs wrap';
     nav.setAttribute('aria-label', 'Breadcrumb');
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Add a compact technical enquiry bar to high-intent pages.
-  const highIntent = /\\/(services|products|ro-plant|chemicals|plant-spares|ibr-valves|strainers-kits|boiler-spares|etp-plant|stp-plant|dm-plant|softener-plant|filtration-systems|boiler-water-treatment|cooling-tower-water-treatment|zld-plant)(?:\\/)?$/i.test(currentPath);
+  const highIntent = /\/(services|products|ro-plant|chemicals|plant-spares|ibr-valves|strainers-kits|boiler-spares|etp-plant|stp-plant|dm-plant|softener-plant|filtration-systems|boiler-water-treatment|cooling-tower-water-treatment|zld-plant)(?:\/)?$/i.test(currentPath);
   if (highIntent && !document.querySelector('.technical-cta-bar')) {
     const bar = document.createElement('aside');
     bar.className = 'technical-cta-bar';
