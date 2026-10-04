@@ -527,6 +527,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const secondary = [
       ['/projects','Projects & Case Studies'],
       ['/plant-chemical-guide','Plant Chemical Guide'],
+      ['/technical-documents','Technical Documents'],
+      ['/locations','Service Areas'],
       ['/plant-care-guide','Plant Care Guide'],
       ['/technical-resources','Technical Resources'],
       ['/engineering-tools','Engineering Calculators'],
