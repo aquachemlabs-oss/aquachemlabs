@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Site-wide accessibility, navigation and conversion enhancements.
 document.addEventListener('DOMContentLoaded', () => {
   const normalizePath = (value) => {
-    const path = new URL(value, window.location.origin).pathname.replace(/\\.html$/i, '').replace(/\\/+$/,'');
+    const path = new URL(value, window.location.origin).pathname.replace(/\.html$/i, '').replace(/\/+$/,'');
     return path || '/';
   };
 
