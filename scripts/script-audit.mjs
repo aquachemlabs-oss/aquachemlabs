@@ -26,11 +26,14 @@ const htmlFiles=allFiles.filter(file=>path.extname(file).toLowerCase()==='.html'
 
 for(const file of scripts){
   const rel=path.relative(root,file);
-  const args=path.extname(file).toLowerCase()==='.mts'
-    ? ['--experimental-strip-types','--check',file]
-    : ['--check',file];
-  try{await exec(process.execPath,args,{cwd:root});}
-  catch(error){errors.push(rel+': '+String(error.stderr||error.message).trim());}
+  try{
+    if(path.extname(file).toLowerCase()==='.mts'){
+      const moduleUrl=new URL('file://'+file.replace(/\\/g,'/')).href;
+      await exec(process.execPath,['--experimental-strip-types','--input-type=module','-e',`import(${JSON.stringify(moduleUrl)})`],{cwd:root});
+    }else{
+      await exec(process.execPath,['--check',file],{cwd:root});
+    }
+  }catch(error){errors.push(rel+': '+String(error.stderr||error.message).trim());}
 }
 
 for(const file of htmlFiles){
