@@ -1055,3 +1055,10 @@ footer .f-grid a { transition: color .2s; }
 
 .homepage-highlight--automation{border-top:4px solid #238a3b;grid-column:span 1}
 @media(max-width:900px){.homepage-highlight--automation{grid-column:1/-1}}
+
+.service-commercial-highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;padding:1rem;border:1px solid #d5e5ed;border-radius:16px;background:linear-gradient(135deg,#f4fbff,#fbfff7)}
+.service-commercial-highlights>div{padding:1.1rem 1.2rem;border-radius:12px;background:#fff;border:1px solid #dce8ee;box-shadow:0 7px 20px rgba(17,55,82,.06)}
+.service-commercial-highlights strong{display:block;color:#173b64;font:800 1.05rem/1.2 "Bricolage Grotesque",sans-serif;letter-spacing:.01em}
+.service-commercial-highlights span{display:block;margin-top:.45rem;color:#5a6d7d;font:.84rem/1.5 "Public Sans",sans-serif}
+.homepage-highlight--service{border-top:4px solid #238a3b}
+@media(max-width:900px){.service-commercial-highlights{grid-template-columns:1fr}.homepage-highlight--service{grid-column:1/-1}}
