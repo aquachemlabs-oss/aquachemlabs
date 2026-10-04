@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.getElementById('menuToggle');
   const navMenu = document.getElementById('navMenu');
-  const productsDropdown = document.getElementById('productsDropdown');
+  let productsDropdown = document.getElementById('productsDropdown');
   // Site-wide header normalization: one ribbon and clear Products vs Services separation.
   const canonicalRibbon = "<div class=\"top-bar\">\n <div class=\"wrap\">\n  <div class=\"badge-iso\">\n   <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-9 8z\"/></svg>\n   ISO 9001:2015 Certified Company <span>Cert No: 305025122364Q (QRO QMS)</span>\n  </div>\n  <div>Quality is our priority &bull; Pure Water | Sustainable Tomorrow</div>\n </div>\n</div>";
   const existingRibbon = document.querySelector('.top-bar');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // Canonical site-wide navigation: every page exposes the same destinations and ACL-prefixed sub-items.
   const navList = document.querySelector('#navMenu > ul');
-  const currentPath = location.pathname.replace(/\\/$/, '') || '/';
+  const currentPath = location.pathname.replace(/\/$/, '') || '/';
   const isCurrent = (href) => href === currentPath ? ' aria-current="page"' : '';
   if (navList) {
     navList.innerHTML = `
@@ -45,13 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
       <li><a href="/reviews"${isCurrent("/reviews")}>Reviews</a></li>
       <li><a href="/plant-care-guide" class="guide-btn"${isCurrent("/plant-care-guide")}>Plant Care Guide</a></li>
       <li><a href="/technical-documents"${isCurrent("/technical-documents")}>Technical Documents</a></li>
-      <li><a href="/locations"\${isCurrent("/locations")}>Locations</a></li>
-      <li><a href="/engineering-tools"\${isCurrent("/engineering-tools")}>Engineering Tools</a></li>
+      <li><a href="/locations"${isCurrent("/locations")}>Locations</a></li>
+      <li><a href="/engineering-tools"${isCurrent("/engineering-tools")}>Engineering Tools</a></li>
       <li><a href="/technical-resources"${isCurrent("/technical-resources")}>Technical Resources</a></li>
       <li><a href="ACL_2025.pdf" target="_blank" rel="noopener" class="brochure-btn">View Brochure</a></li>
       <li><a href="/contact"${isCurrent("/contact")}>Contact</a></li>
     `;
   }
+  productsDropdown = document.getElementById('productsDropdown');
   const servicesDropdown = document.getElementById('servicesDropdown');
 
 
