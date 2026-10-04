@@ -83,10 +83,10 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
   margin: 0;
 }
 
-.dd:hover > .dd-menu, 
-.dd:focus-within > .dd-menu,
-.dd.active > .dd-menu { 
-  display: block !important; 
+.dd.active > .dd-menu { display: block !important; }
+/* Hover/focus opening is desktop-only; on touch layouts the toggle button controls the dropdown */
+@media (min-width: 1025px) {
+  .dd:hover > .dd-menu, .dd:focus-within > .dd-menu { display: block !important; }
 }
 
 .dd-menu a { display: block; padding: 0.5rem 0.7rem; color: var(--ink); text-decoration: none; }
@@ -204,6 +204,9 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
   .header-container { padding: 0.6rem 1rem; }
   .mobile-menu-toggle { display: block; position: relative; z-index: 1001; flex-shrink: 0; min-width: 44px; min-height: 44px; }
   body.menu-open .mobile-menu-toggle { position: fixed; top: 0.75rem; right: 1rem; }
+  /* Lift the header (and its overlay) above floating page UI such as the enquiry bar while the menu is open */
+  body.menu-open header.site-header { z-index: 2000; }
+  body.menu-open .technical-cta-bar, body.menu-open .product-preview { display: none; }
 
   .nav-menu {
     display: none;
