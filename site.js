@@ -326,6 +326,64 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('visibilitychange', start);
     start();
   });
+
+  // Add consistent Organization / WebSite structured data where page-level schema is absent.
+  if (!document.querySelector('script[data-acl-site-schema]')) {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          '@id': 'https://aquachemlabs.com/#organization',
+          name: 'Aqua Chem Labs',
+          url: 'https://aquachemlabs.com/',
+          logo: 'https://aquachemlabs.com/logo.png',
+          telephone: '+91 79749 99929',
+          email: 'info@aquachemlabs.com',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Raisen',
+            addressRegion: 'Madhya Pradesh',
+            addressCountry: 'IN'
+          },
+          sameAs: ['https://www.google.com/maps?cid=10116669877027612464']
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://aquachemlabs.com/#website',
+          url: 'https://aquachemlabs.com/',
+          name: 'Aqua Chem Labs',
+          publisher: { '@id': 'https://aquachemlabs.com/#organization' },
+          inLanguage: 'en-IN'
+        }
+      ]
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.dataset.aclSiteSchema = 'true';
+    script.textContent = JSON.stringify(schema);
+    document.head.append(script);
+  }
+
+  // Add social metadata for legacy pages that do not yet have Open Graph tags.
+  const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.href.split('#')[0];
+  const title = document.title;
+  const description = document.querySelector('meta[name="description"]')?.content || '';
+  const ensureMeta = (property, content) => {
+    let node = document.querySelector(`meta[property="${property}"]`);
+    if (!node) {
+      node = document.createElement('meta');
+      node.setAttribute('property', property);
+      document.head.append(node);
+    }
+    node.content = content;
+  };
+  ensureMeta('og:title', title);
+  ensureMeta('og:description', description);
+  ensureMeta('og:url', canonical);
+  ensureMeta('og:type', 'website');
+  ensureMeta('og:image', 'https://aquachemlabs.com/logo.png');
+
 });
 
 // Gallery category filters
