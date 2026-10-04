@@ -315,9 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
       list.querySelectorAll('li').forEach((item) => {
         const name = item.textContent.toLowerCase();
         const match = list.hasAttribute('data-preview-fixed') ? null : productImages.find(([keyword]) => name.includes(keyword));
-        const image = match ? match[1] : list.dataset.img;
+        const image = item.dataset.img || (match ? `images/web/${match[1]}.jpg` : (list.dataset.img ? `images/web/${list.dataset.img}.jpg` : ''));
         if (!image) return;
-        item.dataset.img = `images/web/${image}.jpg`;
+        item.dataset.img = image;
         if (list.dataset.context) item.dataset.context = list.dataset.context;
         item.classList.add('has-preview');
         item.tabIndex = 0;
