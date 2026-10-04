@@ -154,51 +154,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { once: true });
   });
 
-  // Service manuals: the visible "View technical guide" control opens the PDF
-  // directly, while expanding the card also loads an inline viewer as a convenience.
+  // Service manuals: each card now has a real static PDF link, so opening the guide
+  // does not depend on JavaScript. Expanding the card also loads an inline preview.
   document.querySelectorAll('.service-guide[data-document]').forEach((guide) => {
     const documentUrl = guide.dataset.document;
-    const summaryAction = guide.querySelector('summary b');
     const title = guide.querySelector('summary strong')?.textContent || 'service';
     const content = guide.querySelector('.service-guide__content');
-
-    if (summaryAction) {
-      summaryAction.setAttribute('role', 'link');
-      summaryAction.setAttribute('tabindex', '0');
-      summaryAction.setAttribute('aria-label', 'Open ' + title + ' technical guide PDF in a new tab');
-
-      const openDirect = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        window.open(documentUrl, '_blank', 'noopener,noreferrer');
-      };
-
-      summaryAction.addEventListener('click', openDirect);
-      summaryAction.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          openDirect(event);
-        }
-      });
-    }
 
     guide.addEventListener('toggle', () => {
       if (!guide.open || guide.dataset.loaded === 'true') return;
 
       const viewer = document.createElement('iframe');
       viewer.src = documentUrl + '#view=FitH';
-      viewer.title = title + ' technical guide';
+      viewer.title = title + ' technical guide PDF preview';
       viewer.loading = 'lazy';
-
-      const openLink = document.createElement('a');
-      openLink.className = 'btn sm service-guide__open';
-      openLink.href = documentUrl;
-      openLink.target = '_blank';
-      openLink.rel = 'noopener noreferrer';
-      openLink.textContent = 'Open PDF in new tab';
 
       const fallback = document.createElement('p');
       fallback.className = 'service-guide__fallback';
-      fallback.append('Embedded PDF viewer may vary by browser. Use ');
+      fallback.append('Embedded PDF preview may vary by browser. Use ');
       const link = document.createElement('a');
       link.href = documentUrl;
       link.target = '_blank';
@@ -206,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
       link.textContent = 'Open PDF in new tab';
       fallback.append(link, ' if the preview does not load.');
 
-      content.append(openLink, viewer, fallback);
+      content.append(viewer, fallback);
       guide.dataset.loaded = 'true';
     });
   });
