@@ -25,16 +25,20 @@
 *, *::before, *::after { box-sizing: inherit; }
 [hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
-body { margin: 0; font: 400 1.05rem/1.65 "Public Sans", system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--light-bg); }
+body { margin: 0; font: 400 1.02rem/1.65 "Public Sans", "Inter", system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--light-bg); letter-spacing: .005em; }
 body.menu-open { overflow: hidden; } /* Prevents background scrolling when mobile menu is active */
 
-h1, h2, h3, h4 { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; line-height: 1.15; margin: 0; }
+h1, h2, h3, h4, .title, .section-kicker, .brand-name, .nav-menu, .btn { font-family: "Bricolage Grotesque", "Public Sans", "Inter", system-ui, sans-serif; line-height: 1.15; margin: 0; }
+h1, h2, h3, h4 { letter-spacing: -.025em; }
+h1 { font-weight: 800; }
+h2 { font-weight: 800; }
+h3, h4 { font-weight: 700; }
 a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 3px solid var(--aqua); outline-offset: 3px; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
 
 /* Top Certification Bar */
-.top-bar { background: var(--navy); color: #E3EEFB; font-size: 0.85rem; padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
+.top-bar { background: var(--navy); color: #E3EEFB; font-family: "Public Sans", "Inter", sans-serif; font-size: 0.78rem; padding: 0.45rem 0; letter-spacing: .025em; border-bottom: 1px solid var(--line); }
 .top-bar .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
 .badge-iso { display: inline-flex; align-items: center; gap: 0.4rem; color: #FFFFFF; font-weight: 600; }
 .badge-iso span { background: #FFFFFF; padding: 0.15rem 0.45rem; border-radius: 3px; border: 1px solid var(--lime); color: var(--navy); font-size: 0.75rem; }
@@ -46,14 +50,14 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 /* Logo height = company name line + tagline line, so it spans the full text block */
 .brand-logo-img { height: calc(var(--brand-size) * 1.1 + 1.04rem); width: auto; flex-shrink: 0; background: none; border: none; padding: 0; border-radius: 0; }
 .brand-text { display: flex; flex-direction: column; white-space: nowrap; } 
-.brand-name { font: 700 var(--brand-size)/1.1 "Baskerville Old Face", "Libre Baskerville", Baskerville, "Times New Roman", serif; letter-spacing: 0.02em; color: var(--deep); -webkit-text-stroke: 0.6px currentColor; }
-.brand-abbr { font-family: "Colonna MT", "Baskerville Old Face", "Libre Baskerville", serif; font-weight: 700; -webkit-text-stroke: 0; }
-.brand-tag { font-size: 0.7rem; line-height: 1.2; color: var(--leaf); letter-spacing: 0.03em; margin-top: 0.2rem; font-weight: 600; text-transform: uppercase; }
+.brand-name { font: 800 var(--brand-size)/1.05 "Bricolage Grotesque", "Public Sans", sans-serif; letter-spacing: -0.035em; color: var(--deep); }
+.brand-abbr { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; font-weight: 800; -webkit-text-stroke: 0; }
+.brand-tag { font-family: "Public Sans", "Inter", sans-serif; font-size: 0.68rem; line-height: 1.2; color: var(--leaf); letter-spacing: 0.095em; margin-top: 0.25rem; font-weight: 700; text-transform: uppercase; }
 
 .mobile-menu-toggle { display: none; background: none; border: none; color: var(--ink); font-size: 1.8rem; cursor: pointer; padding: 0.2rem 0.5rem; line-height: 1; }
 
-.nav-menu ul { display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; align-items: center; }
-.nav-menu a, .dd-label { text-decoration: none; font-weight: 500; padding: 0.4rem 0.6rem; border-radius: 4px; transition: background 0.2s, color 0.2s; color: var(--ink); }
+.nav-menu ul { display: flex; gap: .85rem; list-style: none; margin: 0; padding: 0; font-size: 0.86rem; align-items: center; letter-spacing: .015em; }
+.nav-menu a, .dd-label { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; text-decoration: none; font-weight: 600; padding: 0.4rem 0.6rem; border-radius: 4px; transition: background 0.2s, color 0.2s; color: var(--ink); }
 .nav-menu a:hover, .dd-label:hover { background: var(--mist); color: var(--deep); }
 
 /* Added white-space: nowrap to these buttons to prevent wrapping */
