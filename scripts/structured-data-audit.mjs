@@ -6,11 +6,11 @@ for(const file of files){
  const html=fs.readFileSync(path.join(root,file),'utf8');
  for(const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)){
   let data; try{data=JSON.parse(match[1].trim())}catch{errors.push(file+': invalid JSON-LD syntax');continue}
-  for(const n of (data['@graph']||[data])){
+  for(const n of (data['@graph']||[data])){ if(n?.['@type']==='LocalBusiness'||(Array.isArray(n?.['@type'])&&n['@type'].includes('LocalBusiness'))) errors.push(file+': LocalBusiness schema is prohibited by site policy');
    if(!n?.['@type']) errors.push(file+': JSON-LD node missing @type');
    const types=Array.isArray(n?.['@type'])?n['@type']:[n?.['@type']];
-   if(types.includes('Organization')||types.includes('LocalBusiness')) for(const k of ['name','url']) if(!n[k]) errors.push(file+': '+types.join('/')+' missing '+k);
-   if(types.includes('LocalBusiness')&&(!n.address?.addressLocality||!n.address?.addressCountry)) errors.push(file+': LocalBusiness address incomplete');
+   if(types.includes('Organization')) for(const k of ['name','url']) if(!n[k]) errors.push(file+': Organization missing '+k);
+   if(types.includes('Organization')&&n.address&&(!n.address.addressLocality||!n.address.addressCountry)) errors.push(file+': Organization address incomplete');
    if(types.includes('BreadcrumbList')&&(!Array.isArray(n.itemListElement)||n.itemListElement.length<2)) errors.push(file+': BreadcrumbList incomplete');
    if(types.includes('Service')&&(!n.name||!n.provider)) errors.push(file+': Service missing name/provider');
   }
