@@ -37,6 +37,13 @@ const routeMap = {
   "/image-credits": "image-credits.html",
   "/projects": "projects.html",
   "/plant-chemical-guide": "plant-chemical-guide.html",
+  "/technical-resources": "technical-resources.html",
+  "/engineering-tools": "engineering-tools.html",
+  "/technical-documents": "technical-documents.html",
+  "/locations": "locations.html",
+  "/bhopal-water-treatment": "bhopal-water-treatment.html",
+  "/indore-water-treatment": "indore-water-treatment.html",
+  "/jabalpur-water-treatment": "jabalpur-water-treatment.html",
 };
 
 async function exists(relativePath) {
@@ -136,7 +143,7 @@ const chemistryLinks = [...services.matchAll(/href=["']\/plant-chemical-guide#[^
 if (chemistryLinks !== guides.length) warnings.push(`services.html: expected one chemical programme link per service card; found ${chemistryLinks}`);
 
 const contact = await readFile(join(root, "contact.html"), "utf8");
-if (!/type=["']file["'][^>]+name=["']water_analysis["']/i.test(contact)) {
+if (!/(?=[^>]*type=["']file["'])(?=[^>]*name=["']water_analysis["'])[^>]*>/i.test(contact)) {
   warnings.push("contact.html: optional water-analysis upload field not found");
 }
 
