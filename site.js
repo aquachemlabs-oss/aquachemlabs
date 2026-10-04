@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     quoteForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!quoteForm.reportValidity()) return;
+      const analysisInput = quoteForm.querySelector('input[type="file"]');
+      if (analysisInput?.files?.length) { quoteForm.submit(); return; }
       submitButton.disabled = true;
       if (formStatus) { formStatus.className = 'note form-status'; formStatus.textContent = 'Sending your quote request…'; }
       try {
