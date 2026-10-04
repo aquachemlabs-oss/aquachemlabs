@@ -80,15 +80,15 @@ for (const page of pages) {
   const html = await readFile(join(root, page), "utf8");
   const title = html.match(/<title>([\\s\\S]*?)<\\/title>/i)?.[1]?.trim();
   const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)/i)?.[1]?.trim();
-  const h1s = [...html.matchAll(/<h1\\b[^>]*>/gi)].length;
+  const h1s = [...html.matchAll(/<h1\b[^>]*>/gi)].length;
 
   if (!title) errors.push(`${page}: missing <title>`);
   if (!description) errors.push(`${page}: missing meta description`);
   if (h1s !== 1) warnings.push(`${page}: expected 1 H1, found ${h1s}`);
 
-  for (const match of html.matchAll(/<img\\b([^>]*)>/gi)) {
+  for (const match of html.matchAll(/<img\b([^>]*)>/gi)) {
     const attrs = match[1];
-    if (!/\\balt\\s*=/.test(attrs)) warnings.push(`${page}: image without alt attribute`);
+    if (!/\balt\s*=/.test(attrs)) warnings.push(`${page}: image without alt attribute`);
   }
 
   for (const match of html.matchAll(/<(?:a|area)\\b[^>]*href=["']([^"']+)["']/gi)) {
@@ -110,7 +110,7 @@ for (const page of pages) {
 }
 
 const robots = await readFile(join(root, "robots.txt"), "utf8");
-if (!/Sitemap:\\s*https:\/\/aquachemlabs\\.com\/sitemap\\.xml/i.test(robots)) {
+if (!/Sitemap:\s*https:\/\/aquachemlabs\.com\/sitemap\.xml/i.test(robots)) {
   errors.push("robots.txt: missing sitemap declaration");
 }
 
