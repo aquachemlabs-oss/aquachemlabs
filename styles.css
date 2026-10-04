@@ -1643,3 +1643,14 @@ html,body{width:100%;max-width:none;margin:0}
 .wrap{width:100%;max-width:none;margin-inline:0;padding-inline:clamp(.75rem,2vw,2rem);box-sizing:border-box}
 section,.page-hero,.site-header,footer,.top-bar,.cta-band{width:100%;box-sizing:border-box}
 main{width:100%;max-width:none}
+
+/* Resource calculator result popup */
+.calculator-result-modal{position:fixed;inset:0;display:none;z-index:2300}
+.calculator-result-modal.is-open{display:block}
+.calculator-result-modal__backdrop{position:absolute;inset:0;background:rgba(3,18,29,.72);backdrop-filter:blur(3px)}
+.calculator-result-modal__panel{position:relative;width:min(620px,calc(100% - 24px));margin:10vh auto 0;padding:2rem;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.3)}
+.calculator-result-modal__close{position:absolute;top:.7rem;right:.7rem;width:38px;height:38px;border:1px solid rgba(11,43,64,.2);border-radius:50%;background:#fff;color:var(--ink);font-size:1.5rem;cursor:pointer}
+.calculator-result-modal__formula,.calculator-result-modal__inputs{padding:.75rem 1rem;background:#f3f7fa;border-radius:10px;margin:.7rem 0;color:var(--ink)}
+.calculator-result-modal__value{font-size:1.35rem;font-weight:800;margin:1rem 0;color:var(--ink)}
+.calculator-result-modal__value.is-valid{color:#176b3a}
+body.calculator-modal-open{overflow:hidden}
