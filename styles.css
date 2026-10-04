@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Baskervville:opsz,wght@0..60,400&display=swap");
+
 :root {
   /* ACL brand palette — sampled from the company poster & services banner */
   --navy: #0B2F7A;       /* Deep navy ("Professional", bottom wave band) */
@@ -50,8 +52,8 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 /* Logo height = company name line + tagline line, so it spans the full text block */
 .brand-logo-img { height: calc(var(--brand-size) * 1.1 + 1.04rem); width: auto; flex-shrink: 0; background: none; border: none; padding: 0; border-radius: 0; }
 .brand-text { display: flex; flex-direction: column; white-space: nowrap; } 
-.brand-name { font: 800 var(--brand-size)/1.05 "Bricolage Grotesque", "Public Sans", sans-serif; letter-spacing: -0.035em; color: var(--deep); }
-.brand-abbr { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; font-weight: 800; -webkit-text-stroke: 0; }
+.brand-name { font: 400 var(--brand-size)/1.05 "Baskervville", "Libre Baskerville", Georgia, serif; letter-spacing: 0.01em; color: #8FA4B3; text-shadow: 0 0 7px rgba(143,164,179,.28); }
+.brand-abbr { font-family: "Colonna MT", Colonna, serif; font-weight: 400; color: #000000; letter-spacing: 0; text-shadow: none; -webkit-text-stroke: 0; }
 .brand-tag { font-family: "Public Sans", "Inter", sans-serif; font-size: 0.68rem; line-height: 1.2; color: var(--leaf); letter-spacing: 0.095em; margin-top: 0.25rem; font-weight: 700; text-transform: uppercase; }
 
 .mobile-menu-toggle { display: none; background: none; border: none; color: var(--ink); font-size: 1.8rem; cursor: pointer; padding: 0.2rem 0.5rem; line-height: 1; }
