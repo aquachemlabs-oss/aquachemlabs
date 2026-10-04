@@ -633,27 +633,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (main) main.append(panel);
   }
 
-  // Long technical pages get an unobtrusive in-page contents rail.
-  const main = document.querySelector('main');
-  if (main && window.innerWidth >= 1050 && !main.querySelector('.technical-toc')) {
-    const headings = [...main.querySelectorAll('h2, h3')].filter(h => h.textContent.trim().length > 2).slice(0,14);
-    if (headings.length >= 4) {
-      const toc = document.createElement('aside');
-      toc.className = 'technical-toc';
-      toc.innerHTML = '<strong>On this page</strong><nav></nav>';
-      const list = toc.querySelector('nav');
-      headings.forEach((heading, i) => {
-        if (!heading.id) heading.id = 'section-' + (i + 1);
-        const a = document.createElement('a');
-        a.href = '#' + heading.id;
-        a.textContent = heading.textContent.trim();
-        list.append(a);
-      });
-      const firstSection = main.querySelector('section');
-      if (firstSection) firstSection.before(toc);
-    }
-  }
-
   // Add product/service context to links labelled only with generic "request" copy.
   document.querySelectorAll('a').forEach((a) => {
     const text = a.textContent.trim().toLowerCase();
