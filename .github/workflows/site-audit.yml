@@ -4,10 +4,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  site-audit:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,4 +17,13 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm install
-      - run: npm run audit
+      - name: Static 20-point audit
+        run: npm run audit
+      - name: Structured-data validation
+        run: npm run structured-data-audit
+      - name: Production build
+        run: npm run build
+      - name: Browser and interaction QA
+        run: |
+          npx playwright install --with-deps chromium
+          npm run runtime-audit
