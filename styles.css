@@ -663,6 +663,14 @@ body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-even
 .cat h2 { font-size: clamp(1.25rem, 2.2vw, 1.55rem); color: var(--navy); margin-bottom: 0.9rem; }
 .cat h3 { font-size: 1.05rem; color: var(--deep); margin: 1rem 0 0.5rem; }
 .cat > p { margin: 0 0 0.9rem; color: #4A5D80; }
+.boiler-spares-featured { background: linear-gradient(180deg, #F7FBFF 0%, #FFFFFF 100%); border: 1px solid var(--line); border-radius: 14px; padding: clamp(1.25rem, 2vw, 2rem); box-shadow: 0 10px 28px rgba(11,47,122,.06); }
+.boiler-spares-featured .intro { margin-bottom: 1.2rem; }
+.boiler-spares-gallery { columns: 4 210px; column-gap: 1.25rem; padding-left: 1.25rem; }
+.boiler-spares-gallery li { break-inside: avoid; margin: .15rem 0; }
+.boiler-spares-gallery .has-preview { display: block; width: 100%; padding: .55rem .65rem; margin-left: -.65rem; border-radius: 6px; font-weight: 600; }
+@media (max-width: 768px) { .boiler-spares-gallery { columns: 2 180px; } }
+@media (max-width: 480px) { .boiler-spares-gallery { columns: 1; } }
+
 .plist { columns: 3 220px; column-gap: 2rem; margin: 0; padding-left: 1.1rem; }
 .plist li { break-inside: avoid; padding: 0.2rem 0; font-size: 0.97rem; }
 .plist li::marker { color: var(--leaf); }
