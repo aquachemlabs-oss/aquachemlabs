@@ -558,9 +558,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (highIntent && !document.querySelector('.technical-cta-bar')) {
     const bar = document.createElement('aside');
     bar.className = 'technical-cta-bar';
+    bar.setAttribute('role', 'dialog');
     bar.setAttribute('aria-label', 'Technical enquiry');
-    bar.innerHTML = '<div><strong>Need the right system or chemical programme?</strong><span>Share your water analysis and operating requirement with our technical team.</span></div><div class="technical-cta-bar__actions"><a href="/contact#qf" class="btn">Request a technical quote</a><a href="https://wa.me/917974999929?text=Hello%20Aqua%20Chem%20Labs%2C%20I%20need%20technical%20advice." target="_blank" rel="noopener noreferrer" class="btn ghost">WhatsApp</a></div>';
+    bar.innerHTML = '<button type="button" class="technical-cta-bar__close" aria-label="Close technical enquiry">×</button><div><strong>Need the right system or chemical programme?</strong><span>Share your water analysis and operating requirement with our technical team.</span></div><div class="technical-cta-bar__actions"><a href="/contact#qf" class="btn">Request a technical quote</a><a href="https://wa.me/917974999929?text=Hello%20Aqua%20Chem%20Labs%2C%20I%20need%20technical%20advice." target="_blank" rel="noopener noreferrer" class="btn ghost">WhatsApp</a></div>';
     document.body.append(bar);
+    bar.querySelector('.technical-cta-bar__close')?.addEventListener('click', () => {
+      bar.classList.add('is-closed');
+      bar.setAttribute('aria-hidden', 'true');
+    });
   }
 });
 
