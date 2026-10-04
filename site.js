@@ -678,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-menu a[href]').forEach((link) => {
     const href = link.getAttribute('href');
     if (!href || /^(https?:|mailto:|tel:|#)/i.test(href)) return;
-    const linkPath = new URL(href, window.location.origin).pathname.replace(/\\/$/, '') || '/';
+    const linkPath = new URL(href, window.location.origin).pathname.replace(/\/$/, '') || '/';
     if (linkPath === currentPath) link.setAttribute('aria-current', 'page');
   });
 
