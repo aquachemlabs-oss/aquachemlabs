@@ -413,6 +413,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const currentPath = normalizePath(window.location.href);
 
+  // Keep new technical resources discoverable from every page without crowding the main navigation.
+  document.querySelectorAll('footer .f-grid > div:nth-child(2) ul').forEach((list) => {
+    const resources = [
+      ['/projects', 'Projects & Case Studies'],
+      ['/plant-chemical-guide', 'Plant Chemical Guide'],
+    ];
+    resources.forEach(([href, label]) => {
+      if (!list.querySelector(`a[href="${href}"]`)) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = label;
+        li.append(a);
+        list.append(li);
+      }
+    });
+  });
+
   // Keep the active navigation state accurate on every page.
   document.querySelectorAll('.nav-menu a[href]').forEach((link) => {
     const href = link.getAttribute('href');
