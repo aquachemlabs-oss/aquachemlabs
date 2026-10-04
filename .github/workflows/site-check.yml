@@ -4,6 +4,7 @@ on:
   push:
     branches: ["main", "site-audit-improvements-2026"]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   validate:
@@ -12,5 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - run: node scripts/validate-site.mjs
+          node-version: 22
+      - name: Validate site structure
+        run: node scripts/validate-site.mjs
+      - name: Validate every JavaScript source and script reference
+        run: node scripts/script-audit.mjs
