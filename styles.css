@@ -1062,3 +1062,9 @@ footer .f-grid a { transition: color .2s; }
 .service-commercial-highlights span{display:block;margin-top:.45rem;color:#5a6d7d;font:.84rem/1.5 "Public Sans",sans-serif}
 .homepage-highlight--service{border-top:4px solid #238a3b}
 @media(max-width:900px){.service-commercial-highlights{grid-template-columns:1fr}.homepage-highlight--service{grid-column:1/-1}}
+
+
+/* Verified Google Business Profile review snapshot */
+.gbp-review-snapshot{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.25rem;margin:1.25rem 0;padding:1.15rem 1.3rem;border:1px solid #d7e5ec;border-radius:16px;background:linear-gradient(135deg,#f7fcff,#fbfff8);box-shadow:0 8px 22px rgba(17,55,82,.06)}
+.gbp-review-snapshot__score{display:flex;align-items:baseline;gap:.2rem;color:#173b64}.gbp-review-snapshot__score strong{font:800 2.5rem/1 "Bricolage Grotesque",sans-serif}.gbp-review-snapshot__score span{color:#718594;font-weight:600}.gbp-review-snapshot__stars{color:#f5b400;letter-spacing:.08em;font-size:1.05rem;margin-bottom:.25rem}.gbp-review-snapshot p{margin:.3rem 0 0;color:#687b89;font-size:.84rem}.gbp-review-snapshot .btn{white-space:nowrap}
+@media(max-width:700px){.gbp-review-snapshot{grid-template-columns:1fr}.gbp-review-snapshot .btn{justify-self:start}}
