@@ -306,10 +306,12 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
 .service-guide summary span { display: flex; flex-direction: column; justify-content: center; padding: 1.15rem 1.3rem; }
 .service-guide summary strong { color: var(--navy); font: 700 1.15rem/1.25 "Bricolage Grotesque", sans-serif; }
 .service-guide summary small { margin-top: .45rem; color: #4A5D80; font-size: .9rem; line-height: 1.5; }
-.service-guide summary b { margin-top: .7rem; color: var(--leaf); font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; }
-.service-guide summary b::after { content: " +"; font-size: 1.05rem; }
-.service-guide[open] summary b::after { content: " −"; }
+.service-guide summary .service-guide__link { display: inline-block; width: fit-content; margin-top: .7rem; padding: .42rem .78rem; border-radius: 5px; background: var(--leaf); color: #FFFFFF; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; text-decoration: none; }
+.service-guide summary .service-guide__link:hover { background: var(--leaf-dark); }
+.service-guide summary .service-guide__link:focus-visible { outline: 2px solid var(--deep); outline-offset: 2px; }
 .service-guide__content { padding: 0 1.25rem 1.25rem; border-top: 1px solid var(--line); background: #F7FBFF; }
+.service-guide__hint { margin: 1rem 0 0; text-align: center; font-size: .84rem; color: #4A5D80; }
+.service-guide__hint a { color: var(--deep); font-weight: 700; text-decoration: underline; overflow-wrap: anywhere; }
 .service-guide__content iframe { display: block; width: 100%; height: min(76vh, 760px); min-height: 480px; margin-top: 1.25rem; border: 1px solid #BDD7EE; border-radius: 8px; background: #FFFFFF; }
 .service-guide__fallback { margin: .8rem 0 0; text-align: center; font-size: .9rem; color: #4A5D80; }
 .service-guide__fallback a { color: var(--deep); font-weight: 700; text-decoration: underline; }
