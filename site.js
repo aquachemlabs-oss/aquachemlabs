@@ -45,7 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
       <li><a href="/reviews"${isCurrent("/reviews")}>Reviews</a></li>
       <li><a href="/plant-care-guide" class="guide-btn"${isCurrent("/plant-care-guide")}>Plant Care Guide</a></li>
       <li><a href="/technical-documents"${isCurrent("/technical-documents")}>Technical Documents</a></li>
+      <li><a href="/locations"\${isCurrent("/locations")}>Locations</a></li>
+      <li><a href="/engineering-tools"\${isCurrent("/engineering-tools")}>Engineering Tools</a></li>
       <li><a href="/technical-resources"${isCurrent("/technical-resources")}>Technical Resources</a></li>
+      <li><a href="ACL_2025.pdf" target="_blank" rel="noopener" class="brochure-btn">View Brochure</a></li>
       <li><a href="/contact"${isCurrent("/contact")}>Contact</a></li>
     `;
   }
