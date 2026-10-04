@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navList) {
     const servicesLink = [...navList.children].find((li) => li.querySelector(':scope > a[href="/services"]'));
     if (servicesLink) {
-      servicesLink.outerHTML = '<li class="dd" id="servicesDropdown"><button class="dd-label" type="button" aria-expanded="false">Services ▾</button><ul class="dd-menu"><li><a href="/services">All Services</a></li><li><a href="/ro-plant">Industrial RO Plant</a></li><li><a href="/etp-plant">ETP Plant</a></li><li><a href="/stp-plant">STP Plant</a></li><li><a href="/dm-plant">DM Plant</a></li><li><a href="/softener-plant">Water Softener Plant</a></li><li><a href="/filtration-systems">Filtration &amp; Clarification</a></li><li><a href="/boiler-water-treatment">Boiler Water Treatment</a></li><li><a href="/cooling-tower-water-treatment">Cooling Tower Treatment</a></li><li><a href="/zld-plant">ZLD Plant</a></li></ul></li>';
+      servicesLink.outerHTML = '<li class="dd" id="servicesDropdown"><button class="dd-label" type="button" aria-expanded="false">Services ▾</button><ul class="dd-menu"><li><a href="/services">All Services</a></li><li><a href="/ro-plant">ACL Industrial RO Plant</a></li><li><a href="/etp-plant">ETP Plant</a></li><li><a href="/stp-plant">STP Plant</a></li><li><a href="/dm-plant">DM Plant</a></li><li><a href="/softener-plant">Water Softener Plant</a></li><li><a href="/filtration-systems">Filtration &amp; Clarification</a></li><li><a href="/boiler-water-treatment">Boiler Water Treatment</a></li><li><a href="/cooling-tower-water-treatment">Cooling Tower Treatment</a></li><li><a href="/zld-plant">ZLD Plant</a></li></ul></li>';
     }
   }
   const servicesDropdown = document.getElementById('servicesDropdown');
