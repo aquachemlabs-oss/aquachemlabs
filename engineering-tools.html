@@ -34,10 +34,10 @@
 
 <section><div class="wrap">
 <div class="calculator-grid">
-<article class="calculator-card"><p class="section-kicker">RO</p><h2>Recovery calculator</h2><label>Feed flow (m³/h)<input id="ro-feed" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Permeate flow (m³/h)<input id="ro-perm" type="number" min="0" step="0.01" inputmode="decimal"></label><output id="ro-out" class="calculator-result" aria-live="polite">Enter feed and permeate flow.</output></article>
-<article class="calculator-card"><p class="section-kicker">CHEMICAL DOSING</p><h2>ppm dosing calculator</h2><label>Water flow (m³/h)<input id="dose-flow" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Dose (ppm / mg/L)<input id="dose-ppm" type="number" min="0" step="0.1" inputmode="decimal"></label><output id="dose-out" class="calculator-result" aria-live="polite">Enter flow and target dose.</output></article>
-<article class="calculator-card"><p class="section-kicker">TANK</p><h2>Rectangular tank volume</h2><label>Length (m)<input id="tank-l" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Width (m)<input id="tank-w" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Water depth (m)<input id="tank-d" type="number" min="0" step="0.01" inputmode="decimal"></label><output id="tank-out" class="calculator-result" aria-live="polite">Enter dimensions.</output></article>
-<article class="calculator-card"><p class="section-kicker">COOLING TOWER</p><h2>Estimated cycles of concentration</h2><label>Make-up conductivity<input id="ct-makeup" type="number" min="0" step="0.1" inputmode="decimal"></label><label>Circulating-water conductivity<input id="ct-circ" type="number" min="0" step="0.1" inputmode="decimal"></label><output id="ct-out" class="calculator-result" aria-live="polite">Enter both conductivity values.</output></article>
+<article class="calculator-card"><p class="section-kicker">RO</p><h2>Recovery calculator</h2><label>Feed flow (m³/h)<input id="ro-feed" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Permeate flow (m³/h)<input id="ro-perm" type="number" min="0" step="0.01" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="ro">Calculate recovery</button><output id="ro-out" class="calculator-result" aria-live="polite">Enter feed and permeate flow.</output></article>
+<article class="calculator-card"><p class="section-kicker">CHEMICAL DOSING</p><h2>ppm dosing calculator</h2><label>Water flow (m³/h)<input id="dose-flow" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Dose (ppm / mg/L)<input id="dose-ppm" type="number" min="0" step="0.1" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="dose">Calculate dosing</button><output id="dose-out" class="calculator-result" aria-live="polite">Enter flow and target dose.</output></article>
+<article class="calculator-card"><p class="section-kicker">TANK</p><h2>Rectangular tank volume</h2><label>Length (m)<input id="tank-l" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Width (m)<input id="tank-w" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Water depth (m)<input id="tank-d" type="number" min="0" step="0.01" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="tank">Calculate volume</button><output id="tank-out" class="calculator-result" aria-live="polite">Enter dimensions.</output></article>
+<article class="calculator-card"><p class="section-kicker">COOLING TOWER</p><h2>Estimated cycles of concentration</h2><label>Make-up conductivity<input id="ct-makeup" type="number" min="0" step="0.1" inputmode="decimal"></label><label>Circulating-water conductivity<input id="ct-circ" type="number" min="0" step="0.1" inputmode="decimal"></label><button type="button" class="btn calculator-run" data-calc="ct">Calculate cycles</button><output id="ct-out" class="calculator-result" aria-live="polite">Enter both conductivity values.</output></article>
 </div>
 <p class="note" style="margin-top:22px"><strong>Engineering note:</strong> These outputs are screening calculations. Do not use them alone to select membranes, pumps, dosing equipment, chemical concentration, boiler limits or cooling-water control limits. Confirm the calculation basis with current laboratory data, equipment/OEM limits and applicable requirements.</p>
 </div></section>
@@ -47,52 +47,49 @@
 <footer><div class="wrap" style="padding:50px 0"><strong>AQUA CHEM LABS</strong><p>Industrial water treatment plants, chemicals, spares and technical support.</p><p><a href="/contact">Contact</a> · <a href="/services">Services</a> · <a href="/projects">Projects</a></p></div></footer>
 <script src="/site.js" defer></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
   const byId = id => document.getElementById(id);
   const number = id => {
-    const value = Number.parseFloat(byId(id)?.value);
+    const node = byId(id);
+    const value = Number.parseFloat(node?.value ?? '');
     return Number.isFinite(value) ? value : NaN;
   };
   const fmt = (value, digits = 2) => Number.isFinite(value)
     ? value.toLocaleString('en-IN', { maximumFractionDigits: digits })
     : '—';
-
-  const setResult = (id, message) => { byId(id).textContent = message; };
-
-  const calculate = () => {
-    const feed = number('ro-feed');
-    const permeate = number('ro-perm');
-    setResult('ro-out',
-      Number.isFinite(feed) && feed > 0 && Number.isFinite(permeate) && permeate >= 0 && permeate <= feed
-        ? 'Recovery: ' + fmt((permeate / feed) * 100, 1) + '%'
-        : 'Enter feed > 0 and permeate between 0 and feed.');
-
-    const flow = number('dose-flow');
-    const ppm = number('dose-ppm');
-    setResult('dose-out',
-      Number.isFinite(flow) && flow > 0 && Number.isFinite(ppm) && ppm >= 0
-        ? 'Active chemical mass: ' + fmt((flow * ppm) / 1000, 3) + ' kg/h'
-        : 'Enter flow > 0 and dose ≥ 0.');
-
-    const length = number('tank-l');
-    const width = number('tank-w');
-    const depth = number('tank-d');
-    const volume = length * width * depth;
-    setResult('tank-out',
-      Number.isFinite(volume) && length > 0 && width > 0 && depth > 0
-        ? 'Volume: ' + fmt(volume) + ' m³ (' + fmt(volume * 1000, 0) + ' L)'
-        : 'Enter all dimensions greater than 0.');
-
-    const makeup = number('ct-makeup');
-    const circulating = number('ct-circ');
-    setResult('ct-out',
-      Number.isFinite(makeup) && makeup > 0 && Number.isFinite(circulating) && circulating >= makeup
-        ? 'Estimated cycles: ' + fmt(circulating / makeup, 2)
-        : 'Enter make-up > 0 and circulating conductivity ≥ make-up.');
+  const setResult = (id, message, ok = false) => {
+    const node = byId(id);
+    if (!node) return;
+    node.textContent = message;
+    node.classList.toggle('is-valid', ok);
   };
 
-  document.querySelectorAll('.calculator-card input').forEach(input => input.addEventListener('input', calculate));
-  calculate();
-});
+  const calculate = () => {
+    const feed = number('ro-feed'), permeate = number('ro-perm');
+    const roOk = Number.isFinite(feed) && feed > 0 && Number.isFinite(permeate) && permeate >= 0 && permeate <= feed;
+    setResult('ro-out', roOk ? 'Recovery: ' + fmt((permeate / feed) * 100, 1) + '%' : 'Enter feed > 0 and permeate between 0 and feed.', roOk);
+
+    const flow = number('dose-flow'), ppm = number('dose-ppm');
+    const doseOk = Number.isFinite(flow) && flow > 0 && Number.isFinite(ppm) && ppm >= 0;
+    setResult('dose-out', doseOk ? 'Active chemical mass: ' + fmt((flow * ppm) / 1000, 3) + ' kg/h' : 'Enter flow > 0 and dose ≥ 0.', doseOk);
+
+    const length = number('tank-l'), width = number('tank-w'), depth = number('tank-d');
+    const volume = length * width * depth;
+    const tankOk = Number.isFinite(volume) && length > 0 && width > 0 && depth > 0;
+    setResult('tank-out', tankOk ? 'Volume: ' + fmt(volume) + ' m³ (' + fmt(volume * 1000, 0) + ' L)' : 'Enter all dimensions greater than 0.', tankOk);
+
+    const makeup = number('ct-makeup'), circulating = number('ct-circ');
+    const ctOk = Number.isFinite(makeup) && makeup > 0 && Number.isFinite(circulating) && circulating >= makeup;
+    setResult('ct-out', ctOk ? 'Estimated cycles: ' + fmt(circulating / makeup, 2) : 'Enter make-up > 0 and circulating conductivity ≥ make-up.', ctOk);
+  };
+
+  const init = () => {
+    document.querySelectorAll('.calculator-card input').forEach(input => input.addEventListener('input', calculate));
+    document.querySelectorAll('.calculator-run').forEach(button => button.addEventListener('click', calculate));
+    calculate();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+})();
 </script>
 </body></html>
