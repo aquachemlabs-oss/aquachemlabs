@@ -26,10 +26,10 @@ const canonicals = new Map();
 
 for (const file of htmlFiles) {
   const html = read(file);
-  const title = html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i)?.[1]?.trim() || '';
+  const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '';
   const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim() || '';
   const canonical = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)?.[1]?.trim() || '';
-  const h1 = (html.match(/<h1(?:\\s|>)/gi) || []).length;
+  const h1 = (html.match(/<h1(?:\s|>)/gi) || []).length;
 
   if (!title) errors.push(file + ': missing <title>');
   else if (title.length < 20 || title.length > 70) warnings.push(file + ': title length ' + title.length);
@@ -47,11 +47,11 @@ for (const file of htmlFiles) {
     if (!fs.existsSync(path.join(root, target))) errors.push(file + ': missing local target ' + match[1]);
   }
 
-  for (const match of html.matchAll(/<img\\b([^>]*)>/gi)) {
-    if (!/\\balt=["'][^"']*["']/i.test(match[1])) warnings.push(file + ': image missing alt attribute');
+  for (const match of html.matchAll(/<img\b([^>]*)>/gi)) {
+    if (!/\balt=["'][^"']*["']/i.test(match[1])) warnings.push(file + ': image missing alt attribute');
   }
 
-  for (const match of html.matchAll(/<script[^>]+type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)) {
+  for (const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { JSON.parse(match[1].trim()); } catch { errors.push(file + ': invalid JSON-LD'); }
   }
 }
@@ -61,7 +61,7 @@ for (const [canonical, files] of canonicals) if (files.length > 1) errors.push('
 
 if (fs.existsSync(path.join(root,'sitemap.xml'))) {
   const sitemap = read('sitemap.xml');
-  for (const url of sitemap.matchAll(/<loc>([^<]+)<\\/loc>/g)) {
+  for (const url of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
     const pathname = new URL(url[1]).pathname;
     const target = pathname === '/' ? 'index.html' : pathname.slice(1) + '.html';
     if (!fs.existsSync(path.join(root,target))) errors.push('sitemap target missing: ' + url[1]);
