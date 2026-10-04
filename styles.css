@@ -1634,3 +1634,6 @@ body.calculator-modal-open{overflow:hidden}
 .technical-cta-bar__actions .btn.ghost{color:#fff;border-color:#fff}
 @media(max-width:760px){.technical-cta-bar{width:calc(100% - 12px);bottom:6px;padding:.85rem 2.8rem .85rem .85rem}.technical-cta-bar__actions{width:100%}}
 @media(max-width:560px){section{padding-block:2.25rem}.wrap{padding-inline:.8rem}}
+
+/* Homepage headline sizing: keep the manufacturer/location message prominent without dominating the hero. */
+.hero h1{font-size:clamp(1.65rem,3vw,2.45rem);line-height:1.08;max-width:54rem}
