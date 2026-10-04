@@ -14,7 +14,7 @@ for(const [k,v] of titles)if(v.length>1)fail(2,'duplicate title '+v.join(', '));
 for(const [k,v] of cans)if(v.length>1)fail(1,'duplicate canonical '+k);
 if(exists('robots.txt')&&read('robots.txt').includes('Sitemap: https://aquachemlabs.com/sitemap.xml')&&exists('sitemap.xml'))pass(1,'robots and sitemap present');else fail(1,'robots/sitemap incomplete');
 pass(2,'metadata, canonical, H1 and JSON-LD are audited');
-if(/fetchpriority=["']high["']/.test(read('index.html'))&&/loading=["']lazy["']/.test(read('index.html'))&&/Cache-Control/.test(read('_headers')))pass(3,'hero priority, lazy media and caching configured');else fail(3,'performance baseline incomplete');
+if(/fetchpriority=["']high["']/.test(read('index.html'))&&/loading=["']lazy["']/.test(read('index.html'))&&/Cache-Control/.test(read('_headers'))&&exists('scripts/build-site.mjs')&&/webp/.test(read('scripts/build-site.mjs'))&&/avif/.test(read('scripts/build-site.mjs')))pass(3,'hero priority, lazy media, caching and WebP/AVIF build optimization configured');else fail(3,'performance baseline incomplete');
 if(exists('technical-resources.html')&&exists('plant-care-guide.html')&&exists('plant-chemical-guide.html'))pass(4,'technical authority content present');else fail(4,'authority content incomplete');
 if(/project-proof-card/.test(read('projects.html'))&&/Evidence to capture/.test(read('projects.html')))pass(5,'case-study evidence framework present without invented client results');else fail(5,'case-study framework missing');
 if(exists('engineering-tools.html')&&exists('technical-documents.html'))pass(6,'calculators and technical document hub present');else fail(6,'resources incomplete');
