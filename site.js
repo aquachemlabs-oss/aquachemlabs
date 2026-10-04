@@ -511,3 +511,116 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.append(bar);
   }
 });
+
+
+/* =========================================================
+   Corporate platform UX layer
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const normalizePath = (value) => new URL(value, window.location.origin).pathname.replace(/\.html$/i,'').replace(/\/+$/,'') || '/';
+
+  // Consolidate secondary navigation into one Resources menu so decision-makers can
+  // reach projects, guides and evidence without making the primary nav crowded.
+  const nav = document.querySelector('.nav-menu > ul');
+  const products = document.getElementById('productsDropdown');
+  if (nav && products && !document.getElementById('resourcesDropdown')) {
+    const secondary = [
+      ['/projects','Projects & Case Studies'],
+      ['/plant-chemical-guide','Plant Chemical Guide'],
+      ['/plant-care-guide','Plant Care Guide'],
+      ['/technical-resources','Technical Resources'],
+      ['/reviews','Reviews'],
+      ['/gallery','Gallery'],
+      ['/brochure','Company Brochure']
+    ];
+    const existing = new Map();
+    [...nav.children].forEach((li) => {
+      const a = li.querySelector(':scope > a');
+      if (a) existing.set(normalizePath(a.href), li);
+    });
+    const resourceLi = document.createElement('li');
+    resourceLi.className = 'dd';
+    resourceLi.id = 'resourcesDropdown';
+    resourceLi.innerHTML = '<button class="dd-label" type="button" aria-expanded="false">Resources ▾</button><ul class="dd-menu"></ul>';
+    const menu = resourceLi.querySelector('.dd-menu');
+    secondary.forEach(([href,label]) => {
+      const oldLi = existing.get(normalizePath(href));
+      if (oldLi) oldLi.remove();
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = href; a.textContent = label;
+      li.append(a); menu.append(li);
+    });
+    products.after(resourceLi);
+    const button = resourceLi.querySelector('.dd-label');
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = resourceLi.classList.toggle('active');
+      button.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => {
+      if (!resourceLi.contains(e.target)) {
+        resourceLi.classList.remove('active');
+        button.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  // Persistent procurement CTA on pages where the visitor is evaluating a system,
+  // chemical or spare.
+  const evaluationPath = /\/(services|products|ro-plant|chemicals|plant-spares|ibr-valves|strainers-kits|boiler-spares|etp-plant|stp-plant|dm-plant|softener-plant|filtration-systems|boiler-water-treatment|cooling-tower-water-treatment|zld-plant)(?:\/)?$/i.test(normalizePath(location.href));
+  if (evaluationPath && !document.querySelector('.procurement-panel')) {
+    const panel = document.createElement('aside');
+    panel.className = 'procurement-panel';
+    panel.setAttribute('aria-label','Procurement information');
+    panel.innerHTML = '<div class="procurement-panel__intro"><span class="section-kicker">Procurement checklist</span><strong>Send the information that lets us size the right solution.</strong><p>Water analysis + required capacity + target outlet quality gives the technical team a useful starting point.</p></div><ul><li>Feed-water / effluent analysis</li><li>Required flow or plant capacity</li><li>Required treated-water quality</li><li>Existing plant photos or P&amp;ID, if available</li></ul><div class="procurement-panel__actions"><a class="btn" href="/contact#qf">Start technical enquiry</a><a class="btn ghost" href="/technical-resources">Technical resources</a></div>';
+    const main = document.querySelector('main');
+    if (main) main.append(panel);
+  }
+
+  // Long technical pages get an unobtrusive in-page contents rail.
+  const main = document.querySelector('main');
+  if (main && window.innerWidth >= 1050 && !main.querySelector('.technical-toc')) {
+    const headings = [...main.querySelectorAll('h2, h3')].filter(h => h.textContent.trim().length > 2).slice(0,14);
+    if (headings.length >= 4) {
+      const toc = document.createElement('aside');
+      toc.className = 'technical-toc';
+      toc.innerHTML = '<strong>On this page</strong><nav></nav>';
+      const list = toc.querySelector('nav');
+      headings.forEach((heading, i) => {
+        if (!heading.id) heading.id = 'section-' + (i + 1);
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent.trim();
+        list.append(a);
+      });
+      const firstSection = main.querySelector('section');
+      if (firstSection) firstSection.before(toc);
+    }
+  }
+
+  // Add product/service context to links labelled only with generic "request" copy.
+  document.querySelectorAll('a').forEach((a) => {
+    const text = a.textContent.trim().toLowerCase();
+    if (!text || !/(request specification|ask for complete|request a quote)/.test(text)) return;
+    if (!a.getAttribute('aria-label')) {
+      const card = a.closest('article,section');
+      const heading = card && card.querySelector('h2,h3,h4');
+      if (heading) a.setAttribute('aria-label', text + ': ' + heading.textContent.trim());
+    }
+  });
+
+  // Add a small, non-blocking scroll progress indicator on long pages.
+  if (document.body.scrollHeight > window.innerHeight * 2.2 && !document.querySelector('.reading-progress')) {
+    const progress = document.createElement('div');
+    progress.className = 'reading-progress';
+    progress.setAttribute('aria-hidden','true');
+    document.body.append(progress);
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+    };
+    window.addEventListener('scroll', update, {passive:true});
+    update();
+  }
+});
