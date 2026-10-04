@@ -12,7 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (document.body) document.body.insertAdjacentHTML('afterbegin', canonicalRibbon);
   }
   const productsMenu = document.querySelector('#productsDropdown .dd-menu');
-  if (productsMenu) productsMenu.querySelectorAll('a[href="/ro-plant"]').forEach((link) => link.closest('li')?.remove());
+  if (productsMenu) {
+    productsMenu.querySelectorAll('a[href="/ro-plant"]').forEach((link) => link.closest('li')?.remove());
+    productsMenu.querySelectorAll('a').forEach((link) => {
+      const label = link.textContent.trim();
+      if (label && !/^ACL\\b/i.test(label)) link.textContent = `ACL ${label}`;
+    });
+  }
   const navList = document.querySelector('#navMenu > ul');
   if (navList) {
     const servicesLink = [...navList.children].find((li) => li.querySelector(':scope > a[href="/services"]'));
