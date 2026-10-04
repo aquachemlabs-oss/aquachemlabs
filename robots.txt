@@ -6,3 +6,5 @@ Disallow: /review-admin.html
 Disallow: /_functions
 
 Sitemap: https://aquachemlabs.com/sitemap.xml
+
+Disallow: /404.html

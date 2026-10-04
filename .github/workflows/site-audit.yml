@@ -1,19 +1,30 @@
 name: Website quality gate
-
 on:
   push:
-    branches: [main, seo-performance-10-10]
+    branches: [main]
   pull_request:
     branches: [main]
-
+  workflow_dispatch:
 permissions:
   contents: read
-
 jobs:
-  site-audit:
+  quality:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Audit HTML, metadata, links and sitemap
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install
+      - name: Static 20-point audit
         run: npm run audit
+      - name: Structured-data validation
+        run: npm run structured-data-audit
+      - name: Production build
+        run: npm run build
+      - name: Browser and interaction QA
+        run: |
+          npx playwright install --with-deps chromium
+          node scripts/qa-server.mjs &
+          npm run runtime-audit

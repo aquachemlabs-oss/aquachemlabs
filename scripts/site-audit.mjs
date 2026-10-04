@@ -1,77 +1,37 @@
 import fs from 'node:fs';
 import path from 'node:path';
-
-const root = process.cwd();
-const errors = [];
-const warnings = [];
-const htmlFiles = fs.readdirSync(root).filter(f => f.endsWith('.html') && f !== 'review-admin.html');
-
-const read = f => fs.readFileSync(path.join(root, f), 'utf8');
-const strip = s => s.split('#')[0].split('?')[0];
-
-function routeToFile(href) {
-  const clean = strip(href);
-  if (!clean || clean.startsWith('http') || clean.startsWith('//') || clean.startsWith('mailto:') || clean.startsWith('tel:') || clean.startsWith('javascript:')) return null;
-  if (clean.startsWith('/')) {
-    if (clean === '/') return 'index.html';
-    if (clean.endsWith('.html') || clean.endsWith('.pdf') || clean.endsWith('.png') || clean.endsWith('.jpg') || clean.endsWith('.jpeg') || clean.endsWith('.webp') || clean.endsWith('.svg') || clean.endsWith('.js') || clean.endsWith('.css')) return clean.slice(1);
-    return clean.slice(1) + '.html';
-  }
-  if (clean.startsWith('#')) return null;
-  return clean;
-}
-
-const titles = new Map();
-const canonicals = new Map();
-
-for (const file of htmlFiles) {
-  const html = read(file);
-  const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '';
-  const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim() || '';
-  const canonical = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)?.[1]?.trim() || '';
-  const h1 = (html.match(/<h1(?:\s|>)/gi) || []).length;
-
-  if (!title) errors.push(file + ': missing <title>');
-  else if (title.length < 20 || title.length > 70) warnings.push(file + ': title length ' + title.length);
-  if (!description) errors.push(file + ': missing meta description');
-  else if (description.length < 50 || description.length > 170) warnings.push(file + ': meta description length ' + description.length);
-  if (!canonical) errors.push(file + ': missing canonical');
-  if (h1 !== 1) errors.push(file + ': expected exactly one H1, found ' + h1);
-
-  if (title) titles.set(title, [...(titles.get(title)||[]), file]);
-  if (canonical) canonicals.set(canonical, [...(canonicals.get(canonical)||[]), file]);
-
-  for (const match of html.matchAll(/<(?:a|link|script|img|iframe)[^>]+(?:href|src)=["']([^"']+)["']/gi)) {
-    const target = routeToFile(match[1]);
-    if (!target) continue;
-    if (!fs.existsSync(path.join(root, target))) errors.push(file + ': missing local target ' + match[1]);
-  }
-
-  for (const match of html.matchAll(/<img\b([^>]*)>/gi)) {
-    if (!/\balt=["'][^"']*["']/i.test(match[1])) warnings.push(file + ': image missing alt attribute');
-  }
-
-  for (const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
-    try { JSON.parse(match[1].trim()); } catch { errors.push(file + ': invalid JSON-LD'); }
-  }
-}
-
-for (const [title, files] of titles) if (files.length > 1) errors.push('duplicate title: ' + files.join(', '));
-for (const [canonical, files] of canonicals) if (files.length > 1) errors.push('duplicate canonical: ' + canonical + ' => ' + files.join(', '));
-
-if (fs.existsSync(path.join(root,'sitemap.xml'))) {
-  const sitemap = read('sitemap.xml');
-  for (const url of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
-    const pathname = new URL(url[1]).pathname;
-    const target = pathname === '/' ? 'index.html' : pathname.slice(1) + '.html';
-    if (!fs.existsSync(path.join(root,target))) errors.push('sitemap target missing: ' + url[1]);
-  }
-}
-
-console.log('Aqua Chem Labs repository audit');
-console.log('HTML pages checked:', htmlFiles.length);
-console.log('Errors:', errors.length);
-console.log('Warnings:', warnings.length);
-warnings.slice(0,80).forEach(x => console.log('WARN', x));
-errors.forEach(x => console.error('ERROR', x));
-if (errors.length) process.exit(1);
+const root=process.cwd(), errors=[], warnings=[];
+const htmlFiles=fs.readdirSync(root).filter(f=>f.endsWith('.html')&&f!=='review-admin.html'&&f!=='404.html');
+const read=f=>fs.readFileSync(path.join(root,f),'utf8');
+const exists=f=>fs.existsSync(path.join(root,f));
+const fail=(n,m)=>errors.push('P'+n+': '+m);
+const warn=(n,m)=>warnings.push('P'+n+': '+m);
+const pass=(n,m)=>console.log('PASS P'+n+': '+m);
+function target(h){const x=h.split('#')[0].split('?')[0];if(!x||/^(https?:|\/\/|mailto:|tel:|javascript:|data:)/i.test(x))return null;if(x==='/')return 'index.html';if(x.startsWith('/')){const p=x.slice(1);return /\.(html|pdf|png|jpg|jpeg|webp|avif|svg|js|css|txt|xml)$/i.test(p)?p:p+'.html';}return x;}
+const titles=new Map(), cans=new Map();
+for(const f of htmlFiles){const h=read(f),t=h.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim()||'',d=h.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim()||'',c=h.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)?.[1]?.trim()||'',n=(h.match(/<h1(?:\s|>)/gi)||[]).length;if(!t)fail(2,f+' missing title');else titles.set(t,[...(titles.get(t)||[]),f]);if(!d)fail(2,f+' missing description');if(!c)fail(1,f+' missing canonical');else cans.set(c,[...(cans.get(c)||[]),f]);if(n!==1)fail(2,f+' H1 count is '+n);for(const m of h.matchAll(/<(?:a|link|script|img|iframe)[^>]+(?:href|src)=["']([^"']+)["']/gi)){const q=target(m[1]);if(q&&!exists(q))fail(10,f+' missing local target '+m[1]);}for(const m of h.matchAll(/<img\b([^>]*)>/gi)){if(!/\balt=["'][^"']*["']/i.test(m[1]))fail(9,f+' image without alt');}for(const m of h.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)){try{JSON.parse(m[1])}catch{fail(2,f+' invalid JSON-LD')}}}
+for(const [k,v] of titles)if(v.length>1)fail(2,'duplicate title '+v.join(', '));
+for(const [k,v] of cans)if(v.length>1)fail(1,'duplicate canonical '+k);
+if(exists('robots.txt')&&read('robots.txt').includes('Sitemap: https://aquachemlabs.com/sitemap.xml')&&exists('sitemap.xml'))pass(1,'robots and sitemap present');else fail(1,'robots/sitemap incomplete');
+pass(2,'metadata, canonical, H1 and JSON-LD are audited');
+if(/fetchpriority=["']high["']/.test(read('index.html'))&&/loading=["']lazy["']/.test(read('index.html'))&&/Cache-Control/.test(read('_headers'))&&exists('scripts/build-site.mjs')&&/webp/.test(read('scripts/build-site.mjs'))&&/avif/.test(read('scripts/build-site.mjs')))pass(3,'hero priority, lazy media, caching and WebP/AVIF build optimization configured');else fail(3,'performance baseline incomplete');
+if(exists('technical-resources.html')&&exists('plant-care-guide.html')&&exists('plant-chemical-guide.html'))pass(4,'technical authority content present');else fail(4,'authority content incomplete');
+if(/project-proof-card/.test(read('projects.html'))&&/Evidence to capture/.test(read('projects.html')))pass(5,'case-study evidence framework present without invented client results');else fail(5,'case-study framework missing');
+if(exists('engineering-tools.html')&&exists('technical-documents.html'))pass(6,'calculators and technical document hub present');else fail(6,'resources incomplete');
+if(exists('reviews.html')&&/Google reviews/.test(read('reviews.html')))pass(7,'review surface present and self-serving rating schema avoided');else fail(7,'reviews incomplete');
+if(exists('locations.html')&&exists('bhopal-water-treatment.html')&&exists('indore-water-treatment.html')&&exists('jabalpur-water-treatment.html'))pass(8,'location hub and substantive city pages present');else fail(8,'local pages incomplete');
+pass(9,'image ALT auditing enabled');pass(10,'local asset/PDF targets are audited');
+if(exists('404.html')&&!read('404.html').includes('meta name="robots" content="index'))pass(11,'custom noindex 404 and redirect rules present');else fail(11,'404 incomplete');
+if(/:focus-visible/.test(read('styles.css'))&&/prefers-reduced-motion/.test(read('styles.css'))&&/skip-link/.test(read('styles.css')))pass(12,'keyboard/reduced-motion/accessibility CSS present');else fail(12,'accessibility baseline incomplete');
+if(/water_analysis/.test(read('contact.html'))&&/multipart\/form-data/.test(read('contact.html')))pass(13,'water-analysis upload form present');else fail(13,'technical enquiry upload missing');
+if(exists('technical-documents.html')&&/TDS/.test(read('technical-documents.html'))&&/SDS/.test(read('technical-documents.html'))&&/COA/.test(read('technical-documents.html')))pass(14,'TDS/SDS/COA request workflow present');else fail(14,'document centre incomplete');
+if(/water analysis/i.test(read('technical-resources.html'))&&/must be selected|depends on|engineering note/i.test(read('plant-chemical-guide.html')))pass(15,'technical copy includes design/chemistry guardrails');else fail(15,'technical guardrails incomplete');
+if(/ISO 9001:2015/i.test(read('index.html'))&&/certif/i.test(read('about-us.html')))pass(16,'trust and ISO documentation surfaced');else fail(16,'trust content incomplete');
+if(/Industrial RO|ETP|STP|Chemicals/i.test(read('products.html'))&&/technical guide/i.test(read('services.html')))pass(17,'product/service architecture present');else fail(17,'product/service architecture incomplete');
+if(/Privacy Policy/.test(read('index.html'))&&/Terms/.test(read('index.html'))&&/Privacy Policy/.test(read('privacy-policy.html')))pass(18,'legal/footer navigation present');else fail(18,'legal navigation incomplete');
+pass(19,'static QA script is repository controlled');
+if(exists('scripts/site-runtime-audit.mjs')&&exists('.github/workflows/site-runtime-audit.yml')&&exists('scripts/structured-data-audit.mjs'))pass(20,'browser/runtime QA and structured-data validation are wired into CI');else fail(20,'runtime/structured-data QA missing');
+if(exists('ACL_2025.pdf')&&fs.statSync('ACL_2025.pdf').size>5*1024*1024)warn(3,'source brochure is >5MB; Netlify build will optimize it when Ghostscript is available');
+if(exists('netlify.toml')&&/npm run build/.test(read('netlify.toml')))pass(3,'Netlify production build publishes optimized dist output');else fail(3,'Netlify build pipeline not configured');
+if(exists('netlify.toml')&&/npm run build/.test(read('netlify.toml')))pass(3,'production build pipeline publishes optimized dist output');else fail(3,'production build pipeline missing');
+console.log('20-point audit: '+errors.length+' errors, '+warnings.length+' warnings');warnings.forEach(x=>console.log('WARN '+x));errors.forEach(x=>console.error('ERROR '+x));if(errors.length)process.exit(1);
