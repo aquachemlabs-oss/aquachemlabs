@@ -630,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const canonical = document.querySelector('link[rel="canonical"]');
   const pageUrl = canonical ? canonical.href : window.location.href.split('#')[0];
-  const path = new URL(pageUrl, window.location.origin).pathname.replace(/\\/+$/, '') || '/';
+  const path = new URL(pageUrl, window.location.origin).pathname.replace(/\/+$/, '') || '/';
 
   const ensureMeta = (name, content, attr = 'name') => {
     if (!content) return;
@@ -671,7 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Mark the active navigation destination for assistive technology.
-  const currentPath = path === '/' ? '/' : path.replace(/\\/$/, '');
+  const currentPath = path === '/' ? '/' : path.replace(/\/$/, '');
   document.querySelectorAll('.nav-menu a[href]').forEach((link) => {
     const href = link.getAttribute('href');
     if (!href || /^(https?:|mailto:|tel:|#)/i.test(href)) return;
@@ -723,7 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let cumulative = '';
     parts.forEach((part, index) => {
       cumulative += '/' + part;
-      items.push({ '@type': 'ListItem', position: index + 2, name: part.replace(/[-_]/g, ' ').replace(/\\b\\w/g, c => c.toUpperCase()), item: 'https://aquachemlabs.com' + cumulative });
+      items.push({ '@type': 'ListItem', position: index + 2, name: part.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), item: 'https://aquachemlabs.com' + cumulative });
     });
     graph['@graph'].push({ '@type': 'BreadcrumbList', itemListElement: items });
   }
