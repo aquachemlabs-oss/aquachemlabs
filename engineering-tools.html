@@ -57,6 +57,32 @@
   const fmt = (value, digits = 2) => Number.isFinite(value)
     ? value.toLocaleString('en-IN', { maximumFractionDigits: digits })
     : '—';
+
+  const showPopup = (title, message, valid) => {
+    let modal = document.getElementById('calculator-result-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'calculator-result-modal';
+      modal.className = 'calculator-result-modal';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-labelledby', 'calculator-result-title');
+      modal.innerHTML = '<div class="calculator-result-modal__backdrop" data-close-calculator></div><div class="calculator-result-modal__panel"><button type="button" class="calculator-result-modal__close" aria-label="Close calculation result" data-close-calculator>×</button><p class="section-kicker">Calculation result</p><h2 id="calculator-result-title"></h2><p class="calculator-result-modal__value"></p><button type="button" class="btn" data-close-calculator>Close</button></div>';
+      document.body.append(modal);
+      modal.querySelectorAll('[data-close-calculator]').forEach(button => button.addEventListener('click', () => {
+        modal.classList.remove('is-open');
+        document.body.classList.remove('calculator-modal-open');
+      }));
+    }
+    modal.querySelector('#calculator-result-title').textContent = title;
+    const value = modal.querySelector('.calculator-result-modal__value');
+    value.textContent = message;
+    value.classList.toggle('is-valid', valid);
+    modal.classList.add('is-open');
+    document.body.classList.add('calculator-modal-open');
+    modal.querySelector('.calculator-result-modal__close').focus();
+  };
+
   const setResult = (id, message, ok = false) => {
     const node = byId(id);
     if (!node) return;
@@ -64,28 +90,42 @@
     node.classList.toggle('is-valid', ok);
   };
 
-  const calculate = () => {
+  const calculate = (show = false, type = '') => {
     const feed = number('ro-feed'), permeate = number('ro-perm');
     const roOk = Number.isFinite(feed) && feed > 0 && Number.isFinite(permeate) && permeate >= 0 && permeate <= feed;
-    setResult('ro-out', roOk ? 'Recovery: ' + fmt((permeate / feed) * 100, 1) + '%' : 'Enter feed > 0 and permeate between 0 and feed.', roOk);
+    const roMessage = roOk ? 'Recovery: ' + fmt((permeate / feed) * 100, 1) + '%' : 'Enter feed > 0 and permeate between 0 and feed.';
+    setResult('ro-out', roMessage, roOk);
 
     const flow = number('dose-flow'), ppm = number('dose-ppm');
     const doseOk = Number.isFinite(flow) && flow > 0 && Number.isFinite(ppm) && ppm >= 0;
-    setResult('dose-out', doseOk ? 'Active chemical mass: ' + fmt((flow * ppm) / 1000, 3) + ' kg/h' : 'Enter flow > 0 and dose ≥ 0.', doseOk);
+    const doseMessage = doseOk ? 'Active chemical mass: ' + fmt((flow * ppm) / 1000, 3) + ' kg/h' : 'Enter flow > 0 and dose ≥ 0.';
+    setResult('dose-out', doseMessage, doseOk);
 
     const length = number('tank-l'), width = number('tank-w'), depth = number('tank-d');
     const volume = length * width * depth;
     const tankOk = Number.isFinite(volume) && length > 0 && width > 0 && depth > 0;
-    setResult('tank-out', tankOk ? 'Volume: ' + fmt(volume) + ' m³ (' + fmt(volume * 1000, 0) + ' L)' : 'Enter all dimensions greater than 0.', tankOk);
+    const tankMessage = tankOk ? 'Volume: ' + fmt(volume) + ' m³ (' + fmt(volume * 1000, 0) + ' L)' : 'Enter all dimensions greater than 0.';
+    setResult('tank-out', tankMessage, tankOk);
 
     const makeup = number('ct-makeup'), circulating = number('ct-circ');
     const ctOk = Number.isFinite(makeup) && makeup > 0 && Number.isFinite(circulating) && circulating >= makeup;
-    setResult('ct-out', ctOk ? 'Estimated cycles: ' + fmt(circulating / makeup, 2) : 'Enter make-up > 0 and circulating conductivity ≥ make-up.', ctOk);
+    const ctMessage = ctOk ? 'Estimated cycles: ' + fmt(circulating / makeup, 2) : 'Enter make-up > 0 and circulating conductivity ≥ make-up.';
+    setResult('ct-out', ctMessage, ctOk);
+
+    if (show) {
+      const data = {
+        ro: ['RO Recovery', roMessage, roOk],
+        dose: ['Chemical Dosing', doseMessage, doseOk],
+        tank: ['Rectangular Tank Volume', tankMessage, tankOk],
+        ct: ['Cooling Tower Cycles', ctMessage, ctOk]
+      }[type];
+      if (data) showPopup(data[0], data[1], data[2]);
+    }
   };
 
   const init = () => {
-    document.querySelectorAll('.calculator-card input').forEach(input => input.addEventListener('input', calculate));
-    document.querySelectorAll('.calculator-run').forEach(button => button.addEventListener('click', calculate));
+    document.querySelectorAll('.calculator-card input').forEach(input => input.addEventListener('input', () => calculate()));
+    document.querySelectorAll('.calculator-run').forEach(button => button.addEventListener('click', () => calculate(true, button.dataset.calc)));
     calculate();
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
