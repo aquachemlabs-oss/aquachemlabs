@@ -2,6 +2,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.getElementById('menuToggle');
   const navMenu = document.getElementById('navMenu');
   const productsDropdown = document.getElementById('productsDropdown');
+  // Site-wide header normalization: one ribbon and clear Products vs Services separation.
+  const canonicalRibbon = "<div class=\"top-bar\">\n <div class=\"wrap\">\n  <div class=\"badge-iso\">\n   <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-9 8z\"/></svg>\n   ISO 9001:2015 Certified Company <span>Cert No: 305025122364Q (QRO QMS)</span>\n  </div>\n  <div>Quality is our priority &bull; Pure Water | Sustainable Tomorrow</div>\n </div>\n</div>";
+  const existingRibbon = document.querySelector('.top-bar');
+  if (existingRibbon) existingRibbon.outerHTML = canonicalRibbon;
+  else {
+    const header = document.querySelector('.site-header');
+    if (header) header.insertAdjacentHTML('beforebegin', canonicalRibbon);
+    else if (document.body) document.body.insertAdjacentHTML('afterbegin', canonicalRibbon);
+  }
+  const productsMenu = document.querySelector('#productsDropdown .dd-menu');
+  if (productsMenu) productsMenu.querySelectorAll('a[href="/ro-plant"]').forEach((link) => link.closest('li')?.remove());
+  const navList = document.querySelector('#navMenu > ul');
+  if (navList) {
+    const servicesLink = [...navList.children].find((li) => li.querySelector(':scope > a[href="/services"]'));
+    if (servicesLink) {
+      servicesLink.outerHTML = '<li class="dd" id="servicesDropdown"><button class="dd-label" type="button" aria-expanded="false">Services ▾</button><ul class="dd-menu"><li><a href="/services">All Services</a></li><li><a href="/ro-plant">Industrial RO Plant</a></li><li><a href="/etp-plant">ETP Plant</a></li><li><a href="/stp-plant">STP Plant</a></li><li><a href="/dm-plant">DM Plant</a></li><li><a href="/softener-plant">Water Softener Plant</a></li><li><a href="/filtration-systems">Filtration &amp; Clarification</a></li><li><a href="/boiler-water-treatment">Boiler Water Treatment</a></li><li><a href="/cooling-tower-water-treatment">Cooling Tower Treatment</a></li><li><a href="/zld-plant">ZLD Plant</a></li></ul></li>';
+    }
+  }
+  const servicesDropdown = document.getElementById('servicesDropdown');
+
 
   // Mobile Hamburger Menu Toggle
   if (menuToggle && navMenu) {
@@ -47,23 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Dropdown Logic (Click for mobile / fallback for desktop)
-  if (productsDropdown) {
-    const ddLabel = productsDropdown.querySelector('.dd-label');
+  [productsDropdown, servicesDropdown].filter(Boolean).forEach((dropdown) => {
+    const ddLabel = dropdown.querySelector('.dd-label');
+    if (!ddLabel) return;
     ddLabel.setAttribute('aria-expanded', 'false');
-
     ddLabel.addEventListener('click', (e) => {
       e.stopPropagation();
-      const open = productsDropdown.classList.toggle('active');
+      const open = dropdown.classList.toggle('active');
       ddLabel.setAttribute('aria-expanded', String(open));
     });
-
     document.addEventListener('click', (e) => {
-      if (!productsDropdown.contains(e.target)) {
-        productsDropdown.classList.remove('active');
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('active');
         ddLabel.setAttribute('aria-expanded', 'false');
       }
     });
-  }
+  });
 
   // Footer year
   const yr = document.getElementById('yr');
