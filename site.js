@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Site-wide navigation: keep the server-rendered menu intact so it works
   // even before JavaScript loads or when JavaScript is unavailable.
   const navList = document.querySelector('#navMenu > ul');
-  const currentPath = location.pathname.replace(/\\/$/, '') || '/';
+  const currentPath = location.pathname.replace(/\/$/, '') || '/';
   const normalizeHref = (href) => {
     try {
       const url = new URL(href, location.origin);
       if (url.origin !== location.origin) return '';
-      return url.pathname.replace(/\\/$/, '') || '/';
+      return url.pathname.replace(/\/$/, '') || '/';
     } catch {
       return '';
     }
@@ -93,10 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Dropdown Logic (Click for mobile / fallback for desktop)
-  [productsDropdown, servicesDropdown].filter(Boolean).forEach((dropdown) => {
+  [productsDropdown].filter(Boolean).forEach((dropdown) => {
     const ddLabel = dropdown.querySelector('.dd-label');
     if (!ddLabel) return;
     ddLabel.setAttribute('aria-expanded', 'false');
+    const submenu = dropdown.querySelector('.dd-menu');
+    if (submenu && !submenu.id) submenu.id = 'dropdown-menu-' + (dropdown.id || 'menu');
+    if (submenu) ddLabel.setAttribute('aria-controls', submenu.id);
     ddLabel.addEventListener('click', (e) => {
       e.stopPropagation();
       const open = dropdown.classList.toggle('active');
@@ -568,56 +571,6 @@ document.addEventListener('DOMContentLoaded', () => {
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   const normalizePath = (value) => new URL(value, window.location.origin).pathname.replace(/\.html$/i,'').replace(/\/+$/,'') || '/';
-
-  // Consolidate secondary navigation into one Resources menu so decision-makers can
-  // reach projects, guides and evidence without making the primary nav crowded.
-  const nav = document.querySelector('.nav-menu > ul');
-  const products = document.getElementById('productsDropdown');
-  if (nav && products && !document.getElementById('resourcesDropdown')) {
-    const secondary = [
-      ['/projects','Projects & Case Studies'],
-      ['/plant-chemical-guide','Plant Chemical Guide'],
-      ['/technical-documents','Technical Documents'],
-      ['/locations','Service Areas'],
-      ['/plant-care-guide','Plant Care Guide'],
-      ['/technical-resources','Technical Resources'],
-      ['/engineering-tools','Engineering Calculators'],
-      ['/reviews','Reviews'],
-      ['/gallery','Gallery'],
-      ['/brochure','Company Brochure']
-    ];
-    const existing = new Map();
-    [...nav.children].forEach((li) => {
-      const a = li.querySelector(':scope > a');
-      if (a) existing.set(normalizePath(a.href), li);
-    });
-    const resourceLi = document.createElement('li');
-    resourceLi.className = 'dd';
-    resourceLi.id = 'resourcesDropdown';
-    resourceLi.innerHTML = '<button class="dd-label" type="button" aria-expanded="false">Resources ▾</button><ul class="dd-menu"></ul>';
-    const menu = resourceLi.querySelector('.dd-menu');
-    secondary.forEach(([href,label]) => {
-      const oldLi = existing.get(normalizePath(href));
-      if (oldLi) oldLi.remove();
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = href; a.textContent = label;
-      li.append(a); menu.append(li);
-    });
-    products.after(resourceLi);
-    const button = resourceLi.querySelector('.dd-label');
-    button.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = resourceLi.classList.toggle('active');
-      button.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', (e) => {
-      if (!resourceLi.contains(e.target)) {
-        resourceLi.classList.remove('active');
-        button.setAttribute('aria-expanded','false');
-      }
-    });
-  }
 
   // Persistent procurement CTA on pages where the visitor is evaluating a system,
   // chemical or spare.
