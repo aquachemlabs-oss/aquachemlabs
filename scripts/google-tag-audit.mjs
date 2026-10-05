@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const htmlFiles = fs.readdirSync(root)
-  .filter((f) => f.endsWith('.html') && f !== '404.html' && f !== 'review-admin.html');
+.filter((f) => f.endsWith('.html'));
 
 const pages = htmlFiles.map((file) => fs.readFileSync(path.join(root, file), 'utf8'));
 const allHtml = pages.join('\n');
@@ -37,7 +37,7 @@ if (gtmIds.length === 0) {
   warnings.push('No GTM container ID is present in the repository. GTM cannot run until a real container ID is configured.');
 }
 
-const duplicatePageSnippets = pages.filter((html) => (html.match(/googletagmanager\.com/gi) || []).length > 2);
+const pagesWithoutGtm = htmlFiles.filter((file) => {\n  const html = fs.readFileSync(path.join(root, file), 'utf8');\n  return !/GTM-5NLZTGF6/i.test(html) || !/googletagmanager\\.com\\/gtm\\.js/i.test(html) || !/googletagmanager\\.com\\/ns\\.html/i.test(html);\n});\nif (pagesWithoutGtm.length) errors.push('GTM installation is incomplete on: ' + pagesWithoutGtm.join(', '));\n\nconst duplicatePageSnippets = pages.filter((html) => (html.match(/googletagmanager\.com/gi) || []).length > 2);
 if (duplicatePageSnippets.length) {
   warnings.push('One or more pages contain repeated GTM loader references; check for duplicate installation.');
 }
