@@ -91,8 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Add the Resources menu to legacy pages that still use the older server-rendered header.
+  const resourcesDropdown = document.getElementById('resourcesDropdown');
+  if (navList && !resourcesDropdown) {
+    const productsNode = document.getElementById('productsDropdown');
+    if (productsNode) {
+      productsNode.insertAdjacentHTML('afterend', '<li class="dd" id="resourcesDropdown"><button class="dd-label" type="button" aria-expanded="false" aria-controls="resourcesMenu">Resources ▾</button><ul class="dd-menu" id="resourcesMenu"><li><a href="/resources">Resource Centre</a></li><li><a href="/technical-resources">Technical Resources</a></li><li><a href="/technical-documents">Technical Documents</a></li><li><a href="/engineering-tools">Engineering Tools</a></li><li><a href="/plant-chemical-guide">Plant Chemical Guide</a></li><li><a href="/plant-care-guide">Plant Care Guide</a></li><li><a href="/brochure">Brochure &amp; Downloads</a></li></ul></li>');
+    }
+  }
   // Dropdown Logic (Click for mobile / fallback for desktop)
-  [productsDropdown].filter(Boolean).forEach((dropdown) => {
+  [productsDropdown, document.getElementById('resourcesDropdown')].filter(Boolean).forEach((dropdown) => {
     const ddLabel = dropdown.querySelector('.dd-label');
     if (!ddLabel) return;
     ddLabel.setAttribute('aria-expanded', 'false');
