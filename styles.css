@@ -199,8 +199,9 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
 /* Desktop header: brand row + full-width navigation bar (nav is too long to share a row with the brand) */
 @media (min-width: 1025px) {
   .header-container { flex-wrap: wrap; row-gap: 0.55rem; padding-bottom: 0; }
-  .nav-menu { display: flex !important; flex-basis: 100%; border-top: 1px solid var(--line); padding: 0.45rem 0; }
-  .nav-menu > ul { width: 100%; gap: 0.25rem; }
+  .nav-menu { display: flex !important; flex-basis: 100%; border-top: 1px solid var(--line); padding: 0.45rem 0; overflow: visible; }
+  .nav-menu > ul { width: 100%; gap: 0.25rem; flex-wrap: wrap; justify-content: flex-start; }
+  .nav-menu > ul > li { flex: 0 0 auto; }
   .nav-menu li:has(> .guide-btn) { margin-left: auto; }
   .nav-menu .guide-btn, .nav-menu .brochure-btn { margin-left: 0.35rem; }
 }
