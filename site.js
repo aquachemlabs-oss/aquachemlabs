@@ -17,39 +17,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const isCurrent = (href) => href === currentPath ? ' aria-current="page"' : '';
   if (navList) {
     navList.innerHTML = `
-      <li><a href="/"${isCurrent("/")}>Home</a></li>
-      <li><a href="/about-us"${isCurrent("/about-us")}>About Us</a></li>
-      <li><a href="/projects"${isCurrent("/projects")}>Projects &amp; Case Studies</a></li>
-      <li><a href="/plant-chemical-guide"${isCurrent("/plant-chemical-guide")}>Plant Chemical Guide</a></li>
-      <li class="dd" id="servicesDropdown"><button class="dd-label" type="button" aria-expanded="false">Services ▾</button><ul class="dd-menu">
-        <li><a href="/services"${isCurrent("/services")}>ACL All Services</a></li>
-        <li><a href="/ro-plant"${isCurrent("/ro-plant")}>ACL Industrial RO Plant</a></li>
-        <li><a href="/etp-plant"${isCurrent("/etp-plant")}>ACL ETP Plant</a></li>
-        <li><a href="/stp-plant"${isCurrent("/stp-plant")}>ACL STP Plant</a></li>
-        <li><a href="/dm-plant"${isCurrent("/dm-plant")}>ACL DM Plant</a></li>
-        <li><a href="/softener-plant"${isCurrent("/softener-plant")}>ACL Water Softener Plant</a></li>
-        <li><a href="/filtration-systems"${isCurrent("/filtration-systems")}>ACL Filtration &amp; Clarification</a></li>
-        <li><a href="/boiler-water-treatment"${isCurrent("/boiler-water-treatment")}>ACL Boiler Water Treatment</a></li>
-        <li><a href="/cooling-tower-water-treatment"${isCurrent("/cooling-tower-water-treatment")}>ACL Cooling Tower Treatment</a></li>
-        <li><a href="/zld-plant"${isCurrent("/zld-plant")}>ACL ZLD Plant</a></li>
-      </ul></li>
-      <li class="dd" id="productsDropdown"><button class="dd-label" type="button" aria-expanded="false">Products ▾</button><ul class="dd-menu">
-        <li><a href="/products"${isCurrent("/products")}>ACL All Products</a></li>
-        <li><a href="/chemicals"${isCurrent("/chemicals")}>ACL Chemicals</a></li>
-        <li><a href="/plant-spares"${isCurrent("/plant-spares")}>ACL Plant Spares</a></li>
-        <li><a href="/ibr-valves"${isCurrent("/ibr-valves")}>ACL IBR Valves</a></li>
-        <li><a href="/strainers-kits"${isCurrent("/strainers-kits")}>ACL Strainers &amp; Kits</a></li>
-        <li><a href="/boiler-spares"${isCurrent("/boiler-spares")}>ACL Boiler Spares</a></li>
-      </ul></li>
-      <li><a href="/gallery"${isCurrent("/gallery")}>Gallery</a></li>
-      <li><a href="/reviews"${isCurrent("/reviews")}>Reviews</a></li>
-      <li><a href="/plant-care-guide" class="guide-btn"${isCurrent("/plant-care-guide")}>Plant Care Guide</a></li>
-      <li><a href="/technical-documents"${isCurrent("/technical-documents")}>Technical Documents</a></li>
-      <li><a href="/locations"${isCurrent("/locations")}>Locations</a></li>
-      <li><a href="/engineering-tools"${isCurrent("/engineering-tools")}>Engineering Tools</a></li>
-      <li><a href="/technical-resources"${isCurrent("/technical-resources")}>Technical Resources</a></li>
+      <li><a href="/"${isCurrent}("/")>Home</a></li>
+      <li><a href="/about-us"${isCurrent}("/about-us")>About Us</a></li>
+      <li><a href="/projects"${isCurrent}("/projects")>Projects &amp; Case Studies</a></li>
+      <li><a href="/plant-chemical-guide"${isCurrent}("/plant-chemical-guide")>Plant Chemical Guide</a></li>
+      <li><a href="/services"${isCurrent}("/services")>Services</a></li>
+      <li class="dd" id="productsDropdown">
+        <button class="dd-label" type="button" aria-expanded="false">Products ▾</button>
+        <ul class="dd-menu">
+          <li><a href="/products"${isCurrent}("/products")>All Products</a></li>
+          <li><a href="/ro-plant"${isCurrent}("/ro-plant")>Industrial RO Plant</a></li>
+          <li><a href="/chemicals"${isCurrent}("/chemicals")>Chemicals</a></li>
+          <li><a href="/plant-spares"${isCurrent}("/plant-spares")>Plant Spares</a></li>
+          <li><a href="/ibr-valves"${isCurrent}("/ibr-valves")>IBR Valves</a></li>
+          <li><a href="/strainers-kits"${isCurrent}("/strainers-kits")>Strainers &amp; Kits</a></li>
+          <li><a href="/boiler-spares"${isCurrent}("/boiler-spares")>Boiler Spares</a></li>
+        </ul>
+      </li>
+      <li><a href="/gallery"${isCurrent}("/gallery")>Gallery</a></li>
+      <li><a href="/reviews"${isCurrent}("/reviews")>Reviews</a></li>
+      <li><a href="/plant-care-guide" class="guide-btn"${isCurrent}("/plant-care-guide")>Plant Care Guide</a></li>
       <li><a href="ACL_2025.pdf" target="_blank" rel="noopener" class="brochure-btn">View Brochure</a></li>
-      <li><a href="/contact"${isCurrent("/contact")}>Contact</a></li>
+      <li><a href="/contact"${isCurrent}("/contact")>Contact</a></li>
     `;
   }
   productsDropdown = document.getElementById('productsDropdown');
