@@ -11,39 +11,43 @@ document.addEventListener('DOMContentLoaded', () => {
     if (header) header.insertAdjacentHTML('beforebegin', canonicalRibbon);
     else if (document.body) document.body.insertAdjacentHTML('afterbegin', canonicalRibbon);
   }
-  // Canonical site-wide navigation: every page exposes the same destinations and ACL-prefixed sub-items.
+  // Site-wide navigation: keep the server-rendered menu intact so it works
+  // even before JavaScript loads or when JavaScript is unavailable.
   const navList = document.querySelector('#navMenu > ul');
-  const currentPath = location.pathname.replace(/\/$/, '') || '/';
-  const isCurrent = (href) => href === currentPath ? ' aria-current="page"' : '';
-  if (navList) {
-    navList.innerHTML = `
-      <li><a href="/"${isCurrent}("/")>Home</a></li>
-      <li><a href="/about-us"${isCurrent}("/about-us")>About Us</a></li>
-      <li><a href="/projects"${isCurrent}("/projects")>Projects &amp; Case Studies</a></li>
-      <li><a href="/plant-chemical-guide"${isCurrent}("/plant-chemical-guide")>Plant Chemical Guide</a></li>
-      <li><a href="/services"${isCurrent}("/services")>Services</a></li>
-      <li class="dd" id="productsDropdown">
-        <button class="dd-label" type="button" aria-expanded="false">Products ▾</button>
-        <ul class="dd-menu">
-          <li><a href="/products"${isCurrent}("/products")>All Products</a></li>
-          <li><a href="/ro-plant"${isCurrent}("/ro-plant")>Industrial RO Plant</a></li>
-          <li><a href="/chemicals"${isCurrent}("/chemicals")>Chemicals</a></li>
-          <li><a href="/plant-spares"${isCurrent}("/plant-spares")>Plant Spares</a></li>
-          <li><a href="/ibr-valves"${isCurrent}("/ibr-valves")>IBR Valves</a></li>
-          <li><a href="/strainers-kits"${isCurrent}("/strainers-kits")>Strainers &amp; Kits</a></li>
-          <li><a href="/boiler-spares"${isCurrent}("/boiler-spares")>Boiler Spares</a></li>
-        </ul>
-      </li>
-      <li><a href="/gallery"${isCurrent}("/gallery")>Gallery</a></li>
-      <li><a href="/reviews"${isCurrent}("/reviews")>Reviews</a></li>
-      <li><a href="/plant-care-guide" class="guide-btn"${isCurrent}("/plant-care-guide")>Plant Care Guide</a></li>
-      <li><a href="ACL_2025.pdf" target="_blank" rel="noopener" class="brochure-btn">View Brochure</a></li>
-      <li><a href="/contact"${isCurrent}("/contact")>Contact</a></li>
-    `;
-  }
-  productsDropdown = document.getElementById('productsDropdown');
-  const servicesDropdown = document.getElementById('servicesDropdown');
+  const currentPath = location.pathname.replace(/\\/$/, '') || '/';
+  const normalizeHref = (href) => {
+    try {
+      const url = new URL(href, location.origin);
+      if (url.origin !== location.origin) return '';
+      return url.pathname.replace(/\\/$/, '') || '/';
+    } catch {
+      return '';
+    }
+  };
 
+  let productsDropdown = document.getElementById('productsDropdown');
+
+  if (navList) {
+    navList.querySelectorAll('a[href]').forEach((link) => {
+      const href = normalizeHref(link.getAttribute('href'));
+      if (href && href === currentPath) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+
+    // Keep the Products control visibly active when one of its child pages is open.
+    productsDropdown = document.getElementById('productsDropdown');
+    if (productsDropdown) {
+      const hasCurrentProduct = productsDropdown.querySelector('a[aria-current="page"]');
+      const label = productsDropdown.querySelector('.dd-label');
+      if (label) {
+        label.classList.toggle('is-current', Boolean(hasCurrentProduct));
+        label.setAttribute('aria-expanded', 'false');
+      }
+    }
+  }
 
   // Mobile Hamburger Menu Toggle
   if (menuToggle && navMenu) {
