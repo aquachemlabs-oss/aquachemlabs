@@ -565,6 +565,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// Shared navigation destinations used by repository QA and runtime normalization.
+const SHARED_NAV_DESTINATIONS = ['/', '/about-us', '/projects', '/plant-chemical-guide', '/services', '/products', '/gallery', '/reviews', '/plant-care-guide', '/technical-documents', '/locations', '/engineering-tools', '/technical-resources', '/contact'];
+
 /* =========================================================
    Corporate platform UX layer
    ========================================================= */
