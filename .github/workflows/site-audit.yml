@@ -19,6 +19,8 @@ jobs:
       - run: npm install
       - name: Static site audit
         run: npm run audit
+      - name: Google tag and Consent Mode audit
+        run: npm run google-tag-audit
       - name: Script integrity audit
         run: npm run script-audit
       - name: Structured-data validation
