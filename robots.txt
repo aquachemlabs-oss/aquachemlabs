@@ -1,10 +1,43 @@
 User-agent: *
 Allow: /
+Allow: /about-us
+Allow: /services
+Allow: /products
+Allow: /ro-plant
+Allow: /etp-plant
+Allow: /stp-plant
+Allow: /dm-plant
+Allow: /softener-plant
+Allow: /filtration-systems
+Allow: /boiler-water-treatment
+Allow: /cooling-tower-water-treatment
+Allow: /zld-plant
+Allow: /chemicals
+Allow: /plant-spares
+Allow: /ibr-valves
+Allow: /strainers-kits
+Allow: /boiler-spares
+Allow: /plant-care-guide
+Allow: /gallery
+Allow: /reviews
+Allow: /brochure
+Allow: /projects
+Allow: /plant-chemical-guide
+Allow: /resources
+Allow: /technical-resources
+Allow: /engineering-tools
+Allow: /contact
+Allow: /privacy-policy
+Allow: /terms
+Allow: /technical-documents
+Allow: /locations
+Allow: /bhopal-water-treatment
+Allow: /indore-water-treatment
+Allow: /jabalpur-water-treatment
 
 Disallow: /review-admin
 Disallow: /review-admin.html
 Disallow: /_functions
+Disallow: /404.html
 
 Sitemap: https://aquachemlabs.com/sitemap.xml
-
-Disallow: /404.html
