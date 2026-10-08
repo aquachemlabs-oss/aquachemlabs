@@ -86,4 +86,48 @@ https://www.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
 /raisen-water-treatment /raisen-water-treatment.html 200
 
 /review-admin.html /review-admin 301!
-/404 /404.html 404
+/404 /404.html 404/
+/wtp-plant.html /wtp-plant 301!
+/wtp-plant /wtp-plant.html 200
+/
+/boiler-chemicals.html /boiler-chemicals 301!
+/boiler-chemicals /boiler-chemicals.html 200
+/
+/cooling-tower-chemicals.html /cooling-tower-chemicals 301!
+/cooling-tower-chemicals /cooling-tower-chemicals.html 200
+/
+/ro-chemicals.html /ro-chemicals 301!
+/ro-chemicals /ro-chemicals.html 200
+/
+/etp-stp-chemicals.html /etp-stp-chemicals 301!
+/etp-stp-chemicals /etp-stp-chemicals.html 200
+/
+/etp-technical-guide.html /etp-technical-guide 301!
+/etp-technical-guide /etp-technical-guide.html 200
+/
+/stp-technical-guide.html /stp-technical-guide 301!
+/stp-technical-guide /stp-technical-guide.html 200
+/
+/ro-technical-guide.html /ro-technical-guide 301!
+/ro-technical-guide /ro-technical-guide.html 200
+/
+/boiler-technical-guide.html /boiler-technical-guide 301!
+/boiler-technical-guide /boiler-technical-guide.html 200
+/
+/cooling-tower-technical-guide.html /cooling-tower-technical-guide 301!
+/cooling-tower-technical-guide /cooling-tower-technical-guide.html 200
+/
+/softener-technical-guide.html /softener-technical-guide 301!
+/softener-technical-guide /softener-technical-guide.html 200
+/
+/dm-technical-guide.html /dm-technical-guide 301!
+/dm-technical-guide /dm-technical-guide.html 200
+/
+/deionization-technical-guide.html /deionization-technical-guide 301!
+/deionization-technical-guide /deionization-technical-guide.html 200
+/
+/filtration-technical-guide.html /filtration-technical-guide 301!
+/filtration-technical-guide /filtration-technical-guide.html 200
+/
+/zld-technical-guide.html /zld-technical-guide 301!
+/zld-technical-guide /zld-technical-guide.html 200
