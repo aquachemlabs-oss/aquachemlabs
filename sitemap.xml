@@ -46,4 +46,19 @@
   <url><loc>https://aquachemlabs.com/assets/service-guides/Deionization_DI_EDI_Detailed_Engineering_Manual_Expanded.pdf</loc><priority>0.6</priority></url>
   <url><loc>https://aquachemlabs.com/assets/service-guides/Other_Filtration_Systems_Detailed_Engineering_Manual_Expanded.pdf</loc><priority>0.6</priority></url>
   <url><loc>https://aquachemlabs.com/assets/service-guides/ZLD_Detailed_Engineering_Manual_Expanded.pdf</loc><priority>0.6</priority></url>
+  <url><loc>https://aquachemlabs.com/wtp-plant</loc><priority>0.8</priority></url>
+  <url><loc>https://aquachemlabs.com/boiler-chemicals</loc><priority>0.8</priority></url>
+  <url><loc>https://aquachemlabs.com/cooling-tower-chemicals</loc><priority>0.8</priority></url>
+  <url><loc>https://aquachemlabs.com/ro-chemicals</loc><priority>0.8</priority></url>
+  <url><loc>https://aquachemlabs.com/etp-stp-chemicals</loc><priority>0.8</priority></url>
+  <url><loc>https://aquachemlabs.com/etp-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/stp-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/ro-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/boiler-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/cooling-tower-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/softener-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/dm-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/deionization-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/filtration-technical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://aquachemlabs.com/zld-technical-guide</loc><priority>0.7</priority></url>
 </urlset>
