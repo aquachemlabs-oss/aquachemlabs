@@ -1,3 +1,7 @@
+http://aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
+http://www.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
+https://www.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
+
 /plant-division.html /about-us 301
 /plant-division /about-us 301
 /About-Us.html /about-us 301!
