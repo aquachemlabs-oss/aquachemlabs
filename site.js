@@ -244,11 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Water-treatment plant photo behind every page (varies by page).
-  const backgrounds = ['plant-ro-skid', 'plant-dm-vessels', 'plant-uf', 'plant-stp', 'plant-cooling-tower', 'plant-etp', 'plant-process-water', 'plant-recycling'];
-  const page = location.pathname.split('/').pop() || 'index.html';
-  const bgIndex = [...page].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % backgrounds.length;
-  document.body.style.setProperty('--page-bg', `url('images/web/${backgrounds[bgIndex]}.jpg')`);
 
   // Product image previews: hover, focus or tap an item in a [data-preview-list].
   const productImages = [
@@ -348,47 +343,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Hero slideshows (home & About Us): advance to the next plant photo every 10 seconds
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-hero-slides]').forEach((root) => {
-    const slides = [...root.querySelectorAll('.hero-slide')];
-    const dots = [...root.querySelectorAll('.hero-slides__dots button')];
-    const label = root.querySelector('.hero-slides__label');
-    let current = 0;
-    let timer;
-    let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const pauseButton = document.createElement('button');
-    pauseButton.type = 'button';
-    pauseButton.className = 'hero-slides__pause';
-    pauseButton.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
-    pauseButton.textContent = paused ? 'Play' : 'Pause';
-    const heroUi = root.querySelector('.hero-slides__ui');
-    if (heroUi) heroUi.append(pauseButton);
-
-    const show = (next) => {
-      if (next === current) return;
-      slides.forEach((s) => s.classList.remove('is-prev'));
-      slides[current].classList.replace('is-active', 'is-prev');
-      slides[next].classList.add('is-active');
-      dots.forEach((d, i) => d.setAttribute('aria-current', i === next ? 'true' : 'false'));
-      label.textContent = slides[next].dataset.label;
-      current = next;
-    };
-    const start = () => {
-      clearInterval(timer);
-      if (!paused && !document.hidden) timer = setInterval(() => show((current + 1) % slides.length), 10000);
-    };
-
-    dots.forEach((d, i) => d.addEventListener('click', () => { show(i); start(); }));
-    pauseButton.addEventListener('click', () => {
-      paused = !paused;
-      pauseButton.textContent = paused ? 'Play' : 'Pause';
-      pauseButton.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
-      start();
-    });
-    document.addEventListener('visibilitychange', start);
-    start();
-  });
 
   // Add consistent Organization / WebSite structured data where page-level schema is absent.
   if (!document.querySelector('script[data-acl-site-schema]')) {
