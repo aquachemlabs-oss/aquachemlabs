@@ -34,6 +34,7 @@ Allow: /locations
 Allow: /bhopal-water-treatment
 Allow: /indore-water-treatment
 Allow: /jabalpur-water-treatment
+Allow: /raisen-water-treatment
 
 Disallow: /review-admin
 Disallow: /review-admin.html

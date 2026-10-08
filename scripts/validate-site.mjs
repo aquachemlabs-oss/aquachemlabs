@@ -44,6 +44,8 @@ const routeMap = {
   "/bhopal-water-treatment": "bhopal-water-treatment.html",
   "/indore-water-treatment": "indore-water-treatment.html",
   "/jabalpur-water-treatment": "jabalpur-water-treatment.html",
+  "/resources": "resources.html",
+  "/raisen-water-treatment": "raisen-water-treatment.html",
 };
 
 async function exists(relativePath) {
