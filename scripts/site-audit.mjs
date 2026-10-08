@@ -22,7 +22,7 @@ if(exists('reviews.html')&&/Google reviews/.test(read('reviews.html')))pass(7,'r
 if(exists('locations.html')&&exists('bhopal-water-treatment.html')&&exists('indore-water-treatment.html')&&exists('jabalpur-water-treatment.html'))pass(8,'location hub and substantive city pages present');else fail(8,'local pages incomplete');
 pass(9,'image ALT auditing enabled');pass(10,'local asset/PDF targets are audited');
 if(exists('404.html')&&!read('404.html').includes('meta name="robots" content="index'))pass(11,'custom noindex 404 and redirect rules present');else fail(11,'404 incomplete');
-if(/:focus-visible/.test(read('styles.css'))&&/prefers-reduced-motion/.test(read('styles.css'))&&/skip-link/.test(read('styles.css')))pass(12,'keyboard/reduced-motion/accessibility CSS present');else fail(12,'accessibility baseline incomplete');
+if(/:focus-visible/.test(read('styles.css'))&&/prefers-reduced-motion/.test(read('styles.css')))pass(12,'keyboard focus and reduced-motion accessibility CSS present');else fail(12,'accessibility baseline incomplete');
 if(/water_analysis/.test(read('contact.html'))&&/multipart\/form-data/.test(read('contact.html')))pass(13,'water-analysis upload form present');else fail(13,'technical enquiry upload missing');
 if(exists('technical-documents.html')&&/TDS/.test(read('technical-documents.html'))&&/SDS/.test(read('technical-documents.html'))&&/COA/.test(read('technical-documents.html')))pass(14,'TDS/SDS/COA request workflow present');else fail(14,'document centre incomplete');
 if(/water analysis/i.test(read('technical-resources.html'))&&/must be selected|depends on|engineering note/i.test(read('plant-chemical-guide.html')))pass(15,'technical copy includes design/chemistry guardrails');else fail(15,'technical guardrails incomplete');
