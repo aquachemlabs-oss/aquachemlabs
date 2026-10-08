@@ -655,17 +655,6 @@ document.addEventListener('DOMContentLoaded', () => {
   ensureMeta('twitter:description', description);
   ensureMeta('twitter:image', ogImage);
 
-  // Keep the primary content understandable without requiring JavaScript.
-  const main = document.querySelector('main');
-  if (main && !document.querySelector('.skip-link')) {
-    const skip = document.createElement('a');
-    skip.className = 'skip-link';
-    skip.href = '#main-content';
-    skip.textContent = 'Skip to main content';
-    document.body.prepend(skip);
-    main.id = 'main-content';
-  }
-
   // Mark the active navigation destination for assistive technology.
   const currentPath = path === '/' ? '/' : path.replace(/\/$/, '');
   document.querySelectorAll('.nav-menu a[href]').forEach((link) => {
