@@ -2,6 +2,8 @@ name: Runtime site QA
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,5 +23,6 @@ jobs:
           npm run audit
           npm run script-audit
           npm run structured-data-audit
+          npm run seo-hardening-audit
       - name: Browser runtime QA
         run: npm run runtime-audit
