@@ -61,4 +61,9 @@
   <url><loc>https://aquachemlabs.com/deionization-technical-guide</loc><priority>0.7</priority></url>
   <url><loc>https://aquachemlabs.com/filtration-technical-guide</loc><priority>0.7</priority></url>
   <url><loc>https://aquachemlabs.com/zld-technical-guide</loc><priority>0.7</priority></url>
+
+  <url><loc>https://aquachemlabs.com/engineering-article-temperature-conductivity</loc><priority>0.6</priority></url>
+  <url><loc>https://aquachemlabs.com/engineering-article-ro-troubleshooting</loc><priority>0.6</priority></url>
+  <url><loc>https://aquachemlabs.com/engineering-article-cooling-cycles</loc><priority>0.6</priority></url>
+  <url><loc>https://aquachemlabs.com/engineering-article-boiler-blowdown</loc><priority>0.6</priority></url>
 </urlset>
