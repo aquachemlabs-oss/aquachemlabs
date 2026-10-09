@@ -243,9 +243,9 @@ document.addEventListener('DOMContentLoaded', () => {
       guide.dataset.loaded = 'true';
     });
   });
+});
 
-
-  // Product image previews: hover, focus or tap an item in a [data-preview-list].
+// Product image previews: hover, focus or tap an item in a [data-preview-list].
   const productImages = [
     ['membrane wall', 'plant-boiler'], ['gauge glass', 'plant-boiler'],
     ['membrane housing', 'plant-ro-skid'], ['housing', 'plant-ro-skid'], ['end cap', 'plant-ro-skid'], ['coupler', 'plant-ro-skid'], ['connector', 'plant-ro-skid'],
