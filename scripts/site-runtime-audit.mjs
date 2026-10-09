@@ -168,14 +168,17 @@ try{
       if(!guideCount) failures.push('services page has no technical guide cards');
       if(guideCount){
         const guide=guides.first();
-        await guide.locator('summary').click();
+        await guide.locator('summary strong').click();
         const iframe=guide.locator('iframe');
         await iframe.waitFor({state:'attached',timeout:3000}).catch(()=>{});
         const loaded=await guide.getAttribute('data-loaded');
-        if(loaded!=='true'||await iframe.count()!==1) failures.push('technical guide preview failed for '+(await guide.getAttribute('data-document')));
-        const src=await iframe.getAttribute('src');
-        if(!src?.includes('.pdf')) failures.push('technical guide preview has invalid PDF source for '+(await guide.getAttribute('data-document')));
-        await guide.locator('summary').click();
+        const iframeCount=await iframe.count();
+        if(loaded!=='true'||iframeCount!==1) failures.push('technical guide preview failed for '+(await guide.getAttribute('data-document')));
+        if(iframeCount===1){
+          const src=await iframe.getAttribute('src');
+          if(!src?.includes('.pdf')) failures.push('technical guide preview has invalid PDF source for '+(await guide.getAttribute('data-document')));
+        }
+        await guide.locator('summary strong').click();
       }
     }
   }
