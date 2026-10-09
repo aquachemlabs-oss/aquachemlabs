@@ -20,5 +20,24 @@ if(!/BreadcrumbList/.test(html) && breadcrumbFor(file)) html=html.replace('</hea
 const productSchema=productSchemaFor(file); if(productSchema && !/"@type":"Product"/.test(html)) html=html.replace('</head>',productSchema+'</head>');
 if(path.basename(file)==='index.html' && !/WebSite/.test(html)) html=html.replace('</head>','<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"WebSite","name":"Aqua Chem Labs","url":"https://aquachemlabs.com/"})+'</script></head>');
 await fs.writeFile(file,html)}
-try{const pdf=path.join(dist,'ACL_2025.pdf'),tmp=path.join(dist,'ACL_2025.optimized.pdf');if(fsSync.existsSync(pdf)){await exec('gs',['-sDEVICE=pdfwrite','-dCompatibilityLevel=1.4','-dPDFSETTINGS=/ebook','-dNOPAUSE','-dQUIET','-dBATCH','-sOutputFile='+tmp,pdf]);if(fsSync.existsSync(tmp)&&(await fs.stat(tmp)).size<(await fs.stat(pdf)).size)await fs.rename(tmp,pdf);else await fs.rm(tmp,{force:true})}}catch{}
+try{
+  const pdf=path.join(dist,'ACL_2025.pdf');
+  const tmp=path.join(dist,'ACL_2025.optimized.pdf');
+  if(fsSync.existsSync(pdf)){
+    const before=(await fs.stat(pdf)).size;
+    await exec('gs',['-sDEVICE=pdfwrite','-dCompatibilityLevel=1.4','-dPDFSETTINGS=/ebook','-dNOPAUSE','-dQUIET','-dBATCH','-sOutputFile='+tmp,pdf]);
+    if(fsSync.existsSync(tmp)){
+      const after=(await fs.stat(tmp)).size;
+      if(after<before){
+        await fs.rename(tmp,pdf);
+        console.log('Brochure optimized: '+(before/1024/1024).toFixed(2)+' MB -> '+(after/1024/1024).toFixed(2)+' MB');
+      }else{
+        await fs.rm(tmp,{force:true});
+        console.warn('Brochure PDF optimization produced no size reduction; original retained ('+(before/1024/1024).toFixed(2)+' MB).');
+      }
+    }
+  }
+}catch(error){
+  console.warn('Brochure PDF optimization unavailable; source PDF retained: '+error.message);
+}
 console.log('Production build complete. Smaller WebP/AVIF assets generated:',generated);
