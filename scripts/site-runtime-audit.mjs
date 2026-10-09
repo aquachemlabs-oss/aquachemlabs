@@ -91,6 +91,13 @@ try{
         return {fcpMs:fcp,lcpMs:lcp,cls};
       });
       console.log('Homepage local lab metrics (not field data): '+JSON.stringify(labVitals));
+      const blankSections=await page.locator('main section').evaluateAll(sections=>sections.filter(section=>{
+        const rect=section.getBoundingClientRect();
+        const text=(section.innerText||'').trim();
+        const media=section.querySelector('img,svg,video,iframe,canvas');
+        return rect.height>600&&text.length<40&&!media;
+      }).map(section=>({id:section.id||'',className:section.className||'',height:Math.round(section.getBoundingClientRect().height)})));
+      if(blankSections.length) failures.push('large empty homepage sections: '+JSON.stringify(blankSections));
       const diagnostic=page.locator('#prob');
       if(await diagnostic.count()){
         await diagnostic.selectOption('tds');
