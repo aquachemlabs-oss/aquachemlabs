@@ -97,6 +97,12 @@ try{
         const result=await page.locator('#res').textContent();
         if(!result?.includes('Industrial RO Plant')) failures.push('homepage diagnostic interaction failed');
       }
+      await page.setViewportSize({width:390,height:844});
+      await page.locator('#menuToggle').click();
+      if(!(await page.locator('#navMenu').evaluate(el=>el.classList.contains('active')))) failures.push('mobile navigation did not open');
+      await page.keyboard.press('Escape');
+      if(await page.locator('#navMenu').evaluate(el=>el.classList.contains('active'))) failures.push('mobile navigation did not close on Escape');
+      await page.setViewportSize({width:1280,height:900});
     }
 
     if(route==='/contact'){
