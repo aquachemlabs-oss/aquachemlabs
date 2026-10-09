@@ -69,7 +69,7 @@ try{
 
     const scripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>n.src).filter(Boolean));
     for(const url of [...new Set(scripts)]){
-      const rr=await request.get(url);
+      const rr=await api.get(url);
       if(!rr.ok()) failures.push(route+' script failed '+url+' '+rr.status());
     }
 
@@ -152,7 +152,7 @@ try{
     if(route==='/services'){
       const pdfs=await page.locator('a[href$=".pdf"]').evaluateAll(anchors=>anchors.map(a=>a.href));
       for(const url of pdfs){
-        const rr=await request.get(url);
+        const rr=await api.get(url);
         const type=(rr.headers()['content-type']||'').split(';')[0];
         if(!rr.ok()||type!=='application/pdf') failures.push('service PDF invalid '+url+' '+rr.status()+' '+type);
       }
