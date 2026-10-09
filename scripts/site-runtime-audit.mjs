@@ -147,7 +147,7 @@ try{
       await page.locator('[data-calc="ro"]').click();
       if(!(await page.locator('#calculator-result-modal').evaluate(el=>el.classList.contains('is-open')))) failures.push('calculator popup did not open');
       if(!(await page.locator('.calculator-result-modal__inputs').textContent())?.includes('7.5')) failures.push('calculator popup did not show entered values');
-      await page.locator('[data-close-calculator]').first().click();
+      await page.locator('[data-close-calculator]').last().click();
       if(await page.locator('#calculator-result-modal').evaluate(el=>el.classList.contains('is-open'))) failures.push('calculator popup did not close');
     }
 
