@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {spawn} from 'node:child_process';
-import {chromium, request} from '@playwright/test';
+import {chromium} from '@playwright/test';
 
 const root=process.cwd();
 const base='http://127.0.0.1:4173';
@@ -39,7 +39,9 @@ try{
   await waitForServer();
   const browser=await chromium.launch({headless:true});
   const context=await browser.newContext();
-  const api=await request.newContext();
+  // Reuse the browser context's supported API request client. This avoids
+  // relying on the test-runner's `request` fixture in a standalone Node script.
+  const api=context.request;
   const page=await context.newPage();
 
   page.on('pageerror',error=>failures.push('pageerror: '+error.message));
@@ -183,11 +185,10 @@ try{
     }
   }
 
-  await api.dispose();
   await context.close();
   await browser.close();
 } catch(error){
-  failures.push(error.message);
+  failures.push((error && error.stack) ? error.stack : String(error));
 } finally {
   server.kill('SIGTERM');
 }
