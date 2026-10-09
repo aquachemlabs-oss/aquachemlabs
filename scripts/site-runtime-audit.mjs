@@ -74,6 +74,23 @@ try{
     }
 
     if(route==='/'){
+      const labVitals=await page.evaluate(async()=>{
+        const fcp=performance.getEntriesByType('paint').find(entry=>entry.name==='first-contentful-paint')?.startTime??null;
+        let lcp=null,cls=0,sessionValue=0,sessionStart=0,lastShift=0;
+        let lcpObserver,clsObserver;
+        try{
+          lcpObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries())lcp=entry.startTime;});
+          lcpObserver.observe({type:'largest-contentful-paint',buffered:true});
+        }catch{}
+        try{
+          clsObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries()){if(entry.hadRecentInput)continue;const gap=entry.startTime-lastShift;if(gap>1000||entry.startTime-sessionStart>5000){sessionStart=entry.startTime;sessionValue=entry.value;}else sessionValue+=entry.value;lastShift=entry.startTime;cls=Math.max(cls,sessionValue);}});
+          clsObserver.observe({type:'layout-shift',buffered:true});
+        }catch{}
+        await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+        lcpObserver?.disconnect();clsObserver?.disconnect();
+        return {fcpMs:fcp,lcpMs:lcp,cls};
+      });
+      console.log('Homepage local lab metrics (not field data): '+JSON.stringify(labVitals));
       const diagnostic=page.locator('#prob');
       if(await diagnostic.count()){
         await diagnostic.selectOption('tds');
