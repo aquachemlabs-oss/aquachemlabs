@@ -11,9 +11,21 @@ const uniquePaths=[...new Set(paths)];
 const issues=[];
 const rows=[];
 const browser=await chromium.launch({headless:true});
-const context=await browser.newContext({viewport:{width:1365,height:900}});
+const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
 const page=await context.newPage();
 page.setDefaultNavigationTimeout(25000);
+await page.addInitScript(()=>{
+  window.__auditLcp=null;
+  window.__auditCls=0;
+  try{
+    new PerformanceObserver(list=>{for(const entry of list.getEntries())window.__auditLcp=entry.startTime;})
+      .observe({type:'largest-contentful-paint',buffered:true});
+  }catch{}
+  try{
+    new PerformanceObserver(list=>{for(const entry of list.getEntries())if(!entry.hadRecentInput)window.__auditCls+=entry.value;})
+      .observe({type:'layout-shift',buffered:true});
+  }catch{}
+});
 
 for(const pathname of uniquePaths){
   const url=origin+pathname;
@@ -25,15 +37,7 @@ for(const pathname of uniquePaths){
       const canonical=document.querySelector('link[rel="canonical"]')?.href||'';
       const nav=performance.getEntriesByType('navigation')[0];
       const paint=performance.getEntriesByType('paint');
-      let lcp=null,cls=0;
-      try{
-        const lcpObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries())lcp=entry.startTime;});
-        lcpObserver.observe({type:'largest-contentful-paint',buffered:true});
-      }catch{}
-      try{
-        const clsObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries())if(!entry.hadRecentInput)cls+=entry.value;});
-        clsObserver.observe({type:'layout-shift',buffered:true});
-      }catch{}
+      const lcp=window.__auditLcp??null,cls=window.__auditCls??0;
       return new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve({
         title:document.title.trim(),
         description:meta('description'),
