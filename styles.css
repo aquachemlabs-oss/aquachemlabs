@@ -443,13 +443,13 @@ footer .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
  .section-heading > p { margin-top: .7rem; }
 }
 
-/* Water-treatment plant photo behind every page */
-body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(rgba(255,255,255,.56), rgba(241,248,254,.68)), var(--page-bg, url('images/web/plant-ro-skid.jpg')) center/cover no-repeat; }
-.hero, .brand-showcase { background: linear-gradient(180deg, rgba(227,241,252,.82) 0%, rgba(255,255,255,.7) 100%); }
-.about-intro, .spares-section, .quality-vision { background: rgba(244,241,233,.88); }
-.expertise, .lifecycle { background: rgba(255,255,255,.8); }
-.function-section:not(.function-section--dark) { background: rgba(233,244,247,.84); }
-.service-area { background: rgba(199,220,223,.86); }
+/* Keep the homepage ETP image confined to its hero. A fixed, site-wide plant photo
+   made every section translucent and could create a washed-out/blank-looking page. */
+.hero, .brand-showcase { background: #FFFFFF; }
+.about-intro, .spares-section, .quality-vision { background: #F4F1E9; }
+.expertise, .lifecycle { background: #FFFFFF; }
+.function-section:not(.function-section--dark) { background: #E9F4F7; }
+.service-area { background: #C7DCDF; }
 .guide-header { position: relative; overflow: hidden; background: linear-gradient(120deg, rgba(11,47,122,.95) 0%, rgba(21,88,184,.88) 60%, rgba(46,163,230,.8) 100%), var(--page-bg, none) center/cover; }
 
 /* About: notes and positioning */

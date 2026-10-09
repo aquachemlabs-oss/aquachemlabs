@@ -1,0 +1,40 @@
+name: Website QA
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Install Chromium for browser tests
+        run: npx playwright install --with-deps chromium
+      - name: Build optimized production site
+        run: npm run build
+      - name: Audit links, metadata and assets
+        run: npm run audit
+      - name: Audit SEO hardening
+        run: npm run seo-hardening-audit
+      - name: Audit structured data
+        run: npm run structured-data-audit
+      - name: Audit scripts
+        run: npm run script-audit
+      - name: Audit Google tags
+        run: npm run google-tag-audit
+      - name: Run browser interaction and performance checks
+        run: npm run runtime-audit

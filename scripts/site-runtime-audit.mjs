@@ -74,12 +74,45 @@ try{
     }
 
     if(route==='/'){
+      const labVitals=await page.evaluate(async()=>{
+        const fcp=performance.getEntriesByType('paint').find(entry=>entry.name==='first-contentful-paint')?.startTime??null;
+        let lcp=null,cls=0,sessionValue=0,sessionStart=0,lastShift=0;
+        let lcpObserver,clsObserver;
+        try{
+          lcpObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries())lcp=entry.startTime;});
+          lcpObserver.observe({type:'largest-contentful-paint',buffered:true});
+        }catch{}
+        try{
+          clsObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries()){if(entry.hadRecentInput)continue;const gap=entry.startTime-lastShift;if(gap>1000||entry.startTime-sessionStart>5000){sessionStart=entry.startTime;sessionValue=entry.value;}else sessionValue+=entry.value;lastShift=entry.startTime;cls=Math.max(cls,sessionValue);}});
+          clsObserver.observe({type:'layout-shift',buffered:true});
+        }catch{}
+        await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+        lcpObserver?.disconnect();clsObserver?.disconnect();
+        return {fcpMs:fcp,lcpMs:lcp,cls};
+      });
+      console.log('Homepage local lab metrics (not field data): '+JSON.stringify(labVitals));
       const diagnostic=page.locator('#prob');
       if(await diagnostic.count()){
         await diagnostic.selectOption('tds');
         const result=await page.locator('#res').textContent();
         if(!result?.includes('Industrial RO Plant')) failures.push('homepage diagnostic interaction failed');
       }
+      await page.setViewportSize({width:390,height:844});
+      await page.locator('#menuToggle').click();
+      if(!(await page.locator('#navMenu').evaluate(el=>el.classList.contains('active')))) failures.push('mobile navigation did not open');
+      await page.keyboard.press('Escape');
+      if(await page.locator('#navMenu').evaluate(el=>el.classList.contains('active'))) failures.push('mobile navigation did not close on Escape');
+      await page.setViewportSize({width:1280,height:900});
+    }
+
+    if(route==='/contact'){
+      const form=page.locator('#qf');
+      if(await form.count()!==1) failures.push('contact quote form missing or duplicated');
+      if(!(await form.locator('[name="name"][required]').count())) failures.push('contact form required name field missing');
+      if(!(await form.locator('[name="email"][type="email"][required]').count())) failures.push('contact form required email field missing');
+      if(!(await form.locator('button[type="submit"],input[type="submit"]').count())) failures.push('contact form submit control missing');
+      if(!(await form.locator('[data-form-status]').count())) failures.push('contact form status region missing');
+      if(await form.count()&&await form.evaluate(el=>el.checkValidity())) failures.push('empty contact form unexpectedly passes native validation');
     }
 
     if(route==='/engineering-tools'){

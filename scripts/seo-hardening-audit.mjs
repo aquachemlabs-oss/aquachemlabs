@@ -14,7 +14,7 @@ for(const u of sitemapUrls){const p=new URL(u).pathname;if(p.endsWith('.pdf')){i
 for(const f of htmlFiles){const h=read(f);const title=(h.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1]?.trim()||'';const desc=(h.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)||[])[1]?.trim()||'';const can=(h.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)||[])[1]||'';const h1=(h.match(/<h1(?:\s|>)/gi)||[]).length;
 if(!title) fail.push(f+': missing title'); else if(title.length<30||title.length>65) fail.push(f+': title length '+title.length); 
 if(!desc) fail.push(f+': missing description'); else if(desc.length<70||desc.length>165) fail.push(f+': description length '+desc.length);
-if(!can.startsWith('https://aquachemlabs.com/')) fail.push(f+': canonical is not HTTPS/non-www'); if(h1!==1) fail.push(f+': H1 count '+h1);
+if(!can.startsWith('https://aquachemlabs.com/')) fail.push(f+': canonical is not HTTPS/non-www'); if(/\.html(?:[?#]|$)/i.test(can)) fail.push(f+': canonical should use the clean extensionless route'); if(h1!==1) fail.push(f+': H1 count '+h1);
 for(const m of h.matchAll(/<img\b([^>]*)>/gi)) if(!/\balt=["'][^"']*["']/i.test(m[1])) fail.push(f+': image missing alt');
 }
 const publicRoutes=[...routes.keys()].filter(x=>x!=='/review-admin');
