@@ -99,6 +99,16 @@ try{
       }
     }
 
+    if(route==='/contact'){
+      const form=page.locator('#qf');
+      if(await form.count()!==1) failures.push('contact quote form missing or duplicated');
+      if(!(await form.locator('[name="name"][required]').count())) failures.push('contact form required name field missing');
+      if(!(await form.locator('[name="email"][type="email"][required]').count())) failures.push('contact form required email field missing');
+      if(!(await form.locator('button[type="submit"],input[type="submit"]').count())) failures.push('contact form submit control missing');
+      if(!(await form.locator('[data-form-status]').count())) failures.push('contact form status region missing');
+      if(await form.count()&&await form.evaluate(el=>el.checkValidity())) failures.push('empty contact form unexpectedly passes native validation');
+    }
+
     if(route==='/engineering-tools'){
       const cases=[
         {ids:['ro-feed','ro-perm'],values:['10','7.5'],expected:'75%'},
