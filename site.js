@@ -244,11 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Water-treatment plant photo behind every page (varies by page).
-  const backgrounds = ['plant-ro-skid', 'plant-dm-vessels', 'plant-uf', 'plant-stp', 'plant-cooling-tower', 'plant-etp', 'plant-process-water', 'plant-recycling'];
-  const page = location.pathname.split('/').pop() || 'index.html';
-  const bgIndex = [...page].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % backgrounds.length;
-  document.body.style.setProperty('--page-bg', `url('images/web/${backgrounds[bgIndex]}.jpg')`);
+  // Page backgrounds are deliberately not rotated globally; the homepage uses its
+  // single ETP hero image, while other sections keep their own intentional imagery.
 
   // Product image previews: hover, focus or tap an item in a [data-preview-list].
   const productImages = [
