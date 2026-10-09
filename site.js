@@ -342,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => { if (activeItem && !preview.hidden) place(activeItem); }, { passive: true });
   }
 
+document.addEventListener('DOMContentLoaded', () => {
   // Add consistent Organization / WebSite structured data where page-level schema is absent.
   if (!document.querySelector('script[data-acl-site-schema]')) {
     const schema = {
