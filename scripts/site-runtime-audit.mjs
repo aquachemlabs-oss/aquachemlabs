@@ -179,7 +179,6 @@ try{
     }
   }
 
-  await request.dispose();
   await api.dispose();
   await context.close();
   await browser.close();
