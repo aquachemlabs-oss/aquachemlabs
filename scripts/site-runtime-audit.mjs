@@ -156,6 +156,19 @@ try{
         const type=(rr.headers()['content-type']||'').split(';')[0];
         if(!rr.ok()||type!=='application/pdf') failures.push('service PDF invalid '+url+' '+rr.status()+' '+type);
       }
+      const guides=page.locator('.service-guide[data-document]');
+      const guideCount=await guides.count();
+      if(!guideCount) failures.push('services page has no technical guide cards');
+      for(let i=0;i<guideCount;i++){
+        const guide=guides.nth(i);
+        await guide.locator('summary').click();
+        const loaded=await guide.getAttribute('data-loaded');
+        const iframe=guide.locator('iframe');
+        if(loaded!=='true'||await iframe.count()!==1) failures.push('technical guide preview failed for '+(await guide.getAttribute('data-document')));
+        const src=await iframe.getAttribute('src');
+        if(!src?.includes('.pdf')) failures.push('technical guide preview has invalid PDF source for '+(await guide.getAttribute('data-document')));
+        await guide.locator('summary').click();
+      }
     }
   }
 
