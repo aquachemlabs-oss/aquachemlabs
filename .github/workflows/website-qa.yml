@@ -38,3 +38,7 @@ jobs:
         run: npm run google-tag-audit
       - name: Run browser interaction and performance checks
         run: npm run runtime-audit
+      - name: Measure page performance and live URL indexability
+        run: node scripts/performance-audit.mjs
+        env:
+          LIVE_BASE_URL: https://aquachemlabs.com
