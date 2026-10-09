@@ -243,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
       guide.dataset.loaded = 'true';
     });
   });
-});
 
 // Product image previews: hover, focus or tap an item in a [data-preview-list].
   const productImages = [
@@ -341,6 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.addEventListener('scroll', () => { if (activeItem && !preview.hidden) place(activeItem); }, { passive: true });
   }
+
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   // Add consistent Organization / WebSite structured data where page-level schema is absent.
