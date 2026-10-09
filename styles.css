@@ -1733,3 +1733,34 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
   .hero--static-etp .hero-etp-image img { object-position: 58% center; }
   .hero--static-etp .hero-etp-image::after { background: linear-gradient(90deg, rgba(3,27,55,.9), rgba(3,27,55,.62)); }
 }
+
+/* Responsive engineering specification tables */
+.table-wrap {
+  max-width:100%;
+  overflow-x:auto;
+  margin:1.25rem 0;
+  border:1px solid #d7e1e8;
+  border-radius:12px;
+  background:#fff;
+  -webkit-overflow-scrolling:touch;
+}
+.table-wrap table {
+  width:100%;
+  min-width:680px;
+  border-collapse:collapse;
+  font-size:.94rem;
+}
+.table-wrap th,
+.table-wrap td {
+  padding:.8rem .9rem;
+  text-align:left;
+  vertical-align:top;
+  border-bottom:1px solid #e2e9ee;
+}
+.table-wrap th {
+  background:#edf4f7;
+  color:#14354b;
+  font-weight:700;
+}
+.table-wrap tbody tr:last-child td { border-bottom:0; }
+.table-wrap tbody tr:nth-child(even) { background:#f8fafb; }
