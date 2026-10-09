@@ -41,7 +41,7 @@ const productSchemaFor=(file)=>{const products={"ro-plant.html":"Industrial RO P
 for(const file of files.filter(f=>f.endsWith('.html'))){let html=await fs.readFile(file,'utf8');
 // Avoid render-blocking third-party font CSS. The shared stylesheet provides robust
 // system-font fallbacks, so pages remain fully styled without waiting on Google Fonts.
-html=html.replace(/<link\\b(?=[^>]*\\bhref=[\"'][^\\"']*fonts\\.(?:googleapis|gstatic)\\.com)[^>]*>\\s*/gi,'');
+html=html.replace(/<link\b(?=[^>]*\bhref=["'][^"']*fonts\.(?:googleapis|gstatic)\.com)[^>]*>\s*/gi,'');
 const matches=[...html.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)];for(const m of matches.reverse()){const src=m[1];if(!/^\/?images\//i.test(src)||/\.webp$/i.test(src))continue;const out=path.join(dist,src.replace(/^\//,'').replace(/\.(jpe?g|png)$/i,'.webp'));if(!fsSync.existsSync(out))continue;const webp=src.replace(/\.(jpe?g|png)$/i,'.webp');html=html.slice(0,m.index)+m[0].replace(/\bsrc=["'][^"']+["']/i,'src="'+webp+'"')+html.slice(m.index+m[0].length)}
 // Keep image preloads aligned with the optimized image source selected above.
 html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>/gi,tag=>{if(!/\bas=["']image["']/i.test(tag))return tag;const href=tag.match(/\bhref=["']([^"']+)["']/i)?.[1];if(!href||!/^\/?images\//i.test(href)||/\.webp$/i.test(href))return tag;const optimized=href.replace(/\.(jpe?g|png)$/i,'.webp');const optimizedPath=path.join(dist,optimized.replace(/^\//,''));if(!fsSync.existsSync(optimizedPath))return tag;return tag.replace(href,optimized)});
