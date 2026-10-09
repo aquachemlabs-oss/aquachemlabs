@@ -69,7 +69,7 @@ try{
 
     const scripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>n.src).filter(Boolean));
     for(const url of [...new Set(scripts)]){
-      const rr=await request.get(url);
+      const rr=await api.get(url);
       if(!rr.ok()) failures.push(route+' script failed '+url+' '+rr.status());
     }
 
@@ -91,6 +91,13 @@ try{
         return {fcpMs:fcp,lcpMs:lcp,cls};
       });
       console.log('Homepage local lab metrics (not field data): '+JSON.stringify(labVitals));
+      const blankSections=await page.locator('main section').evaluateAll(sections=>sections.filter(section=>{
+        const rect=section.getBoundingClientRect();
+        const text=(section.innerText||'').trim();
+        const media=section.querySelector('img,svg,video,iframe,canvas');
+        return rect.height>600&&text.length<40&&!media;
+      }).map(section=>({id:section.id||'',className:section.className||'',height:Math.round(section.getBoundingClientRect().height)})));
+      if(blankSections.length) failures.push('large empty homepage sections: '+JSON.stringify(blankSections));
       const diagnostic=page.locator('#prob');
       if(await diagnostic.count()){
         await diagnostic.selectOption('tds');
@@ -140,7 +147,7 @@ try{
       await page.locator('[data-calc="ro"]').click();
       if(!(await page.locator('#calculator-result-modal').evaluate(el=>el.classList.contains('is-open')))) failures.push('calculator popup did not open');
       if(!(await page.locator('.calculator-result-modal__inputs').textContent())?.includes('7.5')) failures.push('calculator popup did not show entered values');
-      await page.locator('[data-close-calculator]').first().click();
+      await page.locator('[data-close-calculator]').last().click();
       if(await page.locator('#calculator-result-modal').evaluate(el=>el.classList.contains('is-open'))) failures.push('calculator popup did not close');
     }
 
@@ -152,14 +159,26 @@ try{
     if(route==='/services'){
       const pdfs=await page.locator('a[href$=".pdf"]').evaluateAll(anchors=>anchors.map(a=>a.href));
       for(const url of pdfs){
-        const rr=await request.get(url);
+        const rr=await api.get(url);
         const type=(rr.headers()['content-type']||'').split(';')[0];
         if(!rr.ok()||type!=='application/pdf') failures.push('service PDF invalid '+url+' '+rr.status()+' '+type);
+      }
+      const guides=page.locator('.service-guide[data-document]');
+      const guideCount=await guides.count();
+      if(!guideCount) failures.push('services page has no technical guide cards');
+      for(let i=0;i<guideCount;i++){
+        const guide=guides.nth(i);
+        await guide.locator('summary').click();
+        const loaded=await guide.getAttribute('data-loaded');
+        const iframe=guide.locator('iframe');
+        if(loaded!=='true'||await iframe.count()!==1) failures.push('technical guide preview failed for '+(await guide.getAttribute('data-document')));
+        const src=await iframe.getAttribute('src');
+        if(!src?.includes('.pdf')) failures.push('technical guide preview has invalid PDF source for '+(await guide.getAttribute('data-document')));
+        await guide.locator('summary').click();
       }
     }
   }
 
-  await request.dispose();
   await api.dispose();
   await context.close();
   await browser.close();
