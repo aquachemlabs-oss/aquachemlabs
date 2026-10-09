@@ -27,13 +27,14 @@ for(const pathname of uniquePaths){
       const paint=performance.getEntriesByType('paint');
       let lcp=null,cls=0;
       try{
-        const entries=performance.getEntriesByType('largest-contentful-paint');
-        if(entries.length)lcp=entries[entries.length-1].startTime;
+        const lcpObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries())lcp=entry.startTime;});
+        lcpObserver.observe({type:'largest-contentful-paint',buffered:true});
       }catch{}
       try{
-        for(const entry of performance.getEntriesByType('layout-shift'))if(!entry.hadRecentInput)cls+=entry.value;
+        const clsObserver=new PerformanceObserver(list=>{for(const entry of list.getEntries())if(!entry.hadRecentInput)cls+=entry.value;});
+        clsObserver.observe({type:'layout-shift',buffered:true});
       }catch{}
-      return {
+      return new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve({
         title:document.title.trim(),
         description:meta('description'),
         robots:meta('robots').toLowerCase(),
@@ -45,7 +46,7 @@ for(const pathname of uniquePaths){
         load:nav?.loadEventEnd??null,
         transferBytes:nav?.transferSize??null,
         htmlBytes:document.documentElement.outerHTML.length
-      };
+      }))));
     });
     const status=response?.status()??0;
     const noindex=/noindex/.test(data.robots);
