@@ -341,8 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.addEventListener('scroll', () => { if (activeItem && !preview.hidden) place(activeItem); }, { passive: true });
   }
-});
-
 
   // Add consistent Organization / WebSite structured data where page-level schema is absent.
   if (!document.querySelector('script[data-acl-site-schema]')) {
