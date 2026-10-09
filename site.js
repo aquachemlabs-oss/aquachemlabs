@@ -244,8 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-
-  // Product image previews: hover, focus or tap an item in a [data-preview-list].
+// Product image previews: hover, focus or tap an item in a [data-preview-list].
   const productImages = [
     ['membrane wall', 'plant-boiler'], ['gauge glass', 'plant-boiler'],
     ['membrane housing', 'plant-ro-skid'], ['housing', 'plant-ro-skid'], ['end cap', 'plant-ro-skid'], ['coupler', 'plant-ro-skid'], ['connector', 'plant-ro-skid'],
@@ -342,6 +341,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => { if (activeItem && !preview.hidden) place(activeItem); }, { passive: true });
   }
 
+});
+
+document.addEventListener('DOMContentLoaded', () => {
   // Add consistent Organization / WebSite structured data where page-level schema is absent.
   if (!document.querySelector('script[data-acl-site-schema]')) {
     const schema = {
