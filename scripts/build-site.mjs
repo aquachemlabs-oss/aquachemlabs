@@ -9,7 +9,32 @@ async function copyDir(src,dst){await fs.mkdir(dst,{recursive:true});for(const e
 await fs.rm(dist,{recursive:true,force:true}); await copyDir(root,dist);
 const files=[]; async function walk(dir){for(const e of await fs.readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isDirectory())await walk(p);else files.push(p)}}
 await walk(dist); let generated=0;
-await Promise.all(files.filter(f=>/\.(jpe?g|png)$/i.test(f)).map(async file=>{try{const out=file.replace(/\.(jpe?g|png)$/i,'.webp');const avif=file.replace(/\.(jpe?g|png)$/i,'.avif');await Promise.all([sharp(file).webp({quality:78}).toFile(out),sharp(file).avif({quality:50}).toFile(avif)]);const[a,b,d]=await Promise.all([fs.stat(file),fs.stat(out),fs.stat(avif)]);if(b.size<a.size||d.size<a.size)generated++;if(b.size>=a.size)await fs.rm(out,{force:true});if(d.size>=a.size)await fs.rm(avif,{force:true})}catch{}}));
+const imageFiles=files.filter(f=>/\.(jpe?g|png)$/i.test(f));
+let nextImage=0;
+async function optimizeImage(file){
+  try{
+    const out=file.replace(/\.(jpe?g|png)$/i,'.webp');
+    const avif=file.replace(/\.(jpe?g|png)$/i,'.avif');
+    await Promise.all([
+      sharp(file).webp({quality:78}).toFile(out),
+      sharp(file).avif({quality:50}).toFile(avif)
+    ]);
+    const[a,b,d]=await Promise.all([fs.stat(file),fs.stat(out),fs.stat(avif)]);
+    if(b.size<a.size||d.size<a.size)generated++;
+    if(b.size>=a.size)await fs.rm(out,{force:true});
+    if(d.size>=a.size)await fs.rm(avif,{force:true});
+  }catch(error){
+    console.warn('Image optimization skipped for '+path.relative(dist,file)+': '+error.message);
+  }
+}
+const imageWorkers=Array.from({length:Math.min(4,imageFiles.length)},async()=>{
+  while(nextImage<imageFiles.length){
+    const file=imageFiles[nextImage++];
+    await optimizeImage(file);
+  }
+});
+await Promise.all(imageWorkers);
+console.log('Image optimization processed '+imageFiles.length+' source images with '+imageWorkers.length+' workers.');
 const routeForFile=(file)=>{const name=path.basename(file);if(name==='index.html')return '/';return '/'+name.replace(/\.html$/,'');};
 const breadcrumbFor=(file)=>{const route=routeForFile(file);if(route==='/'||/review-admin|404/.test(path.basename(file)))return '';const label=path.basename(file,'.html').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aquachemlabs.com/"},{"@type":"ListItem","position":2,"name":label,"item":"https://aquachemlabs.com"+route}]})+'</script>';};
 const productSchemaFor=(file)=>{const products={"ro-plant.html":"Industrial RO Plant","chemicals.html":"Industrial Water Treatment Chemicals","plant-spares.html":"Industrial Plant Spares","ibr-valves.html":"IBR Valves","strainers-kits.html":"Industrial Strainers and Testing Kits","boiler-spares.html":"Industrial Boiler Spares"};const name=products[path.basename(file)];if(!name)return '';const url='https://aquachemlabs.com'+routeForFile(file);return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"Product","name":name,"brand":{"@type":"Brand","name":"Aqua Chem Labs"},"url":url,"manufacturer":{"@type":"Organization","name":"Aqua Chem Labs","url":"https://aquachemlabs.com"}})+'</script>';};
