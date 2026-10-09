@@ -109,6 +109,11 @@ header.site-header { background: #FFFFFF; color: var(--ink); position: relative;
 .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,29,70,.84) 0%, rgba(7,29,70,.62) 45%, rgba(7,29,70,.34) 100%); z-index: -1; }
 .hero-static-image { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .hero-static-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.hero { background: #12395F; color: var(--ink); padding: 3rem 0 5rem; position: relative; overflow: hidden; }
+.hero--static-etp .hero-etp-image { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.hero--static-etp .hero-etp-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,24,50,.82) 0%, rgba(5,24,50,.62) 48%, rgba(5,24,50,.48) 100%); }
+.hero--static-etp .hero-etp-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero--static-etp .wrap { position: relative; z-index: 1; }
 .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: center; }
 .hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; text-shadow: 0 2px 5px rgba(0,0,0,.55); }
 .hero p.lead { font-size: 1.1rem; max-width: 36rem; margin: 1.2rem 0 1.8rem; color: #FFFFFF; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,.55); }
@@ -1639,3 +1644,76 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
  .ra .btn.danger { background: #b42318; }
  .ra-msg { margin: 1rem 0; font-weight: 600; }
  .ra-msg.is-error { color: #b42318; }
+
+
+/* Homepage static ETP hero: layered composition matching the approved visual concept */
+.hero.hero--static-etp {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background: #06345b;
+  padding: 0 0 3.25rem;
+  min-height: 640px;
+}
+.hero--static-etp .hero-etp-image { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.hero--static-etp .hero-etp-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(3, 27, 55, .92) 0%, rgba(4, 38, 72, .79) 40%, rgba(4, 38, 72, .28) 75%, rgba(4, 38, 72, .38) 100%);
+}
+.hero--static-etp .hero-etp-image img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
+.hero--static-etp .wrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, .72fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding-top: clamp(3rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+.hero--static-etp .wrap > div:first-child { min-width: 0; max-width: 850px; color: #fff; }
+.hero--static-etp .hero-eyebrow { margin: 0 0 .8rem; color: #fff; font-weight: 750; letter-spacing: .13em; font-size: .9rem; }
+.hero--static-etp h1 { max-width: 900px; color: #fff; font-size: clamp(2.1rem, 4.2vw, 4.4rem); line-height: 1.02; letter-spacing: -.025em; text-shadow: 0 2px 12px rgba(0,0,0,.3); margin: 0 0 1rem; }
+.hero--static-etp .lead { color: #f2f7fc; max-width: 47rem; font-size: clamp(1rem, 1.4vw, 1.25rem); line-height: 1.5; text-shadow: 0 1px 5px rgba(0,0,0,.25); }
+.hero--static-etp .hero-proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; margin: 1.1rem 0 .35rem; }
+.hero--static-etp .hero-proof__item {
+  display: flex; align-items: center; gap: .7rem; min-width: 0;
+  padding: .9rem .8rem; border: 1px solid rgba(255,255,255,.5); border-radius: 12px;
+  background: rgba(4, 39, 76, .67); box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+}
+.hero--static-etp .hero-proof__icon { flex: 0 0 auto; font-size: 1.65rem; color: #fff; line-height: 1; }
+.hero--static-etp .hero-proof__item strong { display: block; color: #fff; font-size: clamp(.95rem, 1.45vw, 1.4rem); line-height: 1.15; }
+.hero--static-etp .hero-proof__item span:not(.hero-proof__icon) { display: block; color: #e4eef8; font-size: .78rem; line-height: 1.3; margin-top: .28rem; }
+.hero--static-etp .hero-proof__note { color: #e3edf7; font-size: .72rem; margin: .25rem 0 .85rem; }
+.hero--static-etp .cta { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1rem; }
+.hero--static-etp .cta .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
+.hero--static-etp .cta .btn:first-child { background: #ffd83d; color: #082f56; border-color: #ffd83d; font-weight: 800; }
+.hero--static-etp .cta .btn.ghost { color: #fff; border: 1px solid rgba(255,255,255,.9); background: rgba(3,34,66,.35); }
+.hero--static-etp .finder {
+  padding: clamp(1.1rem, 2vw, 1.7rem); border: 1px solid rgba(255,255,255,.45); border-radius: 16px;
+  background: rgba(5, 42, 78, .88); color: #fff; box-shadow: 0 18px 48px rgba(0,0,0,.28);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.hero--static-etp .finder h2 { color: #fff; font-size: clamp(1.3rem, 2vw, 1.8rem); margin: 0 0 .4rem; }
+.hero--static-etp .finder label { color: #f2f7fc; }
+.hero--static-etp .finder select { width: 100%; min-height: 48px; border-radius: 8px; }
+.hero--static-etp .finder .result { color: #f2f7fc; }
+.hero--static-etp .wave { position: absolute; z-index: 2; bottom: -1px; left: 0; width: 100%; height: 26px; }
+@media (max-width: 900px) {
+  .hero.hero--static-etp { min-height: 0; }
+  .hero--static-etp .wrap { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 3rem; padding-bottom: 3.5rem; }
+  .hero--static-etp .wrap > div:first-child { max-width: none; }
+  .hero--static-etp .finder { max-width: 650px; }
+}
+@media (max-width: 560px) {
+  .hero--static-etp .hero-proof { grid-template-columns: 1fr; }
+  .hero--static-etp .hero-proof__item { padding: .75rem .85rem; }
+  .hero--static-etp .hero-proof__icon { font-size: 1.35rem; }
+  .hero--static-etp .cta .btn { width: 100%; }
+  .hero--static-etp .hero-etp-image img { object-position: 58% center; }
+  .hero--static-etp .hero-etp-image::after { background: linear-gradient(90deg, rgba(3,27,55,.9), rgba(3,27,55,.62)); }
+}
