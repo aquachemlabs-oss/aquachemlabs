@@ -1833,9 +1833,11 @@ img { height: auto; }
 }
 
 
-/* Brand colour update: ACL and manufacturer name use the same accessible royal blue. */
+/* Brand colour update: enforce consistent ACL and manufacturer colours across every page.
+   !important prevents page-specific inline styles from overriding the shared brand treatment. */
 .brand-abbr,
 .brand-name {
-  color: #1558B8;
-  text-shadow: none;
+  color: #1558B8 !important;
+  -webkit-text-fill-color: #1558B8 !important;
+  text-shadow: none !important;
 }
