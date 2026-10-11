@@ -10,7 +10,7 @@ permissions:
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,7 +22,7 @@ jobs:
         run: npm run build
       - name: Verify PWA output and SEO-safe caching
         run: npm run pwa-audit
-      - name: Run Lighthouse on key pages
+      - name: Run Lighthouse across all 56 public pages
         run: npx --yes @lhci/cli@0.14.x autorun
       - name: Upload Lighthouse report artifacts
         if: always()
