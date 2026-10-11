@@ -1808,3 +1808,26 @@ img { max-width: 100%; }
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Repository-wide contrast pass for all pages */
+/* Shared stylesheet: apply readable contrast and responsive image rules site-wide. */
+:root { --ink: #10233F; --mist: #F3F7FC; --line: #C8D8E8; }
+body, main, article, aside, section { color: #10233F; }
+.intro, .explore-intro, .explore-card p, .tile p,
+.showcase-grid figcaption, .grid-gallery figcaption, .explore-footer,
+.brochure-load span, .result--solution > span, .muted, .text-muted,
+.subtitle, .description, .card-description { color: #344761; }
+.brand-name { color: #526B7D; text-shadow: none; }
+.hero--static-etp .hero-etp-image::after,
+.hero::before { background: linear-gradient(90deg, rgba(4,20,43,.88) 0%, rgba(4,20,43,.76) 52%, rgba(4,20,43,.60) 100%); }
+.hero h1, .hero p.lead { color: #FFFFFF; text-shadow: 0 2px 5px rgba(0,0,0,.72); }
+:focus-visible { outline: 3px solid #075FCC; outline-offset: 3px; }
+img, video, canvas, svg { max-width: 100%; }
+img { height: auto; }
+.showcase-grid img, .grid-gallery img, .certification-card img,
+.product-card img, .product-image img, .gallery img { display: block; max-width: 100%; object-fit: contain; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
