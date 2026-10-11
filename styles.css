@@ -1872,3 +1872,27 @@ body { overflow-x: clip; }
     background: linear-gradient(180deg, rgba(4, 20, 43, .84), rgba(4, 20, 43, .70));
   }
 }
+
+
+/* Product brand/manufacturer labels: retain the wording, remove the surrounding box. */
+.product-brand-line {
+  display: block;
+  margin: .65rem 0 1.1rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-left: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #344761 !important;
+  font-size: .95rem;
+  line-height: 1.6;
+}
+.product-brand-line strong {
+  color: #1558B8 !important;
+  font-weight: 700;
+}
+.product-brand-line span {
+  padding: 0 .45rem;
+  color: #64748B !important;
+}
