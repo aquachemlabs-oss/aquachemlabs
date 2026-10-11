@@ -20,43 +20,55 @@ jobs:
           python-version: "3.12"
       - name: Install image optimizer
         run: python -m pip install --upgrade Pillow
-      - name: Optimize raster images in place
+      - name: Optimize raster images without increasing file sizes
         run: |
           python - <<'PY'
           from pathlib import Path
           from PIL import Image, ImageOps
-          import os
+          import tempfile
           exts = {".jpg", ".jpeg", ".png", ".webp"}
           changed = 0
           saved = 0
+          max_dimension = 2400
           for path in Path(".").rglob("*"):
               if not path.is_file() or path.suffix.lower() not in exts:
                   continue
-              if any(part in {".git", "node_modules", ".netlify"} for part in path.parts):
+              if any(part in {".git", "node_modules", ".netlify", "dist", "build"} for part in path.parts):
                   continue
               try:
                   before = path.stat().st_size
                   with Image.open(path) as source:
+                      # Skip animated images to avoid dropping animation frames.
+                      if getattr(source, "is_animated", False):
+                          print(f"Skipped animated asset: {path}")
+                          continue
                       image = ImageOps.exif_transpose(source)
-                      if path.suffix.lower() in {".jpg", ".jpeg"}:
-                          if image.mode not in ("RGB", "L"):
-                              image = image.convert("RGB")
-                          image.save(path, "JPEG", quality=82, optimize=True, progressive=True)
-                      elif path.suffix.lower() == ".png":
-                          image.save(path, "PNG", optimize=True, compress_level=9)
-                      else:
-                          image.save(path, "WEBP", quality=82, method=6)
-                  after = path.stat().st_size
-                  if after < before:
-                      changed += 1
-                      saved += before - after
-                  elif after > before:
-                      # Never replace an asset with a larger encoded version.
-                      # Restore is handled from the checked-out git version.
-                      os.system("git checkout -- " + repr(str(path)))
+                      image.thumbnail((max_dimension, max_dimension), Image.Resampling.LANCZOS)
+                      suffix = path.suffix.lower()
+                      with tempfile.NamedTemporaryFile(dir=path.parent, suffix=suffix, delete=False) as tmp:
+                          temp_path = Path(tmp.name)
+                      try:
+                          if suffix in {".jpg", ".jpeg"}:
+                              if image.mode not in ("RGB", "L"):
+                                  image = image.convert("RGB")
+                              image.save(temp_path, "JPEG", quality=82, optimize=True, progressive=True)
+                          elif suffix == ".png":
+                              image.save(temp_path, "PNG", optimize=True, compress_level=9)
+                          else:
+                              image.save(temp_path, "WEBP", quality=82, method=6)
+                          after = temp_path.stat().st_size
+                          if after < before:
+                              temp_path.replace(path)
+                              changed += 1
+                              saved += before - after
+                          else:
+                              temp_path.unlink(missing_ok=True)
+                      except Exception:
+                          temp_path.unlink(missing_ok=True)
+                          raise
               except Exception as exc:
                   print(f"Skipped {path}: {exc}")
-          print(f"Images reduced: {changed}; bytes saved: {saved}")
+          print(f"Optimized assets: {changed}; bytes saved: {saved}; MB saved: {saved / 1024 / 1024:.2f}")
           PY
       - name: Commit optimized assets when smaller files exist
         run: |
