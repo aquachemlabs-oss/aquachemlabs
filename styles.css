@@ -1841,3 +1841,34 @@ img { height: auto; }
   -webkit-text-fill-color: #1558B8 !important;
   text-shadow: none !important;
 }
+
+
+/* Site-wide image backdrop with a strong white wash to protect text contrast.
+   The image is reused from the existing ETP hero asset and is never animated. */
+body {
+  min-height: 100vh;
+  background-color: #F7FAFE;
+  background-image: linear-gradient(rgba(248, 251, 255, .91), rgba(248, 251, 255, .91)), url("images/hero/hero-etp.jpg") !important;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Readability baseline for descriptive copy across pages; more-specific dark hero
+   and CTA rules continue to control text placed on dark surfaces. */
+body :is(.muted, .text-muted, .subtitle, .description, .card-description,
+  .intro, .explore-intro, .explore-card p, .tile p, .section-description,
+  .small-text, .help-text, figcaption) {
+  color: #344761;
+}
+
+/* Keep content and media inside the viewport on narrow screens. */
+html { overflow-wrap: break-word; }
+body { overflow-x: clip; }
+@media (max-width: 767px) {
+  body { background-attachment: scroll; }
+  .hero--static-etp .hero-etp-image::after {
+    background: linear-gradient(180deg, rgba(4, 20, 43, .84), rgba(4, 20, 43, .70));
+  }
+}
