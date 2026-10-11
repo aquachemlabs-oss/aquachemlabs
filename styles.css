@@ -1831,3 +1831,11 @@ img { height: auto; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+
+/* Brand colour update: ACL and manufacturer name use the same accessible royal blue. */
+.brand-abbr,
+.brand-name {
+  color: #1558B8;
+  text-shadow: none;
+}
