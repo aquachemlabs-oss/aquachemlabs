@@ -95,7 +95,7 @@ try{
       console.log('Homepage local lab metrics (not field data): '+JSON.stringify(labVitals));
       const blankSections=await page.locator('main section').evaluateAll(sections=>sections.filter(section=>{
         const rect=section.getBoundingClientRect();
-        const text=(section.innerText||'').trim();
+        const text=(section.textContent||'').trim(); // textContent remains available when content-visibility:auto skips offscreen rendering.
         const media=section.querySelector('img,svg,video,iframe,canvas');
         return rect.height>600&&text.length<40&&!media;
       }).map(section=>({id:section.id||'',className:section.className||'',height:Math.round(section.getBoundingClientRect().height)})));
