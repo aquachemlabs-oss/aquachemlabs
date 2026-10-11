@@ -62,10 +62,7 @@
         "http://localhost:4173/zld-technical-guide.html"
       ],
       "numberOfRuns": 1,
-      "maxConcurrency": 3,
-      "settings": {
-        "preset": "desktop"
-      }
+      "maxConcurrency": 2
     },
     "assert": {
       "assertions": {
