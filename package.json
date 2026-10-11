@@ -16,6 +16,7 @@
     "structured-data-audit": "node scripts/structured-data-audit.mjs",
     "script-audit": "node scripts/script-audit.mjs",
     "google-tag-audit": "node scripts/google-tag-audit.mjs",
-    "seo-hardening-audit": "node scripts/seo-hardening-audit.mjs"
+    "seo-hardening-audit": "node scripts/seo-hardening-audit.mjs",
+    "pwa-audit": "node scripts/pwa-audit.mjs"
   }
 }

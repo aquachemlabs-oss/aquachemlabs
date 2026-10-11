@@ -1,3 +1,14 @@
+/service-worker.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /
+
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=3600
+
+/pwa-*.png
+  Cache-Control: public, max-age=604800
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN

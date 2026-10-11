@@ -20,6 +20,8 @@ jobs:
       - run: npm install
       - name: Build production site
         run: npm run build
+      - name: Verify PWA output and SEO-safe caching
+        run: npm run pwa-audit
       - name: Run Lighthouse on key pages
         run: npx --yes @lhci/cli@0.14.x autorun
       - name: Upload Lighthouse report artifacts
