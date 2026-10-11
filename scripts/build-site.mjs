@@ -4,7 +4,7 @@ import path from 'node:path';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import sharp from 'sharp';
-const exec=promisify(execFile), root=process.cwd(), dist=path.join(root,'dist'), skip=new Set(['.git','node_modules','dist']);
+const exec=promisify(execFile), root=process.cwd(), dist=path.join(root,'dist'), skip=new Set(['.git','node_modules','dist','.github','scripts','.lighthouserc.json','.gitignore','package.json','package-lock.json','netlify.toml','SEO-OPERATIONS.md','README.md']);
 async function copyDir(src,dst){await fs.mkdir(dst,{recursive:true});for(const e of await fs.readdir(src,{withFileTypes:true})){if(skip.has(e.name))continue;const s=path.join(src,e.name),d=path.join(dst,e.name);if(e.isDirectory())await copyDir(s,d);else await fs.copyFile(s,d)}}
 await fs.rm(dist,{recursive:true,force:true}); await copyDir(root,dist);
 // Generate installable PWA icons from the existing company logo; no new remote assets.
@@ -41,6 +41,21 @@ const imageWorkers=Array.from({length:Math.min(4,imageFiles.length)},async()=>{
 });
 await Promise.all(imageWorkers);
 console.log('Image optimization processed '+imageFiles.length+' source images with '+imageWorkers.length+' workers.');
+
+// Point CSS backgrounds at smaller WebP variants when the build generated them.
+// This includes the shared static ETP backdrop, without changing source assets or design.
+for (const file of files.filter(f => f.endsWith('.css'))) {
+  let css = await fs.readFile(file, 'utf8');
+  css = css.replace(/url\((["']?)([^)"']+\.(?:jpe?g|png))\1\)/gi, (whole, quote, url) => {
+    if (/^(?:https?:|\/\/|data:|#)/i.test(url)) return whole;
+    const clean = url.split(/[?#]/)[0];
+    const optimizedUrl = clean.replace(/\.(?:jpe?g|png)$/i, '.webp');
+    const optimizedPath = clean.startsWith('/') ? path.join(dist, optimizedUrl.slice(1)) : path.resolve(path.dirname(file), optimizedUrl);
+    if (!fsSync.existsSync(optimizedPath)) return whole;
+    return 'url(' + quote + optimizedUrl + quote + ')';
+  });
+  await fs.writeFile(file, css);
+}
 const routeForFile=(file)=>{const name=path.basename(file);if(name==='index.html')return '/';return '/'+name.replace(/\.html$/,'');};
 const breadcrumbFor=(file)=>{const route=routeForFile(file);if(route==='/'||/review-admin|404/.test(path.basename(file)))return '';const label=path.basename(file,'.html').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aquachemlabs.com/"},{"@type":"ListItem","position":2,"name":label,"item":"https://aquachemlabs.com"+route}]})+'</script>';};
 const productSchemaFor=(file)=>{const products={"ro-plant.html":"Industrial RO Plant","chemicals.html":"Industrial Water Treatment Chemicals","plant-spares.html":"Industrial Plant Spares","ibr-valves.html":"IBR Valves","strainers-kits.html":"Industrial Strainers and Testing Kits","boiler-spares.html":"Industrial Boiler Spares"};const name=products[path.basename(file)];if(!name)return '';const url='https://aquachemlabs.com'+routeForFile(file);return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"Product","name":name,"brand":{"@type":"Brand","name":"Aqua Chem Labs"},"url":url,"manufacturer":{"@type":"Organization","name":"Aqua Chem Labs","url":"https://aquachemlabs.com"}})+'</script>';};
@@ -48,7 +63,18 @@ for(const file of files.filter(f=>f.endsWith('.html'))){let html=await fs.readFi
 // Avoid render-blocking third-party font CSS. The shared stylesheet provides robust
 // system-font fallbacks, so pages remain fully styled without waiting on Google Fonts.
 html=html.replace(/<link\b(?=[^>]*\bhref=["'][^"']*fonts\.(?:googleapis|gstatic)\.com)[^>]*>\s*/gi,'');
-const matches=[...html.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)];for(const m of matches.reverse()){const src=m[1];if(!/^\/?images\//i.test(src)||/\.webp$/i.test(src))continue;const out=path.join(dist,src.replace(/^\//,'').replace(/\.(jpe?g|png)$/i,'.webp'));if(!fsSync.existsSync(out))continue;const webp=src.replace(/\.(jpe?g|png)$/i,'.webp');html=html.slice(0,m.index)+m[0].replace(/\bsrc=["'][^"']+["']/i,'src="'+webp+'"')+html.slice(m.index+m[0].length)}
+const matches=[...html.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)];
+for(let imageIndex=matches.length-1;imageIndex>=0;imageIndex--){
+  const m=matches[imageIndex]; let tag=m[0]; const src=m[1];
+  if(/^\/?images\//i.test(src)&&!/\.webp$/i.test(src)){
+    const out=path.join(dist,src.replace(/^\//,'').replace(/\.(jpe?g|png)$/i,'.webp'));
+    if(fsSync.existsSync(out)){const webp=src.replace(/\.(jpe?g|png)$/i,'.webp');tag=tag.replace(/\bsrc=["'][^"']+["']/i,'src="'+webp+'"');}
+  }
+  if(!/\bdecoding=/i.test(tag)) tag=tag.replace(/^<img\b/i,'<img decoding="async"');
+  // Keep the first two images eager (typically logo and hero) and respect explicit priority.
+  if(imageIndex>=2&&!/\bloading=/i.test(tag)&&!/\bfetchpriority=["']high/i.test(tag)) tag=tag.replace(/^<img\b/i,'<img loading="lazy"');
+  html=html.slice(0,m.index)+tag+html.slice(m.index+m[0].length);
+}
 // Keep image preloads aligned with the optimized image source selected above.
 html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>/gi,tag=>{if(!/\bas=["']image["']/i.test(tag))return tag;const href=tag.match(/\bhref=["']([^"']+)["']/i)?.[1];if(!href||!/^\/?images\//i.test(href)||/\.webp$/i.test(href))return tag;const optimized=href.replace(/\.(jpe?g|png)$/i,'.webp');const optimizedPath=path.join(dist,optimized.replace(/^\//,''));if(!fsSync.existsSync(optimizedPath))return tag;return tag.replace(href,optimized)});
 if(!/BreadcrumbList/.test(html) && breadcrumbFor(file)) html=html.replace('</head>',breadcrumbFor(file)+'</head>');
