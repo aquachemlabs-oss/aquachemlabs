@@ -49,9 +49,12 @@ for (const file of files.filter(f => f.endsWith('.css'))) {
   css = css.replace(/url\((["']?)([^)"']+\.(?:jpe?g|png))\1\)/gi, (whole, quote, url) => {
     if (/^(?:https?:|\/\/|data:|#)/i.test(url)) return whole;
     const clean = url.split(/[?#]/)[0];
-    const optimizedUrl = clean.replace(/\.(?:jpe?g|png)$/i, '.webp');
-    const optimizedPath = clean.startsWith('/') ? path.join(dist, optimizedUrl.slice(1)) : path.resolve(path.dirname(file), optimizedUrl);
-    if (!fsSync.existsSync(optimizedPath)) return whole;
+    const candidates = [clean.replace(/\.(?:jpe?g|png)$/i, '.webp'), clean.replace(/\.(?:jpe?g|png)$/i, '.avif')];
+    const optimizedUrl = candidates.find(candidate => {
+      const optimizedPath = clean.startsWith('/') ? path.join(dist, candidate.slice(1)) : path.resolve(path.dirname(file), candidate);
+      return fsSync.existsSync(optimizedPath);
+    });
+    if (!optimizedUrl) return whole;
     return 'url(' + quote + optimizedUrl + quote + ')';
   });
   await fs.writeFile(file, css);
@@ -66,9 +69,10 @@ html=html.replace(/<link\b(?=[^>]*\bhref=["'][^"']*fonts\.(?:googleapis|gstatic)
 const matches=[...html.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)];
 for(let imageIndex=matches.length-1;imageIndex>=0;imageIndex--){
   const m=matches[imageIndex]; let tag=m[0]; const src=m[1];
-  if(/^\/?images\//i.test(src)&&!/\.webp$/i.test(src)){
-    const out=path.join(dist,src.replace(/^\//,'').replace(/\.(jpe?g|png)$/i,'.webp'));
-    if(fsSync.existsSync(out)){const webp=src.replace(/\.(jpe?g|png)$/i,'.webp');tag=tag.replace(/\bsrc=["'][^"']+["']/i,'src="'+webp+'"');}
+  if(/^\/?images\//i.test(src)&&!/\.(?:webp|avif)$/i.test(src)){
+    const candidates=[src.replace(/\.(jpe?g|png)$/i,'.webp'),src.replace(/\.(jpe?g|png)$/i,'.avif')];
+    const optimized=candidates.find(candidate=>fsSync.existsSync(path.join(dist,candidate.replace(/^\//,''))));
+    if(optimized)tag=tag.replace(/\bsrc=["'][^"']+["']/i,'src="'+optimized+'"');
   }
   if(!/\bdecoding=/i.test(tag)) tag=tag.replace(/^<img\b/i,'<img decoding="async"');
   // Keep the first two images eager (typically logo and hero) and respect explicit priority.
@@ -76,7 +80,7 @@ for(let imageIndex=matches.length-1;imageIndex>=0;imageIndex--){
   html=html.slice(0,m.index)+tag+html.slice(m.index+m[0].length);
 }
 // Keep image preloads aligned with the optimized image source selected above.
-html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>/gi,tag=>{if(!/\bas=["']image["']/i.test(tag))return tag;const href=tag.match(/\bhref=["']([^"']+)["']/i)?.[1];if(!href||!/^\/?images\//i.test(href)||/\.webp$/i.test(href))return tag;const optimized=href.replace(/\.(jpe?g|png)$/i,'.webp');const optimizedPath=path.join(dist,optimized.replace(/^\//,''));if(!fsSync.existsSync(optimizedPath))return tag;return tag.replace(href,optimized)});
+html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>/gi,tag=>{if(!/\bas=["']image["']/i.test(tag))return tag;const href=tag.match(/\bhref=["']([^"']+)["']/i)?.[1];if(!href||!/^\/?images\//i.test(href)||/\.(?:webp|avif)$/i.test(href))return tag;const candidates=[href.replace(/\.(jpe?g|png)$/i,'.webp'),href.replace(/\.(jpe?g|png)$/i,'.avif')];const optimized=candidates.find(candidate=>fsSync.existsSync(path.join(dist,candidate.replace(/^\//,''))));if(!optimized)return tag;return tag.replace(href,optimized)});
 if(!/BreadcrumbList/.test(html) && breadcrumbFor(file)) html=html.replace('</head>',breadcrumbFor(file)+'</head>');
 const productSchema=productSchemaFor(file); if(productSchema && !/"@type":"Product"/.test(html)) html=html.replace('</head>',productSchema+'</head>');
 if(path.basename(file)==='index.html' && !/WebSite/.test(html)) html=html.replace('</head>','<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"WebSite","name":"Aqua Chem Labs","url":"https://aquachemlabs.com/"})+'</script></head>');
