@@ -1762,3 +1762,49 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
 }
 .table-wrap tbody tr:last-child td { border-bottom:0; }
 .table-wrap tbody tr:nth-child(even) { background:#f8fafb; }
+
+
+/* Accessibility and media-size refinements — Oct 2026 */
+:root {
+  --ink: #10233F;
+  --mist: #F3F7FC;
+  --line: #C8D8E8;
+}
+/* Darken muted copy so body text remains readable on white and pale backgrounds. */
+.intro, .explore-intro, .explore-card p, .tile p,
+.showcase-grid figcaption, .grid-gallery figcaption,
+.explore-footer, .brochure-load span, .result--solution > span {
+  color: #344761;
+}
+/* Brand wordmark had insufficient contrast against white. */
+.brand-name {
+  color: #526B7D;
+  text-shadow: none;
+}
+/* Keep hero copy legible over bright areas of the plant photograph. */
+.hero--static-etp .hero-etp-image::after {
+  background: linear-gradient(90deg, rgba(4, 20, 43, .88) 0%, rgba(4, 20, 43, .74) 54%, rgba(4, 20, 43, .58) 100%);
+}
+.hero h1, .hero p.lead {
+  color: #FFFFFF;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, .72);
+}
+/* Clear keyboard focus against both light and dark surfaces. */
+:focus-visible {
+  outline: 3px solid #075FCC;
+  outline-offset: 3px;
+}
+/* Prevent large editorial/gallery images from exceeding their content column. */
+img { max-width: 100%; }
+.showcase-grid img, .grid-gallery img, .certification-card img {
+  height: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
