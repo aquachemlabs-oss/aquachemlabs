@@ -1884,12 +1884,14 @@ body { overflow-x: clip; }
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  color: #344761 !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
   font-size: .95rem;
   line-height: 1.6;
 }
 .product-brand-line strong {
-  color: #1558B8 !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
   font-weight: 700;
 }
 .product-brand-line span {
