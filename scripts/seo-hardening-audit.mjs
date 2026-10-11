@@ -3,7 +3,7 @@ import path from 'node:path';
 const root=process.cwd(), fail=[], pass=[];
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const exists=f=>fs.existsSync(path.join(root,f));
-const htmlFiles=fs.readdirSync(root).filter(f=>f.endsWith('.html')&&!['404.html','review-admin.html'].includes(f));
+const htmlFiles=fs.readdirSync(root).filter(f=>f.endsWith('.html')&&!['404.html','review-admin.html','offline.html'].includes(f)); // Offline fallback is intentionally noindex and not a public SEO route.
 const routes=new Map([['/','index.html'],...htmlFiles.filter(f=>f!=='index.html').map(f=>['/'+f.replace(/\.html$/,''),f])]);
 const sitemap=read('sitemap.xml'), robots=read('robots.txt'), redirects=read('_redirects');
 const sitemapUrls=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
