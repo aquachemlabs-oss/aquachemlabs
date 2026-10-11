@@ -7,6 +7,12 @@ import sharp from 'sharp';
 const exec=promisify(execFile), root=process.cwd(), dist=path.join(root,'dist'), skip=new Set(['.git','node_modules','dist']);
 async function copyDir(src,dst){await fs.mkdir(dst,{recursive:true});for(const e of await fs.readdir(src,{withFileTypes:true})){if(skip.has(e.name))continue;const s=path.join(src,e.name),d=path.join(dst,e.name);if(e.isDirectory())await copyDir(s,d);else await fs.copyFile(s,d)}}
 await fs.rm(dist,{recursive:true,force:true}); await copyDir(root,dist);
+// Generate installable PWA icons from the existing company logo; no new remote assets.
+const sourceLogo=path.join(root,'logo.png');
+if(!fsSync.existsSync(sourceLogo)) throw new Error('PWA icon source missing: logo.png');
+await Promise.all([192,512].map(size=>sharp(sourceLogo)
+  .resize(size,size,{fit:'contain',background:{r:255,g:255,b:255,alpha:0}})
+  .png().toFile(path.join(dist,'pwa-'+size+'.png'))));
 const files=[]; async function walk(dir){for(const e of await fs.readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isDirectory())await walk(p);else files.push(p)}}
 await walk(dist); let generated=0;
 const imageFiles=files.filter(f=>/\.(jpe?g|png)$/i.test(f));
@@ -48,6 +54,11 @@ html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>/gi,tag=>{if(!/\bas=["
 if(!/BreadcrumbList/.test(html) && breadcrumbFor(file)) html=html.replace('</head>',breadcrumbFor(file)+'</head>');
 const productSchema=productSchemaFor(file); if(productSchema && !/"@type":"Product"/.test(html)) html=html.replace('</head>',productSchema+'</head>');
 if(path.basename(file)==='index.html' && !/WebSite/.test(html)) html=html.replace('</head>','<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"WebSite","name":"Aqua Chem Labs","url":"https://aquachemlabs.com/"})+'</script></head>');
+// Add PWA metadata at build time so every published route gets it consistently.
+if(path.basename(file)!=='offline.html'){
+  if(!/rel=["']manifest["']/.test(html)) html=html.replace('</head>','<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#0B2F7A"></head>');
+  if(!/pwa-register\.js/.test(html)) html=html.replace('</body>','<script src="/pwa-register.js" defer></script></body>');
+}
 await fs.writeFile(file,html)}
 try{
   const pdf=path.join(dist,'ACL_2025.pdf');
