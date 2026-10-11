@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const htmlFiles = fs.readdirSync(root)
-.filter((f) => f.endsWith('.html'));
+.filter((f) => f.endsWith('.html') && f !== 'offline.html'); // Offline fallback intentionally avoids third-party analytics.
 
 const pages = htmlFiles.map((file) => fs.readFileSync(path.join(root, file), 'utf8'));
 const allHtml = pages.join('\n');
