@@ -1,0 +1,107 @@
+name: Optimize repository PDFs with Ghostscript
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ghostscript-pdf-optimization-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  optimize-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out selected branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Install Ghostscript
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ghostscript
+          gs --version
+
+      - name: Compress PDFs only when the result is smaller
+        shell: bash
+        run: |
+          set -euo pipefail
+          changed=0
+          saved=0
+          count=0
+
+          while IFS= read -r -d '' pdf; do
+            count=$((count + 1))
+            before=$(stat -c%s "$pdf")
+            tmp="$(mktemp --suffix=.pdf)"
+            trap 'rm -f "$tmp"' EXIT
+
+            if gs -q -dSAFER -dBATCH -dNOPAUSE \
+              -sDEVICE=pdfwrite \
+              -dCompatibilityLevel=1.5 \
+              -dPDFSETTINGS=/ebook \
+              -dDetectDuplicateImages=true \
+              -dCompressFonts=true \
+              -dSubsetFonts=true \
+              -sOutputFile="$tmp" "$pdf"; then
+              after=$(stat -c%s "$tmp")
+              if [ "$after" -gt 0 ] && [ "$after" -lt "$before" ]; then
+                # Replace only after Ghostscript completes successfully and produces a smaller PDF.
+                chmod --reference="$pdf" "$tmp"
+                touch -r "$pdf" "$tmp"
+                mv "$tmp" "$pdf"
+                changed=$((changed + 1))
+                saved=$((saved + before - after))
+                echo "Compressed: $pdf ($before -> $after bytes)"
+              else
+                echo "Kept original (no size reduction): $pdf"
+                rm -f "$tmp"
+              fi
+            else
+              echo "Ghostscript failed; kept original: $pdf" >&2
+              rm -f "$tmp"
+            fi
+            trap - EXIT
+          done < <(find . -type f -iname '*.pdf' \
+            -not -path './.git/*' \
+            -not -path './node_modules/*' \
+            -not -path './dist/*' \
+            -not -path './build/*' -print0)
+
+          echo "PDFs scanned: $count"
+          echo "PDFs reduced: $changed"
+          echo "Bytes saved: $saved"
+          echo "MB saved: $(awk -v bytes="$saved" 'BEGIN { printf "%.2f", bytes / 1048576 }')"
+
+      - name: Check optimized PDFs can be read
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' pdf; do
+            if ! gs -q -dSAFER -dBATCH -dNOPAUSE -sDEVICE=nullpage "$pdf"; then
+              echo "PDF validation failed: $pdf" >&2
+              exit 1
+            fi
+          done < <(find . -type f -iname '*.pdf' \
+            -not -path './.git/*' \
+            -not -path './node_modules/*' \
+            -not -path './dist/*' \
+            -not -path './build/*' -print0)
+          echo "All repository PDFs passed Ghostscript readability checks."
+
+      - name: Commit optimized PDFs when files changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all -- '*.pdf' '*.PDF'
+          if git diff --cached --quiet; then
+            echo "No PDFs were reduced; no commit is needed."
+          else
+            git commit -m "Compress repository PDFs with Ghostscript"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
