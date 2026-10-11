@@ -1,0 +1,71 @@
+name: Optimize repository images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out selected branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install image optimizer
+        run: python -m pip install --upgrade Pillow
+      - name: Optimize raster images in place
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          import os
+          exts = {".jpg", ".jpeg", ".png", ".webp"}
+          changed = 0
+          saved = 0
+          for path in Path(".").rglob("*"):
+              if not path.is_file() or path.suffix.lower() not in exts:
+                  continue
+              if any(part in {".git", "node_modules", ".netlify"} for part in path.parts):
+                  continue
+              try:
+                  before = path.stat().st_size
+                  with Image.open(path) as source:
+                      image = ImageOps.exif_transpose(source)
+                      if path.suffix.lower() in {".jpg", ".jpeg"}:
+                          if image.mode not in ("RGB", "L"):
+                              image = image.convert("RGB")
+                          image.save(path, "JPEG", quality=82, optimize=True, progressive=True)
+                      elif path.suffix.lower() == ".png":
+                          image.save(path, "PNG", optimize=True, compress_level=9)
+                      else:
+                          image.save(path, "WEBP", quality=82, method=6)
+                  after = path.stat().st_size
+                  if after < before:
+                      changed += 1
+                      saved += before - after
+                  elif after > before:
+                      # Never replace an asset with a larger encoded version.
+                      # Restore is handled from the checked-out git version.
+                      os.system("git checkout -- " + repr(str(path)))
+              except Exception as exc:
+                  print(f"Skipped {path}: {exc}")
+          print(f"Images reduced: {changed}; bytes saved: {saved}")
+          PY
+      - name: Commit optimized assets when smaller files exist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u
+          if git diff --cached --quiet; then
+            echo "No smaller image encodings were produced."
+          else
+            git commit -m "Optimize repository raster images"
+            git push
+          fi
