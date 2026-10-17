@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
-const root=process.cwd(), errors=[];
-const files=fs.readdirSync(root).filter(f=>f.endsWith('.html')&&!['review-admin.html','404.html'].includes(f));
+const workingRoot=process.cwd();
+const root=fs.existsSync(path.join(workingRoot,'dist'))?path.join(workingRoot,'dist'):workingRoot;
+const errors=[];
+const files=fs.readdirSync(root).filter(f=>f.endsWith('.html')&&!['review-admin.html','404.html','offline.html'].includes(f));
 for(const file of files){
  const html=fs.readFileSync(path.join(root,file),'utf8');
  for(const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)){
@@ -10,7 +12,8 @@ for(const file of files){
    if(!n?.['@type']) errors.push(file+': JSON-LD node missing @type');
    const types=Array.isArray(n?.['@type'])?n['@type']:[n?.['@type']];
    if(types.includes('Organization')) for(const k of ['name','url']) if(!n[k]) errors.push(file+': Organization missing '+k);
-   if(types.includes('LocalBusiness')&&(n.review||n.aggregateRating)) errors.push(file+': LocalBusiness must not use self-serving review/rating markup');
+   if((types.includes('LocalBusiness')||types.includes('Organization'))&&(n.review||n.aggregateRating)) errors.push(file+': Organization/LocalBusiness must not use self-serving review/rating markup');
+   if(types.includes('LocalBusiness')) errors.push(file+': replace LocalBusiness with Organization for nationwide company schema');
    if(types.includes('LocalBusiness')&&(!n.name||!n.address?.addressLocality||!n.address?.addressCountry)) errors.push(file+': LocalBusiness missing core name/address fields');
    if(types.includes('Organization')&&n.address&&(!n.address.addressLocality||!n.address.addressCountry)) errors.push(file+': Organization address incomplete');
    if(types.includes('BreadcrumbList')&&(!Array.isArray(n.itemListElement)||n.itemListElement.length<2)) errors.push(file+': BreadcrumbList incomplete');

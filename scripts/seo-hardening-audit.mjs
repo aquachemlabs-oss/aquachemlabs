@@ -8,6 +8,18 @@ const routes=new Map([['/','index.html'],...htmlFiles.filter(f=>f!=='index.html'
 const sitemap=read('sitemap.xml'), robots=read('robots.txt'), redirects=read('_redirects');
 const sitemapUrls=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
 const sitemapPathSet=new Set(sitemapUrls.map(u=>new URL(u).pathname));
+const duplicateSitemapUrls=sitemapUrls.filter((url,index)=>sitemapUrls.indexOf(url)!==index);
+if(duplicateSitemapUrls.length) fail.push('duplicate sitemap URLs: '+[...new Set(duplicateSitemapUrls)].join(', '));
+else pass.push('sitemap contains no duplicate URLs');
+for(const url of sitemapUrls){
+  try{
+    const parsed=new URL(url);
+    if(parsed.protocol!=='https:'||parsed.hostname!=='aquachemlabs.com') fail.push('noncanonical sitemap host/protocol: '+url);
+    if(parsed.search||parsed.hash) fail.push('sitemap URL contains query/fragment: '+url);
+    if(!parsed.pathname.endsWith('.pdf')&&/\.html$/i.test(parsed.pathname)) fail.push('sitemap contains .html duplicate route: '+url);
+  }catch{fail.push('invalid absolute sitemap URL: '+url);}
+}
+
 if(robots.includes('Sitemap: https://aquachemlabs.com/sitemap.xml')) pass.push('robots.txt declares sitemap'); else fail.push('robots.txt missing sitemap declaration');
 if(!robots.includes('Disallow: /review-admin')||!robots.includes('Disallow: /api/')) fail.push('private/admin paths are not disallowed'); else pass.push('private/admin paths blocked');
 if(!sitemapUrls.includes('https://aquachemlabs.com/')) fail.push('homepage missing from sitemap'); else pass.push('homepage present in sitemap');
@@ -15,6 +27,8 @@ for(const u of sitemapUrls){const p=new URL(u).pathname;if(p.endsWith('.pdf')){i
 for(const f of htmlFiles){const h=read(f);const canonicalRoute=f==='index.html'?'/':'/'+f.replace(/\.html$/,'');const noindex=/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(h);if(noindex&&sitemapPathSet.has(canonicalRoute))fail.push(f+': noindex page must not be in sitemap');if(!noindex&&!sitemapPathSet.has(canonicalRoute))fail.push(f+': indexable canonical route missing from sitemap');const title=(h.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1]?.trim()||'';const desc=(h.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)||[])[1]?.trim()||'';const can=(h.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)||[])[1]||'';const h1=(h.match(/<h1(?:\s|>)/gi)||[]).length;
 if(!title) fail.push(f+': missing title'); else if(title.length<30||title.length>65) fail.push(f+': title length '+title.length); 
 if(!desc) fail.push(f+': missing description'); else if(desc.length<70||desc.length>165) fail.push(f+': description length '+desc.length);
+const expectedCanonical='https://aquachemlabs.com'+canonicalRoute;
+if(can!==expectedCanonical) fail.push(f+': canonical mismatch; expected '+expectedCanonical+' but found '+(can||'(missing)'));
 if(!can.startsWith('https://aquachemlabs.com/')) fail.push(f+': canonical is not HTTPS/non-www'); if(/\.html(?:[?#]|$)/i.test(can)) fail.push(f+': canonical should use the clean extensionless route'); if(h1!==1) fail.push(f+': H1 count '+h1);
 for(const m of h.matchAll(/<img\b([^>]*)>/gi)) if(!/\balt=["'][^"']*["']/i.test(m[1])) fail.push(f+': image missing alt');
 }

@@ -61,8 +61,28 @@ for (const file of files.filter(f => f.endsWith('.css'))) {
 }
 const routeForFile=(file)=>{const name=path.basename(file);if(name==='index.html')return '/';return '/'+name.replace(/\.html$/,'');};
 const breadcrumbFor=(file)=>{const route=routeForFile(file);if(route==='/'||/review-admin|404/.test(path.basename(file)))return '';const label=path.basename(file,'.html').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aquachemlabs.com/"},{"@type":"ListItem","position":2,"name":label,"item":"https://aquachemlabs.com"+route}]})+'</script>';};
+// The company serves customers nationwide. Normalize legacy LocalBusiness markup
+// to Organization schema in the published build; preserve Manufacturer when present.
+function normalizeOrganizationSchema(html){
+  return html.replace(/(<script\b[^>]*type=["']application\/ld\+json["'][^>]*>)([\s\S]*?)(<\/script>)/gi,(whole,open,json,close)=>{
+    let data;
+    try{data=JSON.parse(json.trim());}catch{return whole;}
+    const visit=node=>{
+      if(Array.isArray(node)){node.forEach(visit);return;}
+      if(!node||typeof node!=='object')return;
+      if(node['@type']==='LocalBusiness')node['@type']='Organization';
+      else if(Array.isArray(node['@type']))node['@type']=[...new Set(node['@type'].map(type=>type==='LocalBusiness'?'Organization':type))];
+      const types=Array.isArray(node['@type'])?node['@type']:[node['@type']];
+      if(types.includes('Organization')){delete node.aggregateRating;delete node.review;}
+      Object.values(node).forEach(visit);
+    };
+    visit(data);
+    return open+JSON.stringify(data)+close;
+  });
+};
 const productSchemaFor=(file)=>{const products={"ro-plant.html":"Industrial RO Plant","chemicals.html":"Industrial Water Treatment Chemicals","plant-spares.html":"Industrial Plant Spares","ibr-valves.html":"IBR Valves","strainers-kits.html":"Industrial Strainers and Testing Kits","boiler-spares.html":"Industrial Boiler Spares"};const name=products[path.basename(file)];if(!name)return '';const url='https://aquachemlabs.com'+routeForFile(file);return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"Product","name":name,"brand":{"@type":"Brand","name":"Aqua Chem Labs"},"url":url,"manufacturer":{"@type":"Organization","name":"Aqua Chem Labs","url":"https://aquachemlabs.com"}})+'</script>';};
 for(const file of files.filter(f=>f.endsWith('.html'))){let html=await fs.readFile(file,'utf8');
+html=normalizeOrganizationSchema(html);
 // Avoid render-blocking third-party font CSS. The shared stylesheet provides robust
 // system-font fallbacks, so pages remain fully styled without waiting on Google Fonts.
 html=html.replace(/<link\b(?=[^>]*\bhref=["'][^"']*fonts\.(?:googleapis|gstatic)\.com)[^>]*>\s*/gi,'');
