@@ -1898,3 +1898,19 @@ body { overflow-x: clip; }
   padding: 0 .45rem;
   color: #64748B !important;
 }
+
+
+/* Industrial enquiry conversion: compact, accessible mobile actions. */
+.enquiry-dock { display:none; }
+.contact-quick-actions { display:flex; flex-wrap:wrap; gap:.7rem; margin:1rem 0; }
+.contact-quick-actions .btn { text-decoration:none; }
+form.f select { font:inherit; font-size:.97rem; width:100%; padding:.7rem .8rem; border:1px solid #b9cde4; border-radius:8px; background:#fff; color:var(--ink); }
+form.f select:focus { outline:2px solid var(--deep); outline-offset:1px; border-color:var(--deep); }
+@media (max-width:767px) {
+  body { padding-bottom:calc(5.2rem + env(safe-area-inset-bottom)); }
+  .enquiry-dock { position:fixed; z-index:980; left:0; right:0; bottom:0; display:grid; grid-template-columns:1.15fr 1fr .75fr; gap:.45rem; padding:.6rem .65rem calc(.6rem + env(safe-area-inset-bottom)); background:rgba(255,255,255,.98); border-top:1px solid #c8d8e8; box-shadow:0 -6px 22px rgba(11,47,122,.14); }
+  .enquiry-dock a { display:flex; min-width:0; align-items:center; justify-content:center; min-height:44px; padding:.55rem .4rem; border-radius:7px; font-size:.84rem; line-height:1.1; font-weight:800; text-decoration:none; text-align:center; }
+  .enquiry-dock__quote { background:var(--leaf); color:#fff; }
+  .enquiry-dock__whatsapp { background:#e7f7ec; color:#155d2c; border:1px solid #a6dcb6; }
+  .enquiry-dock__call { background:#edf4ff; color:var(--navy); border:1px solid #c4d7f3; }
+}
