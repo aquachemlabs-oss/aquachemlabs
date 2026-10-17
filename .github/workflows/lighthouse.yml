@@ -30,5 +30,6 @@ jobs:
         with:
           name: lighthouse-report
           path: .lighthouseci/
-          if-no-files-found: ignore
+          if-no-files-found: warn
+          include-hidden-files: true
           retention-days: 14
