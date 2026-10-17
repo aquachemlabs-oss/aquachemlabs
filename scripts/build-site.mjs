@@ -64,7 +64,7 @@ const breadcrumbFor=(file)=>{const route=routeForFile(file);if(route==='/'||/rev
 // The company serves customers nationwide. Normalize legacy LocalBusiness markup
 // to Organization schema in the published build; preserve Manufacturer when present.
 function normalizeOrganizationSchema(html){
-  return html.replace(/(<script\\b[^>]*type=["']application\\/ld\\+json["'][^>]*>)([\\s\\S]*?)(<\\/script>)/gi,(whole,open,json,close)=>{
+  return html.replace(/(<script\b[^>]*type=["']application\/ld\+json["'][^>]*>)([\s\S]*?)(<\/script>)/gi,(whole,open,json,close)=>{
     let data;
     try{data=JSON.parse(json.trim());}catch{return whole;}
     const visit=node=>{
