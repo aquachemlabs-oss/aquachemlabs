@@ -18,6 +18,6 @@
     "google-tag-audit": "node scripts/google-tag-audit.mjs",
     "seo-hardening-audit": "node scripts/seo-hardening-audit.mjs",
     "pwa-audit": "node scripts/pwa-audit.mjs",
-    "performance-audit": "node scripts/performance-audit.mjs"
+    "asset-performance-audit": "node scripts/asset-performance-audit.mjs"
   }
 }
