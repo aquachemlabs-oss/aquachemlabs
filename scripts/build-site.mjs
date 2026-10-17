@@ -21,9 +21,24 @@ async function optimizeImage(file){
   try{
     const out=file.replace(/\.(jpe?g|png)$/i,'.webp');
     const avif=file.replace(/\.(jpe?g|png)$/i,'.avif');
+    const metadata=await sharp(file).metadata();
+    const swap=metadata.orientation>=5&&metadata.orientation<=8;
+    const width=swap?metadata.height:metadata.width;
+    const height=swap?metadata.width:metadata.height;
+    const hero=/[/\\]images[/\\]hero[/\\]/i.test(file);
+    // Keep large hero photography sharp while bounding oversized catalogue images.
+    const maxWidth=hero?1920:1440;
+    const maxHeight=hero?1200:1440;
+    const preserveDetail=/(?:diagram|flow[-_ ]?chart|schematic|process[-_ ]?flow|pfd|technical[-_ ]?guide)/i.test(file);
+    const resize=!preserveDetail&&(width>maxWidth||height>maxHeight);
+    const pipeline=()=> {
+      let image=sharp(file).rotate();
+      if(resize) image=image.resize({width:maxWidth,height:maxHeight,fit:'inside',withoutEnlargement:true});
+      return image;
+    };
     await Promise.all([
-      sharp(file).webp({quality:78}).toFile(out),
-      sharp(file).avif({quality:50}).toFile(avif)
+      pipeline().webp({quality:78,effort:4}).toFile(out),
+      pipeline().avif({quality:48,effort:4}).toFile(avif)
     ]);
     const[a,b,d]=await Promise.all([fs.stat(file),fs.stat(out),fs.stat(avif)]);
     if(b.size<a.size||d.size<a.size)generated++;
@@ -86,17 +101,54 @@ html=normalizeOrganizationSchema(html);
 // Avoid render-blocking third-party font CSS. The shared stylesheet provides robust
 // system-font fallbacks, so pages remain fully styled without waiting on Google Fonts.
 html=html.replace(/<link\b(?=[^>]*\bhref=["'][^"']*fonts\.(?:googleapis|gstatic)\.com)[^>]*>\s*/gi,'');
+function localAssetPath(src,htmlFile){
+  if(!src||/^(?:https?:|\/\/|data:|#|blob:)/i.test(src))return null;
+  const clean=src.split(/[?#]/)[0];
+  const resolved=clean.startsWith('/')?path.resolve(dist,'.'+clean):path.resolve(path.dirname(htmlFile),clean);
+  return resolved===dist||resolved.startsWith(dist+path.sep)?resolved:null;
+}
 const matches=[...html.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)];
 for(let imageIndex=matches.length-1;imageIndex>=0;imageIndex--){
   const m=matches[imageIndex]; let tag=m[0]; const src=m[1];
-  if(/^\/?images\//i.test(src)&&!/\.(?:webp|avif)$/i.test(src)){
+  const originalPath=localAssetPath(src,file);
+  if(/\.(?:jpe?g|png)$/i.test(src)){
     const candidates=[src.replace(/\.(jpe?g|png)$/i,'.webp'),src.replace(/\.(jpe?g|png)$/i,'.avif')];
-    const optimized=candidates.find(candidate=>fsSync.existsSync(path.join(dist,candidate.replace(/^\//,''))));
+    const optimized=candidates.find(candidate=>{
+      const candidatePath=localAssetPath(candidate,file);
+      return candidatePath&&fsSync.existsSync(candidatePath);
+    });
     if(optimized)tag=tag.replace(/\bsrc=["'][^"']+["']/i,'src="'+optimized+'"');
   }
-  if(!/\bdecoding=/i.test(tag)) tag=tag.replace(/^<img\b/i,'<img decoding="async"');
-  // Keep the first two images eager (typically logo and hero) and respect explicit priority.
-  if(imageIndex>=2&&!/\bloading=/i.test(tag)&&!/\bfetchpriority=["']high/i.test(tag)) tag=tag.replace(/^<img\b/i,'<img loading="lazy"');
+  // Explicit dimensions let the browser reserve image space before decoding, reducing CLS.
+  const dimensionPath=originalPath&&fsSync.existsSync(originalPath)?originalPath:localAssetPath(tag.match(/\bsrc=["']([^"']+)["']/i)?.[1],file);
+  if(dimensionPath&&/\.(?:jpe?g|png|webp|avif)$/i.test(dimensionPath)&&fsSync.existsSync(dimensionPath)){
+    try{
+      const meta=await sharp(dimensionPath).metadata();
+      if(meta.width&&meta.height){
+        const swap=meta.orientation>=5&&meta.orientation<=8;
+        const intrinsicWidth=swap?meta.height:meta.width;
+        const intrinsicHeight=swap?meta.width:meta.height;
+        const widthAttr=tag.match(/\bwidth=["']?(\d+)/i);
+        const heightAttr=tag.match(/\bheight=["']?(\d+)/i);
+        const width=widthAttr?Number(widthAttr[1]):intrinsicWidth;
+        const height=heightAttr?Number(heightAttr[1]):intrinsicHeight;
+        const ratio=intrinsicWidth/intrinsicHeight;
+        const add=[];
+        if(!widthAttr)add.push('width="'+Math.max(1,Math.round(heightAttr?height*ratio:intrinsicWidth))+'"');
+        if(!heightAttr)add.push('height="'+Math.max(1,Math.round(widthAttr?width/ratio:intrinsicHeight))+'"');
+        if(add.length)tag=tag.replace(/^<img\b/i,'<img '+add.join(' '));
+      }
+    }catch(error){console.warn('Image dimensions skipped for '+path.relative(dist,dimensionPath)+': '+error.message);}
+  }
+  const isHero=/(?:^|[/\\])hero(?:[/\\_.-])/i.test(src);
+  if(isHero){
+    tag=tag.replace(/\sloading=["']lazy["']/i,'');
+    if(!/\bloading=/i.test(tag))tag=tag.replace(/^<img\b/i,'<img loading="eager"');
+    if(!/\bfetchpriority=/i.test(tag))tag=tag.replace(/^<img\b/i,'<img fetchpriority="high"');
+  }else if(imageIndex>=2&&!/\bloading=/i.test(tag)&&!/\bfetchpriority=["']high/i.test(tag)){
+    tag=tag.replace(/^<img\b/i,'<img loading="lazy"');
+  }
+  if(!/\bdecoding=/i.test(tag))tag=tag.replace(/^<img\b/i,'<img decoding="async"');
   html=html.slice(0,m.index)+tag+html.slice(m.index+m[0].length);
 }
 // Keep image preloads aligned with the optimized image source selected above.
