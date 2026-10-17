@@ -109,6 +109,37 @@ if(path.basename(file)!=='offline.html'){
   if(!/rel=["']manifest["']/.test(html)) html=html.replace('</head>','<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#0B2F7A"></head>');
   if(!/pwa-register\.js/.test(html)) html=html.replace('</body>','<script src="/pwa-register.js" defer></script></body>');
 }
+// Mark existing in-content contact actions for conversion-event reporting (no form values are collected).
+html=html.replace(/<a\b([^>]*href=["']\/contact(?:\?[^"']*)?#qf["'][^>]*)>/gi,(tag,attrs)=>/\bdata-cta-type=/.test(attrs)?tag:'<a'+attrs+' data-cta-type="quote" data-cta-location="page-content">');
+html=html.replace(/<a\b([^>]*href=["']tel:[^"']+["'][^>]*)>/gi,(tag,attrs)=>/\bdata-cta-type=/.test(attrs)?tag:'<a'+attrs+' data-cta-type="phone" data-cta-location="page-content">');
+html=html.replace(/<a\b([^>]*href=["']https:\/\/wa\.me\/[^"']+["'][^>]*)>/gi,(tag,attrs)=>/\bdata-cta-type=/.test(attrs)?tag:'<a'+attrs+' data-cta-type="whatsapp" data-cta-location="page-content">');
+// Add contextual quote/contact paths to every public route without changing its canonical URL.
+const baseName=path.basename(file);
+const excludedConversionRoutes=new Set(['offline.html','404.html','review-admin.html','image-credits.html']);
+const isNoindexPage=/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html);
+if(!excludedConversionRoutes.has(baseName) && !isNoindexPage){
+  const productContexts={
+    'ro-plant.html':'Industrial RO Plant',
+    'etp-plant.html':'ETP Plant',
+    'stp-plant.html':'STP Plant',
+    'wtp-plant.html':'WTP Plant',
+    'dm-plant.html':'DM Plant',
+    'boiler-chemicals.html':'Boiler Water-Treatment Chemicals',
+    'cooling-tower-chemicals.html':'Cooling-Tower Chemicals',
+    'ro-chemicals.html':'RO / Membrane Chemicals',
+    'etp-stp-chemicals.html':'ETP / STP Chemicals',
+    'plant-spares.html':'Industrial Plant Spares',
+    'ibr-valves.html':'IBR Valves',
+    'strainers-kits.html':'Strainers and Testing Kits',
+    'boiler-spares.html':'Boiler Spares'
+  };
+  const context=productContexts[baseName] || '';
+  const quoteHref='/contact'+(context?'?product='+encodeURIComponent(context):'')+'#qf';
+  const message='Hello Aqua Chem Labs, I need a quote'+(context?' for '+context:'')+'. Please advise on the suitable product and pricing.';
+  const whatsappHref='https://wa.me/917974999929?text='+encodeURIComponent(message);
+  const dock='<nav class="enquiry-dock" aria-label="Quick enquiry options"><a class="enquiry-dock__quote" href="'+quoteHref+'" data-cta-type="quote" data-cta-location="mobile-dock">Get a Quote</a><a class="enquiry-dock__whatsapp" href="'+whatsappHref+'" target="_blank" rel="noopener" data-cta-type="whatsapp" data-cta-location="mobile-dock">WhatsApp</a><a class="enquiry-dock__call" href="tel:+917974999929" data-cta-type="phone" data-cta-location="mobile-dock">Call</a></nav>';
+  if(!/class=["']enquiry-dock["']/.test(html)) html=html.replace('</body>',dock+'<script src="/conversion-tracking.js" defer></script></body>');
+}
 await fs.writeFile(file,html)}
 try{
   const pdf=path.join(dist,'ACL_2025.pdf');
