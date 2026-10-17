@@ -1,87 +1,89 @@
 import fs from 'node:fs/promises';
-import {chromium} from '@playwright/test';
+import path from 'node:path';
+import sharp from 'sharp';
 
-const origin=(process.env.LIVE_BASE_URL||'http://127.0.0.1:4173').replace(/\/$/,'');
-const sitemap=await fs.readFile('sitemap.xml','utf8');
-const paths=[...sitemap.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)]
-  .map(match=>new URL(match[1]))
-  .filter(url=>url.hostname==='aquachemlabs.com'&&!url.pathname.toLowerCase().endsWith('.pdf'))
-  .map(url=>url.pathname);
-const uniquePaths=[...new Set(paths)];
-const issues=[];
-const rows=[];
-const browser=await chromium.launch({headless:true});
-const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
-const page=await context.newPage();
-page.setDefaultNavigationTimeout(25000);
-await page.addInitScript(()=>{
-  window.__auditLcp=null;
-  window.__auditCls=0;
-  try{
-    new PerformanceObserver(list=>{for(const entry of list.getEntries())window.__auditLcp=entry.startTime;})
-      .observe({type:'largest-contentful-paint',buffered:true});
-  }catch{}
-  try{
-    new PerformanceObserver(list=>{for(const entry of list.getEntries())if(!entry.hadRecentInput)window.__auditCls+=entry.value;})
-      .observe({type:'layout-shift',buffered:true});
-  }catch{}
-});
-
-for(const pathname of uniquePaths){
-  const url=origin+pathname;
-  try{
-    const response=await page.goto(url,{waitUntil:'load',timeout:25000});
-    await page.waitForTimeout(900);
-    const data=await page.evaluate(()=>{
-      const meta=(name)=>document.querySelector('meta[name="'+name+'"]')?.content?.trim()||'';
-      const canonical=document.querySelector('link[rel="canonical"]')?.href||'';
-      const nav=performance.getEntriesByType('navigation')[0];
-      const paint=performance.getEntriesByType('paint');
-      const lcp=window.__auditLcp??null,cls=window.__auditCls??0;
-      return new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve({
-        title:document.title.trim(),
-        description:meta('description'),
-        robots:meta('robots').toLowerCase(),
-        canonical,
-        h1:document.querySelectorAll('h1').length,
-        fcp:paint.find(item=>item.name==='first-contentful-paint')?.startTime??null,
-        lcp,cls,
-        domContentLoaded:nav?.domContentLoadedEventEnd??null,
-        load:nav?.loadEventEnd??null,
-        transferBytes:nav?.transferSize??null,
-        htmlBytes:document.documentElement.outerHTML.length
-      }))));
-    });
-    const status=response?.status()??0;
-    const noindex=/noindex/.test(data.robots);
-    if(status!==200)issues.push(pathname+' returned HTTP '+status);
-    if(status===200&&!data.title)issues.push(pathname+' missing title');
-    if(status===200&&!data.description)issues.push(pathname+' missing meta description');
-    if(status===200&&!data.canonical.startsWith('https://aquachemlabs.com/'))issues.push(pathname+' has missing/noncanonical canonical URL: '+data.canonical);
-    if(status===200&&data.h1!==1)issues.push(pathname+' has '+data.h1+' H1 elements');
-    if(noindex)issues.push(pathname+' is noindex but appears in sitemap');
-    if(data.fcp!==null&&data.fcp>2500)issues.push(pathname+' FCP over 2.5s ('+Math.round(data.fcp)+'ms)');
-    if(data.lcp!==null&&data.lcp>2500)issues.push(pathname+' LCP over 2.5s ('+Math.round(data.lcp)+'ms)');
-    if(data.cls>0.1)issues.push(pathname+' CLS over 0.1 ('+data.cls.toFixed(3)+')');
-    rows.push({path:pathname,status,title:data.title,fcp:data.fcp,lcp:data.lcp,cls:data.cls,domContentLoaded:data.domContentLoaded,load:data.load,transferBytes:data.transferBytes,htmlBytes:data.htmlBytes,noindex});
-    console.log('URL '+status+' '+pathname+' | FCP '+fmt(data.fcp)+' | LCP '+fmt(data.lcp)+' | CLS '+(data.cls??0).toFixed(3)+' | bytes '+(data.transferBytes??'n/a'));
-  }catch(error){
-    issues.push(pathname+' navigation/measurement failed: '+error.message);
-    console.error('URL ERROR '+pathname+': '+error.message);
+const root=path.resolve('dist');
+const errors=[];
+const counts={pages:0,images:0,modernImages:0,dimensionedImages:0,lazyImages:0,prioritizedHeroImages:0,externalFontLinks:0,largeSourceImagesOptimized:0};
+const exists=async file=>{try{await fs.access(file);return true;}catch{return false;}};
+const htmlFiles=[];
+async function walk(dir){
+  for(const entry of await fs.readdir(dir,{withFileTypes:true})){
+    const full=path.join(dir,entry.name);
+    if(entry.isDirectory())await walk(full);
+    else if(entry.name.endsWith('.html'))htmlFiles.push(full);
   }
 }
-await context.close();
-await browser.close();
-
-function fmt(value){return value===null||value===undefined?'n/a':Math.round(value)+'ms';}
-const measured=rows.filter(row=>row.status===200);
-const average=(key)=>{const values=measured.map(row=>row[key]).filter(value=>typeof value==='number'&&Number.isFinite(value));return values.length?Math.round(values.reduce((a,b)=>a+b,0)/values.length):null;};
-const summary={
-  origin,urlsChecked:uniquePaths.length,http200:measured.length,
-  non200:rows.filter(row=>row.status!==200).map(row=>({path:row.path,status:row.status})),
-  averageFcpMs:average('fcp'),averageLcpMs:average('lcp'),averageCls:Number((average('cls')??0).toFixed(3)),
-  averageDomContentLoadedMs:average('domContentLoaded'),averageLoadMs:average('load'),
-  performanceThresholdIssues:issues.length,issues
-};
-console.log('PERFORMANCE_AND_INDEXABILITY_SUMMARY '+JSON.stringify(summary,null,2));
-if(process.env.STRICT_LIVE_AUDIT==='true'&&issues.length)process.exit(1);
+function localPath(src,htmlFile){
+  if(!src||/^(?:https?:|\/\/|data:|#|blob:|mailto:|tel:)/i.test(src))return null;
+  const clean=src.split(/[?#]/)[0];
+  const resolved=clean.startsWith('/')?path.resolve(root,'.'+clean):path.resolve(path.dirname(htmlFile),clean);
+  return resolved===root||resolved.startsWith(root+path.sep)?resolved:null;
+}
+function isHero(src){return /(?:^|[/\\])hero(?:[/\\_.-])/i.test(src||'');}
+await walk(root);
+counts.pages=htmlFiles.length;
+if(!counts.pages)errors.push('Production build has no HTML pages.');
+for(const file of htmlFiles){
+  const html=await fs.readFile(file,'utf8');
+  const rel=path.relative(root,file);
+  if(/<link\b(?=[^>]*\bhref=["'][^"']*fonts\.(?:googleapis|gstatic)\.com)[^>]*>/i.test(html)){
+    counts.externalFontLinks++;
+    errors.push(rel+' still requests Google Fonts CSS or opens a Google Fonts connection.');
+  }
+  for(const match of html.matchAll(/<img\b[^>]*>/gi)){
+    counts.images++;
+    const tag=match[0];
+    const src=tag.match(/\bsrc=["']([^"']+)["']/i)?.[1];
+    if(!src)continue;
+    const imagePath=localPath(src,file);
+    if(!imagePath||!await exists(imagePath))continue;
+    const raster=/\.(?:jpe?g|png|webp|avif)$/i.test(imagePath);
+    if(raster){
+      const width=tag.match(/\bwidth=["']?(\d+)/i);
+      const height=tag.match(/\bheight=["']?(\d+)/i);
+      if(width&&height)counts.dimensionedImages++;
+      else errors.push(rel+' has a local raster image without intrinsic width/height: '+src);
+      if(/\.webp$|\.avif$/i.test(src))counts.modernImages++;
+      if(/\bloading=["']lazy["']/i.test(tag))counts.lazyImages++;
+      if(isHero(src)){
+        if(/\bfetchpriority=["']high["']/i.test(tag)&&!/\bloading=["']lazy["']/i.test(tag))counts.prioritizedHeroImages++;
+        else errors.push(rel+' hero image is not prioritized or is lazy-loaded: '+src);
+      }
+      if(/\.(?:webp|avif)$/i.test(src)){
+        const stem=imagePath.replace(/\.(?:webp|avif)$/i,'');
+        const candidates=[stem+'.jpg',stem+'.jpeg',stem+'.png'];
+        for(const original of candidates){
+          if(await exists(original)){
+            const [optimizedStat,originalStat]=await Promise.all([fs.stat(imagePath),fs.stat(original)]);
+            if(originalStat.size>400*1024&&optimizedStat.size<originalStat.size)counts.largeSourceImagesOptimized++;
+            break;
+          }
+        }
+      }else if(/\.(?:jpe?g|png)$/i.test(src)){
+        const stem=imagePath.replace(/\.(?:jpe?g|png)$/i,'');
+        const candidates=[stem+'.webp',stem+'.avif'];
+        for(const candidate of candidates){
+          if(await exists(candidate)){
+            const [currentStat,candidateStat]=await Promise.all([fs.stat(imagePath),fs.stat(candidate)]);
+            if(candidateStat.size<currentStat.size)errors.push(rel+' references a larger original instead of its optimized variant: '+src);
+          }
+        }
+      }
+    }
+  }
+}
+const css=await fs.readFile(path.join(root,'styles.css'),'utf8');
+if(!css.length)errors.push('Production stylesheet is empty.');
+console.log('Production performance audit');
+console.log('HTML pages checked:',counts.pages);
+console.log('Local raster images checked:',counts.images);
+console.log('Images served as WebP/AVIF:',counts.modernImages);
+console.log('Images with intrinsic dimensions:',counts.dimensionedImages);
+console.log('Lazy-loaded images:',counts.lazyImages);
+console.log('High-priority hero images:',counts.prioritizedHeroImages);
+console.log('Large source images with smaller modern output:',counts.largeSourceImagesOptimized);
+console.log('External Google Fonts links:',counts.externalFontLinks);
+console.log('Stylesheet bytes:',Buffer.byteLength(css,'utf8'));
+if(errors.length){console.error('Performance audit failures:\\n- '+errors.join('\\n- '));process.exitCode=1;}
+else console.log('Performance asset checks passed.');

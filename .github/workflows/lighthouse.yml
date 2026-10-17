@@ -22,8 +22,12 @@ jobs:
         run: npm run build
       - name: Verify PWA output and SEO-safe caching
         run: npm run pwa-audit
-      - name: Run Lighthouse across all 56 public pages
-        run: npx --yes @lhci/cli@0.14.x autorun
+      - name: Audit production image, font and layout optimizations
+        run: npm run performance-audit
+      - name: Run Lighthouse mobile across all public pages
+        run: npx --yes @lhci/cli@0.14.x autorun --config=.lighthouserc.json
+      - name: Run Lighthouse desktop on key conversion pages
+        run: npx --yes @lhci/cli@0.14.x autorun --config=.lighthouserc.desktop.json
       - name: Upload Lighthouse report artifacts
         if: always()
         uses: actions/upload-artifact@v4
