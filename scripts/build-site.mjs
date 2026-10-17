@@ -29,7 +29,8 @@ async function optimizeImage(file){
     // Keep large hero photography sharp while bounding oversized catalogue images.
     const maxWidth=hero?1920:1440;
     const maxHeight=hero?1200:1440;
-    const resize=width>maxWidth||height>maxHeight;
+    const preserveDetail=/(?:diagram|flow[-_ ]?chart|schematic|process[-_ ]?flow|pfd|technical[-_ ]?guide)/i.test(file);
+    const resize=!preserveDetail&&(width>maxWidth||height>maxHeight);
     const pipeline=()=> {
       let image=sharp(file).rotate();
       if(resize) image=image.resize({width:maxWidth,height:maxHeight,fit:'inside',withoutEnlargement:true});
