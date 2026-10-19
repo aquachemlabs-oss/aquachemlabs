@@ -2066,3 +2066,32 @@ footer { font-size:.78rem; }
  .certification-card img { height:90px; }
  .company-reviews-sec .gbp-actions { flex-direction:column; }
 }
+
+
+/* Homepage visual solution cards */
+.solution-visuals { background: #F4F8FC; border-block: 1px solid #D9E7F5; }
+.solution-visuals .intro { margin-bottom: 1.6rem; }
+.solution-visuals__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; }
+.solution-visual-card { min-width: 0; overflow: hidden; display: flex; flex-direction: column; background: #fff; border: 1px solid #D9E7F5; border-radius: 14px; box-shadow: 0 10px 28px rgba(11,47,122,.08); transition: transform .2s ease, box-shadow .2s ease; }
+.solution-visual-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(11,47,122,.14); }
+.solution-visual-card:focus-visible { outline: 3px solid #2EA3E6; outline-offset: 3px; }
+.solution-visual-card > img { display: block; width: 100%; height: 225px; object-fit: cover; background: #EAF2FA; }
+.solution-visual-card__body { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; padding: 1.25rem; flex: 1; }
+.solution-visual-card__body strong { color: #0B2F7A; font: 800 1.25rem/1.2 "Bricolage Grotesque", "Public Sans", sans-serif; }
+.solution-visual-card__body > span { color: #4A5D80; font-size: .92rem; line-height: 1.55; }
+.solution-visual-card__body em { margin-top: auto; padding-top: .35rem; color: #1558B8; font-size: .88rem; font-style: normal; font-weight: 800; }
+@media (max-width: 900px) {
+ .solution-visuals__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .solution-visual-card:last-child { grid-column: 1 / -1; }
+ .solution-visual-card:last-child > img { height: 260px; }
+}
+@media (max-width: 600px) {
+ .solution-visuals__grid { grid-template-columns: 1fr; }
+ .solution-visual-card:last-child { grid-column: auto; }
+ .solution-visual-card > img, .solution-visual-card:last-child > img { height: 220px; }
+ .solution-visual-card__body { padding: 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .solution-visual-card { transition: none; }
+ .solution-visual-card:hover { transform: none; }
+}
