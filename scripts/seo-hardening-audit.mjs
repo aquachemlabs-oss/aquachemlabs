@@ -44,7 +44,7 @@ for(const host of ['bhopal','malanpur']){
 }
 if(redirects.includes('https://bhopal.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!')&&redirects.includes('https://malanpur.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!')) pass.push('location subdomains consolidate to the main canonical host');
 if(sitemap.includes('https://aquachemlabs.com/image-credits')||sitemap.includes('https://aquachemlabs.com/404')||sitemap.includes('https://aquachemlabs.com/review-admin')) fail.push('non-indexable utility/admin URL found in sitemap');
-if(!/<lastmod>2026-10-19<\\/lastmod>/.test(sitemap)) fail.push('sitemap lastmod missing for recent content refresh');
+if(!sitemap.includes('<lastmod>2026-10-19</lastmod>')) fail.push('sitemap lastmod missing for recent content refresh');
 
 const inbound=new Map(htmlFiles.map(f=>[f,0]));
 for(const f of htmlFiles){const h=read(f);for(const m of h.matchAll(/href=["']([^"'#]+)(?:#[^"']*)?["']/gi)){const x=m[1];if(x.startsWith('/')){const target=x==='/'?'index.html':x.slice(1).replace(/\/$/,'')+'.html';if(inbound.has(target)) inbound.set(target,inbound.get(target)+1);}}}
