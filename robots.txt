@@ -41,6 +41,5 @@ Disallow: /review-admin.html
 Disallow: /_functions
 Disallow: /api/
 Disallow: /netlify/functions/
-Disallow: /404.html
 
 Sitemap: https://aquachemlabs.com/sitemap.xml
