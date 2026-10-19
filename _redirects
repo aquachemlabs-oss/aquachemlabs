@@ -1,3 +1,10 @@
+# Consolidate indexed location subdomains onto the canonical nationwide domain.
+# These domains must remain assigned as aliases to this same Netlify site.
+http://malanpur.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
+https://malanpur.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
+http://bhopal.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
+https://bhopal.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
+
 http://aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
 http://www.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
 https://www.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!
