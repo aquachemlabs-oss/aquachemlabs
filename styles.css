@@ -2293,3 +2293,67 @@ input, select, textarea, button { max-width:100%; }
   .explore-grid,
   .certification-grid { grid-template-columns:minmax(0,1fr); }
 }
+
+
+/* Desktop whitespace correction: balanced, centered, full-width content */
+@media (min-width:1025px) {
+  .wrap,
+  section > .wrap,
+  header .wrap,
+  footer .wrap,
+  .guide-header > .wrap {
+    width:calc(100% - 48px) !important;
+    max-width:1600px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
+  main { width:100%; margin-inline:auto; }
+  main > section, main > .cta-band { width:100%; }
+  section { text-align:center; }
+  section > .wrap > * { margin-left:auto; margin-right:auto; }
+  section .intro, section .lede, section .lead { max-width: min(100%, 900px); }
+  .tiles, .tiles--image, .solution-visuals__grid,
+  .industries-served__grid, .industries-served__grid--images,
+  .explore-grid, .workflow-visuals__grid, .certification-grid,
+  .showcase-grid, .grid-gallery, .homepage-highlights__grid,
+  .seo-services .tiles, .resource-grid, .location-grid, .document-grid {
+    width:100%;
+    grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)) !important;
+    justify-content:center !important;
+    justify-items:stretch;
+    align-content:center;
+    gap:clamp(1rem, 1.5vw, 1.5rem);
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .engineering-workflow__grid {
+    width:100%;
+    grid-template-columns:repeat(auto-fit, minmax(105px, 1fr)) !important;
+    justify-content:center;
+    margin-inline:auto;
+  }
+  .hero--static-etp > .wrap {
+    grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr) !important;
+    gap:clamp(2rem,4vw,4rem);
+  }
+  .hero--static-etp .wrap > div:first-child {
+    max-width:900px;
+    justify-self:center;
+    text-align:center;
+  }
+  .hero--static-etp .cta, .cta, .brochure-actions, .gbp-actions {
+    justify-content:center !important;
+  }
+  .header-container { width:calc(100% - 48px); max-width:1600px; margin-inline:auto; }
+  .nav-menu > ul { justify-content:center !important; flex-wrap:wrap; }
+  .top-bar .wrap { justify-content:center !important; }
+  footer .f-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  footer .f-grid > div { margin-inline:auto; }
+}
+@media (min-width:1600px) {
+  .wrap, section > .wrap, header .wrap, footer .wrap {
+    width:calc(100% - 80px) !important;
+  }
+}
