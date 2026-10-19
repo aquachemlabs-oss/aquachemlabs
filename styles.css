@@ -2133,3 +2133,227 @@ footer { font-size:.78rem; }
  .industry-card--image { transition: none; }
  .industry-card--image:hover { transform: none; }
 }
+
+
+/* Additional homepage imagery for engineering and capability cards */
+.workflow-visuals { background: #fff; }
+.workflow-visuals__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:1.25rem; }
+.workflow-visuals__grid figure { margin:0; overflow:hidden; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:0 8px 22px rgba(8,45,99,.07); }
+.workflow-visuals__grid img { display:block; width:100%; height:190px; object-fit:cover; background:var(--mist); }
+.workflow-visuals__grid figcaption { display:flex; flex-direction:column; gap:.3rem; padding:.9rem 1rem 1rem; color:#4A5D80; font-size:.82rem; line-height:1.45; }
+.workflow-visuals__grid figcaption strong { color:var(--navy); font-size:1rem; }
+.explore-card__image { display:block; width:100%; height:100px; object-fit:cover; border-radius:7px; background:var(--mist); }
+.explore-card { grid-template-columns:1fr; align-content:start; }
+.explore-card .explore-icon { display:none; }
+@media (max-width:700px) {
+ .workflow-visuals__grid { grid-template-columns:1fr; }
+ .workflow-visuals__grid img { height:210px; }
+ .explore-card__image { height:120px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .explore-card { transition:none; }
+ .explore-card:hover { transform:none; }
+}
+
+
+/* =========================================================
+   Global centered, fluid layout refinement — all site pages
+   ========================================================= */
+html { width:100%; overflow-x:clip; }
+body { width:100%; text-align:center; }
+.wrap {
+  width:min(100% - 2rem, 1440px);
+  max-width:1440px;
+  margin-inline:auto;
+}
+main, section, footer, header { min-width:0; }
+section > .wrap,
+.guide-header > .wrap,
+footer > .wrap { margin-inline:auto; }
+h1, h2, h3, h4, p, .intro, .lead, figcaption { text-align:center; }
+p, .intro, .lead { margin-inline:auto; }
+h2.title { width:100%; text-align:center; margin-inline:auto; }
+h2.title::after { margin-inline:auto; }
+.hero--static-etp .wrap { align-items:center; }
+.hero--static-etp .wrap > div:first-child { margin-inline:auto; text-align:center; }
+.hero--static-etp h1, .hero--static-etp .lead { text-align:center; margin-inline:auto; }
+.hero--static-etp .cta, .cta, .brochure-actions, .gbp-actions {
+  justify-content:center;
+  align-items:center;
+}
+.finder { text-align:center; }
+.finder label { text-align:center; }
+.finder .result { text-align:center; }
+.header-container { justify-content:center; }
+.brand { justify-content:center; }
+.nav-menu { justify-content:center; }
+.nav-menu > ul, .nav-menu ul { justify-content:center; }
+.top-bar .wrap { justify-content:center; }
+.cta-band .wrap { justify-content:center; text-align:center; }
+.cta-band h2 { width:100%; text-align:center; }
+footer .f-grid {
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  justify-items:center;
+  text-align:center;
+}
+footer .f-grid > div { width:100%; max-width:34rem; }
+footer .f-grid ul { text-align:center; }
+footer .legal-links { text-align:center; }
+.tiles,
+.tiles--image,
+.solution-visuals__grid,
+.industries-served__grid,
+.industries-served__grid--images,
+.explore-grid,
+.workflow-visuals__grid,
+.certification-grid,
+.showcase-grid,
+.grid-gallery,
+.homepage-highlights__grid,
+.seo-services .tiles {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 235px), 1fr));
+  justify-content:center;
+  align-items:stretch;
+  gap:clamp(.75rem, 1.5vw, 1.25rem);
+}
+.engineering-workflow__grid {
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 105px), 1fr));
+  justify-content:center;
+  gap:clamp(.65rem, 1vw, 1rem);
+}
+.tiles > *, .tiles--image > *, .solution-visuals__grid > *,
+.industries-served__grid > *, .industries-served__grid--images > *,
+.explore-grid > *, .workflow-visuals__grid > *, .certification-grid > *,
+.grid-gallery > *, .homepage-highlights__grid > * {
+  min-width:0;
+  max-width:100%;
+}
+.tile, .tile--image, .solution-visual-card, .industry-card,
+.industry-card--image, .explore-card, .explore-card--primary,
+.certification-card, .explore-footer, .homepage-highlight {
+  text-align:center;
+}
+.tile__body, .solution-visual-card__body, .industry-card__body,
+.explore-card, .explore-card > div, .certification-card,
+.workflow-visuals__grid figcaption {
+  align-items:center;
+  text-align:center;
+}
+.tile__body p, .solution-visual-card__body > span,
+.industry-card--image p, .explore-card p {
+  width:100%;
+  margin-inline:auto;
+  text-align:center;
+}
+.tile__image, .solution-visual-card > img, .industry-card--image > img,
+.explore-card__image, .workflow-visuals__grid img {
+  width:100%;
+  max-width:100%;
+}
+.explore-heading { display:block; text-align:center; }
+.explore-intro { margin-inline:auto; }
+.explore-footer { justify-content:center; text-align:center; }
+.certification-card { margin:0; }
+.certification-card img { width:100%; height:auto; max-height:300px; object-fit:contain; }
+.showcase-grid figure { width:100%; }
+.showcase-grid img { width:100%; height:auto; }
+table { margin-inline:auto; max-width:100%; }
+img, video, iframe, object, embed { max-width:100%; }
+input, select, textarea, button { max-width:100%; }
+@media (max-width:1024px) {
+  .wrap { width:min(100% - 1.5rem, 1440px); }
+  .nav-menu > ul, .nav-menu ul { justify-content:center; }
+  .seo-services .tiles,
+  .tiles--image,
+  .industries-served__grid--images,
+  .explore-grid,
+  .certification-grid { grid-template-columns:repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+}
+@media (max-width:640px) {
+  .wrap { width:calc(100% - 1.25rem); padding-inline:0; }
+  section { padding-block:2rem; }
+  .hero--static-etp > .wrap { grid-template-columns:minmax(0,1fr); }
+  .hero--static-etp .cta { justify-content:center; }
+  .nav-menu ul { justify-items:stretch; }
+  .nav-menu a, .dd-label { text-align:center; }
+  .engineering-workflow__grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .seo-services .tiles,
+  .tiles--image,
+  .industries-served__grid--images,
+  .explore-grid,
+  .certification-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .showcase-grid, .workflow-visuals__grid { grid-template-columns:minmax(0,1fr); }
+  footer .f-grid { grid-template-columns:minmax(0,1fr); }
+}
+@media (max-width:380px) {
+  .seo-services .tiles,
+  .tiles--image,
+  .industries-served__grid--images,
+  .explore-grid,
+  .certification-grid { grid-template-columns:minmax(0,1fr); }
+}
+
+
+/* Desktop whitespace correction: balanced, centered, full-width content */
+@media (min-width:1025px) {
+  .wrap,
+  section > .wrap,
+  header .wrap,
+  footer .wrap,
+  .guide-header > .wrap {
+    width:calc(100% - 48px) !important;
+    max-width:1600px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
+  main { width:100%; margin-inline:auto; }
+  main > section, main > .cta-band { width:100%; }
+  section { text-align:center; }
+  section > .wrap > * { margin-left:auto; margin-right:auto; }
+  section .intro, section .lede, section .lead { max-width: min(100%, 900px); }
+  .tiles, .tiles--image, .solution-visuals__grid,
+  .industries-served__grid, .industries-served__grid--images,
+  .explore-grid, .workflow-visuals__grid, .certification-grid,
+  .showcase-grid, .grid-gallery, .homepage-highlights__grid,
+  .seo-services .tiles, .resource-grid, .location-grid, .document-grid {
+    width:100%;
+    grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)) !important;
+    justify-content:center !important;
+    justify-items:stretch;
+    align-content:center;
+    gap:clamp(1rem, 1.5vw, 1.5rem);
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .engineering-workflow__grid {
+    width:100%;
+    grid-template-columns:repeat(auto-fit, minmax(105px, 1fr)) !important;
+    justify-content:center;
+    margin-inline:auto;
+  }
+  .hero--static-etp > .wrap {
+    grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr) !important;
+    gap:clamp(2rem,4vw,4rem);
+  }
+  .hero--static-etp .wrap > div:first-child {
+    max-width:900px;
+    justify-self:center;
+    text-align:center;
+  }
+  .hero--static-etp .cta, .cta, .brochure-actions, .gbp-actions {
+    justify-content:center !important;
+  }
+  .header-container { width:calc(100% - 48px); max-width:1600px; margin-inline:auto; }
+  .nav-menu > ul { justify-content:center !important; flex-wrap:wrap; }
+  .top-bar .wrap { justify-content:center !important; }
+  footer .f-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  footer .f-grid > div { margin-inline:auto; }
+}
+@media (min-width:1600px) {
+  .wrap, section > .wrap, header .wrap, footer .wrap {
+    width:calc(100% - 80px) !important;
+  }
+}
