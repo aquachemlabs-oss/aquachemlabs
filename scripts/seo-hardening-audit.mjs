@@ -39,6 +39,7 @@ const legacyHtmlAliases=['boiler-spares','products','ro-plant','plant-care-guide
 const missingLegacyAliases=legacyHtmlAliases.filter(slug=>!redirects.includes('/'+slug+'.html /'+slug+' 301!'));
 if(missingLegacyAliases.length) fail.push('missing forced .html canonical redirects: '+missingLegacyAliases.map(slug=>'/'+slug+'.html').join(', '));
 else pass.push('all reported legacy .html URLs redirect to clean canonical routes');
+if(!redirects.includes('/plant-division.html /about-us 301!')) fail.push('missing forced redirect for legacy /plant-division.html');
 for(const host of ['bhopal','malanpur']){
   if(!redirects.includes('https://'+host+'.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!')) fail.push('missing canonical host redirect for '+host+'.aquachemlabs.com');
 }
