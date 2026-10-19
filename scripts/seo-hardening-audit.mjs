@@ -35,6 +35,17 @@ for(const m of h.matchAll(/<img\b([^>]*)>/gi)) if(!/\balt=["'][^"']*["']/i.test(
 const publicRoutes=[...routes.keys()].filter(x=>x!=='/review-admin');
 for(const r of publicRoutes){if(!redirects.includes(r+' ' ) && r!=='/') fail.push('route missing redirect/rewrite mapping: '+r);}
 if(!/http:\/\/aquachemlabs\.com\/\*/.test(redirects)||!/https:\/\/www\.aquachemlabs\.com\/\*/.test(redirects)) fail.push('HTTPS/www host redirects missing'); else pass.push('HTTPS and www redirects configured');
+const legacyHtmlAliases=['boiler-spares','products','ro-plant','plant-care-guide','chemicals','strainers-kits','brochure','ibr-valves','services','plant-spares','contact','gallery','reviews'];
+const missingLegacyAliases=legacyHtmlAliases.filter(slug=>!redirects.includes('/'+slug+'.html /'+slug+' 301!'));
+if(missingLegacyAliases.length) fail.push('missing forced .html canonical redirects: '+missingLegacyAliases.map(slug=>'/'+slug+'.html').join(', '));
+else pass.push('all reported legacy .html URLs redirect to clean canonical routes');
+for(const host of ['bhopal','malanpur']){
+  if(!redirects.includes('https://'+host+'.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!')) fail.push('missing canonical host redirect for '+host+'.aquachemlabs.com');
+}
+if(redirects.includes('https://bhopal.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!')&&redirects.includes('https://malanpur.aquachemlabs.com/* https://aquachemlabs.com/:splat 301!')) pass.push('location subdomains consolidate to the main canonical host');
+if(sitemap.includes('https://aquachemlabs.com/image-credits')||sitemap.includes('https://aquachemlabs.com/404')||sitemap.includes('https://aquachemlabs.com/review-admin')) fail.push('non-indexable utility/admin URL found in sitemap');
+if(!/<lastmod>2026-10-19<\\/lastmod>/.test(sitemap)) fail.push('sitemap lastmod missing for recent content refresh');
+
 const inbound=new Map(htmlFiles.map(f=>[f,0]));
 for(const f of htmlFiles){const h=read(f);for(const m of h.matchAll(/href=["']([^"'#]+)(?:#[^"']*)?["']/gi)){const x=m[1];if(x.startsWith('/')){const target=x==='/'?'index.html':x.slice(1).replace(/\/$/,'')+'.html';if(inbound.has(target)) inbound.set(target,inbound.get(target)+1);}}}
 const orphans=[...inbound].filter(([f,n])=>n===0&&f!=='index.html'&&!['privacy-policy.html','terms.html','image-credits.html'].includes(f)).map(([f])=>f);
