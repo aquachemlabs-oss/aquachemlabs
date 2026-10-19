@@ -2133,3 +2133,24 @@ footer { font-size:.78rem; }
  .industry-card--image { transition: none; }
  .industry-card--image:hover { transform: none; }
 }
+
+
+/* Additional homepage imagery for engineering and capability cards */
+.workflow-visuals { background: #fff; }
+.workflow-visuals__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:1.25rem; }
+.workflow-visuals__grid figure { margin:0; overflow:hidden; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:0 8px 22px rgba(8,45,99,.07); }
+.workflow-visuals__grid img { display:block; width:100%; height:190px; object-fit:cover; background:var(--mist); }
+.workflow-visuals__grid figcaption { display:flex; flex-direction:column; gap:.3rem; padding:.9rem 1rem 1rem; color:#4A5D80; font-size:.82rem; line-height:1.45; }
+.workflow-visuals__grid figcaption strong { color:var(--navy); font-size:1rem; }
+.explore-card__image { display:block; width:100%; height:100px; object-fit:cover; border-radius:7px; background:var(--mist); }
+.explore-card { grid-template-columns:1fr; align-content:start; }
+.explore-card .explore-icon { display:none; }
+@media (max-width:700px) {
+ .workflow-visuals__grid { grid-template-columns:1fr; }
+ .workflow-visuals__grid img { height:210px; }
+ .explore-card__image { height:120px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .explore-card { transition:none; }
+ .explore-card:hover { transform:none; }
+}
