@@ -2095,3 +2095,41 @@ footer { font-size:.78rem; }
  .solution-visual-card { transition: none; }
  .solution-visual-card:hover { transform: none; }
 }
+
+
+/* Image-led solution and industry cards */
+.tiles--image { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; }
+.tile--image { display: flex; flex-direction: column; overflow: hidden; padding: 0; border: 1px solid var(--line); border-top: 0; border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(11,47,122,.06); }
+.tile--image:hover { border-color: var(--aqua); border-top-color: var(--aqua); }
+.tile__image { display: block; width: 100%; height: 168px; object-fit: cover; background: var(--mist); }
+.tile__body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1rem 1.05rem 1.15rem; }
+.tile__body h3 { margin: 0 0 .45rem; }
+.tile__body p { flex: 1; }
+.tile__link { display: inline-block; margin-top: .75rem; color: var(--deep); font-size: .84rem; font-weight: 800; }
+.industries-served__grid--images { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; margin-top: 1.7rem; }
+.industry-card--image { display: flex; min-width: 0; flex-direction: column; overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 7px 22px rgba(11,47,122,.06); transition: transform .2s ease, box-shadow .2s ease; }
+.industry-card--image:hover { transform: translateY(-3px); box-shadow: 0 13px 30px rgba(11,47,122,.13); }
+.industry-card--image > img { display: block; width: 100%; height: 145px; object-fit: cover; background: var(--mist); }
+.industry-card__body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: .95rem; }
+.industry-card--image .industry-card__number { display: inline-grid; place-items: center; width: 2rem; height: 2rem; margin-bottom: .6rem; border-radius: 7px; background: var(--mist); color: var(--deep); font: 800 .75rem/1 "Bricolage Grotesque", sans-serif; }
+.industry-card--image h3 { color: var(--navy); font-size: 1rem; margin: 0 0 .45rem; }
+.industry-card--image p { margin: 0; color: #4A5D80; font-size: .84rem; line-height: 1.5; }
+.industry-card__link { margin-top: auto; padding-top: .75rem; color: var(--deep); font-size: .8rem; font-weight: 800; }
+@media (max-width: 1050px) {
+ .tiles--image { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+ .industries-served__grid--images { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+ .tiles--image { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .industries-served__grid--images { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .tile__image { height: 145px; }
+ .industry-card--image > img { height: 130px; }
+}
+@media (max-width: 440px) {
+ .tiles--image, .industries-served__grid--images { grid-template-columns: 1fr; }
+ .tile__image, .industry-card--image > img { height: 200px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .industry-card--image { transition: none; }
+ .industry-card--image:hover { transform: none; }
+}
