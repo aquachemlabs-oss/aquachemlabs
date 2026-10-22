@@ -7,6 +7,9 @@ import sharp from 'sharp';
 const exec=promisify(execFile), root=process.cwd(), dist=path.join(root,'dist'), skip=new Set(['.git','node_modules','dist','.github','scripts','.lighthouserc.json','.gitignore','package.json','package-lock.json','netlify.toml','SEO-OPERATIONS.md','README.md']);
 async function copyDir(src,dst){await fs.mkdir(dst,{recursive:true});for(const e of await fs.readdir(src,{withFileTypes:true})){if(skip.has(e.name))continue;const s=path.join(src,e.name),d=path.join(dst,e.name);if(e.isDirectory())await copyDir(s,d);else await fs.copyFile(s,d)}}
 await fs.rm(dist,{recursive:true,force:true}); await copyDir(root,dist);
+// The scripts/ folder holds build tooling and is skipped above, but these browser calculator scripts are loaded by pages at /scripts/*.js.
+await fs.mkdir(path.join(dist,'scripts'),{recursive:true});
+for(const f of ['engineering-tools.js','technical-resources-calculators.js']) await fs.copyFile(path.join(root,'scripts',f),path.join(dist,'scripts',f));
 // Generate installable PWA icons from the existing company logo; no new remote assets.
 const sourceLogo=path.join(root,'logo.png');
 if(!fsSync.existsSync(sourceLogo)) throw new Error('PWA icon source missing: logo.png');
