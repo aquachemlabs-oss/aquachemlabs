@@ -142,22 +142,35 @@
   };
 
   const init = () => {
-    document.querySelectorAll('.calculator-card input').forEach(input => {
-      const card = input.closest('.calculator-card');
-      const button = card?.querySelector('[data-calc]');
-      input.addEventListener('input', () => {
-        if (button) run(button.dataset.calc, false);
+    // Prevent calculator controls inside forms from submitting/reloading the page.
+    document.querySelectorAll('.calculator-card').forEach(card => {
+      const button = card.querySelector('[data-calc]');
+      card.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+          if (button) run(button.dataset.calc, false);
+        });
+        input.addEventListener('keydown', event => {
+          if (event.key === 'Enter' && button) {
+            event.preventDefault();
+            run(button.dataset.calc, true);
+          }
+        });
       });
-      input.addEventListener('keydown', event => {
-        if (event.key === 'Enter' && button) {
-          event.preventDefault();
-          run(button.dataset.calc, true);
-        }
+      card.addEventListener('submit', event => {
+        event.preventDefault();
+        if (button) run(button.dataset.calc, true);
       });
     });
+
     document.querySelectorAll('[data-calc]').forEach(button => {
-      button.addEventListener('click', () => run(button.dataset.calc, true));
+      // Explicitly override the browser's default submit behavior.
+      if (!button.hasAttribute('type')) button.setAttribute('type', 'button');
+      button.addEventListener('click', event => {
+        event.preventDefault();
+        run(button.dataset.calc, true);
+      });
     });
+
     Object.keys(calculations).forEach(type => run(type, false));
   };
 
