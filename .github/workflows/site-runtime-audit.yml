@@ -10,21 +10,36 @@ permissions:
 jobs:
   runtime:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright Chromium
+        # Avoid apt's optional --with-deps path, which has failed when the Ubuntu
+        # hosted runner's Microsoft package mirror returns 403. GitHub's runner
+        # image already includes the browser system libraries.
+        run: npx playwright install chromium
       - name: Build production site before generated HTML audits
         run: npm run build
-      - name: Static and script QA
+      - name: Static, script, schema and SEO QA (run every audit)
+        shell: bash
         run: |
-          npm run audit
-          npm run script-audit
-          npm run structured-data-audit
-          npm run seo-hardening-audit
+          failed=0
+          for audit in audit script-audit structured-data-audit seo-hardening-audit google-tag-audit pwa-audit asset-performance-audit; do
+            echo "::group::npm run $audit"
+            if npm run "$audit"; then
+              echo "PASS: $audit"
+            else
+              echo "::error::Audit failed: $audit"
+              failed=1
+            fi
+            echo "::endgroup::"
+          done
+          exit "$failed"
       - name: Browser runtime QA
         run: npm run runtime-audit
