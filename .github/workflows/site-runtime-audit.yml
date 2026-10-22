@@ -17,18 +17,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Install dependencies
-        run: npm install
-      - name: Emit regenerated dependency lockfile for repository sync
-        shell: bash
-        run: |
-          node --input-type=module -e '
-            import fs from "node:fs";
-            const encoded = fs.readFileSync("package-lock.json").toString("base64");
-            console.log("@@LOCKFILE_BEGIN@@");
-            for (let i = 0; i < encoded.length; i += 3000) console.log("@@LOCKFILE_CHUNK@@" + encoded.slice(i, i + 3000));
-            console.log("@@LOCKFILE_END@@");
-          '
+      - name: Install dependencies from the synchronized lockfile
+        run: npm ci
       - name: Enforce dependency security audit
         run: npm audit --audit-level=high
       - name: Install Playwright Chromium
