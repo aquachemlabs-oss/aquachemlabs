@@ -147,10 +147,22 @@ try{
       await page.locator('#ro-feed').fill('10');
       await page.locator('#ro-perm').fill('7.5');
       await page.locator('[data-calc="ro"]').click();
-      if(!(await page.locator('#calculator-result-modal').evaluate(el=>el.classList.contains('is-open')))) failures.push('calculator popup did not open');
+      const modal=page.locator('#calculator-result-modal');
+      if(!(await modal.evaluate(el=>el.classList.contains('is-open')))) failures.push('calculator popup did not open');
+      if(!(await modal.isVisible())) failures.push('calculator popup is not visible to the browser');
+      const modalGeometry=await modal.evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),panel=el.querySelector('.calculator-result-modal__panel'),p=panel?.getBoundingClientRect(),ps=panel?getComputedStyle(panel):null;return {width:r.width,height:r.height,display:s.display,visibility:s.visibility,opacity:s.opacity,panelWidth:p?.width,panelHeight:p?.height,panelDisplay:ps?.display,panelVisibility:ps?.visibility};});
+      if(!(modalGeometry.width>0&&modalGeometry.height>0&&modalGeometry.display!=='none'&&modalGeometry.visibility!=='hidden'&&Number(modalGeometry.opacity)>0&&modalGeometry.panelWidth>0&&modalGeometry.panelHeight>0&&modalGeometry.panelDisplay!=='none'&&modalGeometry.panelVisibility!=='hidden')) failures.push('calculator popup has invalid rendered geometry/styles: '+JSON.stringify(modalGeometry));
       if(!(await page.locator('.calculator-result-modal__inputs').textContent())?.includes('7.5')) failures.push('calculator popup did not show entered values');
+      if(!(await page.locator('.calculator-result-modal__value').textContent())?.includes('75%')) failures.push('calculator popup result value mismatch');
       await page.locator('[data-close-calculator]').last().click();
-      if(await page.locator('#calculator-result-modal').evaluate(el=>el.classList.contains('is-open'))) failures.push('calculator popup did not close');
+      if(await modal.evaluate(el=>el.classList.contains('is-open'))) failures.push('calculator popup did not close');
+      await page.setViewportSize({width:390,height:844});
+      await page.locator('[data-calc="ro"]').click();
+      if(!(await modal.isVisible())) failures.push('calculator popup not visible on mobile viewport');
+      const mobilePanel=await modal.locator('.calculator-result-modal__panel').evaluate(el=>{const r=el.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};});
+      if(!(mobilePanel.width>0&&mobilePanel.height>0&&mobilePanel.left>=0&&mobilePanel.right<=390&&mobilePanel.top<844&&mobilePanel.bottom>0)) failures.push('calculator popup panel is outside mobile viewport: '+JSON.stringify(mobilePanel));
+      await page.locator('[data-close-calculator]').last().click();
+      await page.setViewportSize({width:1280,height:900});
     }
 
     if(route==='/products'){
