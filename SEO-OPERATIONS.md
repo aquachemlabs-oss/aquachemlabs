@@ -1,13 +1,24 @@
 # SEO Operations — Aqua Chem Labs
 
 ## Repository-completed items
-- robots.txt declares the production sitemap and blocks admin/API paths.
-- sitemap.xml contains clean canonical URLs, plant pages, location pages, chemical topic pages, HTML technical guides, engineering articles and service PDFs.
-- _redirects canonicalizes HTTP and www traffic to https://aquachemlabs.com/ and maps legacy .html URLs to clean routes.
-- Every public HTML page is required to have one H1, a canonical HTTPS/non-www URL, a title and a meta description.
-- Build output receives BreadcrumbList schema on public pages and WebSite schema on the homepage.
-- Services and Products expose visible FAQ content with matching FAQPage schema.
+- robots.txt declares the production sitemap, provides explicit crawl permissions for Googlebot and Googlebot-Image, and blocks private/admin/API paths.
+- sitemap.xml contains clean canonical URLs, lastmod dates, change frequencies, and priorities for all 55 public indexable HTML routes and 10 engineering service PDFs.
+- _redirects permanently consolidates HTTP, www, and all 44 Netlify regional domain aliases (including indore, bhopal, malanpur, gwalior, jabalpur, pithampur, mandideep, etc.) to canonical https://aquachemlabs.com/, preventing duplicate indexing in Google Search Console.
+- Every public HTML page features canonical HTTPS/non-www URLs, single H1 tags, verified title lengths (30-65 chars), and meta descriptions (70-165 chars).
+- Googlebot and standard robots meta tags (`index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1`) configured on all indexable public pages.
+- Social metadata (Open Graph and Twitter Cards) added across all public pages with contextual hero imagery and entity metadata.
+- Sector-focused meta keywords deployed for each product category spanning Pharmaceuticals, Chemicals, Food & Beverage, Dairy, Power Plants, Automobiles, Textiles, Steel, Paper, Municipal, and Commercial sectors.
+- Google Consent Mode v2 default configuration (`ad_storage`, `analytics_storage`, `ad_user_data`, `ad_personalization`) integrated alongside Google Tag Manager (GTM-5NLZTGF6).
+- Complete Schema.org JSON-LD structured data architecture:
+  - Nationwide Organization schema replacing legacy LocalBusiness markup.
+  - Sitelinks Searchbox WebSite schema on the homepage.
+  - 17-item ItemList product catalog on Products page.
+  - Rich Product schema on all 17 product and chemical pages with brand, manufacturer, category, pricing, availability, and seller metadata.
+  - TechArticle schema on technical guides and engineering papers.
+  - BreadcrumbList schema on all interior pages.
+  - FAQPage schema on Services and Products pages.
 - Run `npm run seo-hardening-audit` for repository QA.
+- Run `npm run structured-data-audit` for schema syntax and guidelines compliance.
 - Set `LIVE_BASE_URL=https://aquachemlabs.com` in a networked CI runner to smoke-test production URLs.
 
 ## Search Console actions requiring the site owner's Google account

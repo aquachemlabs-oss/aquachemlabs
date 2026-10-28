@@ -98,7 +98,7 @@ function normalizeOrganizationSchema(html){
     return open+JSON.stringify(data)+close;
   });
 };
-const productSchemaFor=(file)=>{const products={"ro-plant.html":"Industrial RO Plant","chemicals.html":"Industrial Water Treatment Chemicals","plant-spares.html":"Industrial Plant Spares","ibr-valves.html":"IBR Valves","strainers-kits.html":"Industrial Strainers and Testing Kits","boiler-spares.html":"Industrial Boiler Spares"};const name=products[path.basename(file)];if(!name)return '';const url='https://aquachemlabs.com'+routeForFile(file);return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"Product","name":name,"brand":{"@type":"Brand","name":"Aqua Chem Labs"},"url":url,"manufacturer":{"@type":"Organization","name":"Aqua Chem Labs","url":"https://aquachemlabs.com"}})+'</script>';};
+const productSchemaFor=(file)=>{const products={"ro-plant.html":"Industrial RO Plant","etp-plant.html":"Industrial Effluent Treatment Plant (ETP)","stp-plant.html":"Industrial Sewage Treatment Plant (STP)","wtp-plant.html":"Industrial Water Treatment Plant (WTP)","dm-plant.html":"Industrial Demineralization (DM) Plant","softener-plant.html":"Industrial Water Softener Plant","filtration-systems.html":"Industrial Water Filtration & Clarification Systems","zld-plant.html":"Zero Liquid Discharge (ZLD) Plant","chemicals.html":"Industrial Water Treatment Chemicals","boiler-chemicals.html":"Boiler Water Treatment Chemicals","cooling-tower-chemicals.html":"Cooling Tower Water Treatment Chemicals","ro-chemicals.html":"RO Water Treatment Chemicals","etp-stp-chemicals.html":"ETP & STP Water Treatment Chemicals","plant-spares.html":"Industrial Plant Spares","ibr-valves.html":"IBR Valves","strainers-kits.html":"Industrial Strainers and Testing Kits","boiler-spares.html":"Industrial Boiler Spares"};const name=products[path.basename(file)];if(!name)return '';const url='https://aquachemlabs.com'+routeForFile(file);return '<script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"Product","name":name,"brand":{"@type":"Brand","name":"Aqua Chem Labs"},"url":url,"manufacturer":{"@type":"Organization","name":"Aqua Chem Labs","url":"https://aquachemlabs.com"},"offers":{"@type":"Offer","priceCurrency":"INR","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","url":url,"seller":{"@type":"Organization","name":"Aqua Chem Labs","url":"https://aquachemlabs.com"}}})+'</script>';};
 for(const file of files.filter(f=>f.endsWith('.html'))){let html=await fs.readFile(file,'utf8');
 html=normalizeOrganizationSchema(html);
 // Avoid render-blocking third-party font CSS. The shared stylesheet provides robust
@@ -179,6 +179,9 @@ if(!excludedConversionRoutes.has(baseName) && !isNoindexPage){
     'stp-plant.html':'STP Plant',
     'wtp-plant.html':'WTP Plant',
     'dm-plant.html':'DM Plant',
+    'softener-plant.html':'Water Softener Plant',
+    'filtration-systems.html':'Filtration Systems',
+    'zld-plant.html':'ZLD Plant',
     'boiler-chemicals.html':'Boiler Water-Treatment Chemicals',
     'cooling-tower-chemicals.html':'Cooling-Tower Chemicals',
     'ro-chemicals.html':'RO / Membrane Chemicals',
