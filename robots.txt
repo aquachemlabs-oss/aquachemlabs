@@ -1,3 +1,20 @@
+User-agent: Googlebot
+Allow: /
+Allow: /images/
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Disallow: /review-admin
+Disallow: /review-admin.html
+Disallow: /_functions
+Disallow: /api/
+Disallow: /netlify/functions/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /images/
+Allow: /logo.png
+
 User-agent: *
 Allow: /
 Allow: /about-us
